@@ -1,0 +1,236 @@
+/* =============================================================
+   Institute for Healthy Living — Design Tokens
+   Colors, type, spacing, radii, shadows.
+   Anchor reference: V28 GP Referrer Pack.
+   ============================================================= */
+
+/* -------------------------------------------------------------
+   FONTS
+   The brand uses two type families:
+     - Family (serif, display)  — substituted with Source Serif 4
+     - Calibre (sans, body/UI)  — substituted with Albert Sans
+   Substitutions flagged in README. Replace @import with self-hosted
+   files in /fonts when licensed copies are supplied.
+   ------------------------------------------------------------- */
+@import url("https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Albert+Sans:ital,wght@0,300..700;1,300..700&display=swap");
+
+:root {
+  /* ---------- Brand colours ----------
+     Primary forest green = the IHL logo colour. Everything else
+     in the palette is built around it. Never use pure black or
+     pure white — always the warm near-equivalents below. */
+  --ihl-forest:        #2D4E37;   /* Primary brand green */
+  --ihl-forest-deep:   #1F3826;   /* For pressed/active CTAs, hover dark */
+  --ihl-forest-soft:   #3F6249;   /* Optional softer accent (rare) */
+
+  --ihl-paper:         #FAF8F4;   /* Default page background (warm off-white) */
+  --ihl-paper-deep:    #F4F0E8;   /* Subtle alt section, table headers */
+  --ihl-ink:           #1A1A1A;   /* Body text (near-black, never #000) */
+  --ihl-ink-soft:      #4A4A4A;   /* Secondary text, metadata */
+  --ihl-ink-mute:      #6B6B6B;   /* Tertiary / captions */
+
+  --ihl-rule:          #E5E2DC;   /* Hairline borders, table rules */
+  --ihl-rule-strong:   #CFCBC2;   /* Slightly heavier divider */
+
+  --ihl-cream:         #E8DCA8;   /* Tertiary accent, very sparing */
+
+  /* On-green reverses */
+  --ihl-on-forest:     #FAF8F4;   /* Text on forest background */
+  --ihl-on-forest-mute:#C9D6CE;   /* Secondary text on forest */
+
+  /* ---------- Semantic surfaces ---------- */
+  --bg:                var(--ihl-paper);
+  --bg-alt:            var(--ihl-paper-deep);
+  --bg-invert:         var(--ihl-forest);
+  --fg:                var(--ihl-ink);
+  --fg-soft:           var(--ihl-ink-soft);
+  --fg-mute:           var(--ihl-ink-mute);
+  --fg-invert:         var(--ihl-on-forest);
+  --brand:             var(--ihl-forest);
+  --brand-deep:        var(--ihl-forest-deep);
+  --rule:              var(--ihl-rule);
+  --rule-strong:       var(--ihl-rule-strong);
+  --accent:            var(--ihl-cream);
+
+  /* ---------- Type families ---------- */
+  --serif:  "Source Serif 4", "Family", "Tiempos Text", "GT Sectra",
+            Georgia, "Times New Roman", serif;
+  --sans:   "Albert Sans", "Calibre", "Inter", -apple-system, BlinkMacSystemFont,
+            "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono:   "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* ---------- Type scale (modular, generous) ---------- */
+  --fs-display:  64px;   /* 36–72 in spec; hero serif */
+  --fs-h1:       40px;
+  --fs-h2:       28px;
+  --fs-h3:       18px;
+  --fs-body:     16px;
+  --fs-small:    14px;
+  --fs-caption:  12px;
+  --fs-eyebrow:  11px;   /* Uppercase letter-spaced */
+
+  --lh-display:  1.08;
+  --lh-heading:  1.18;
+  --lh-body:     1.6;
+  --lh-tight:    1.3;
+
+  --tracking-eyebrow: 0.22em;   /* The V28 "I N S T I T U T E" pattern */
+  --tracking-tight:   -0.01em;
+  --tracking-normal:  0;
+  --tracking-loose:   0.04em;
+
+  /* ---------- Spacing scale (8pt-ish, with editorial allowance) ---------- */
+  --s-0:    0;
+  --s-1:    4px;
+  --s-2:    8px;
+  --s-3:   12px;
+  --s-4:   16px;
+  --s-5:   24px;
+  --s-6:   32px;
+  --s-7:   48px;
+  --s-8:   64px;
+  --s-9:   96px;
+  --s-10: 128px;
+
+  /* ---------- Radii ----------
+     IHL is editorial — radii are restrained. Buttons get pills
+     (~999px); cards and tiles stay square or very lightly rounded. */
+  --r-0:   0px;
+  --r-1:   2px;     /* Hairline inputs, table cells */
+  --r-2:   4px;     /* Cards, panels */
+  --r-3:   8px;     /* Generous container */
+  --r-pill: 999px;  /* Buttons, badges */
+
+  /* ---------- Borders ---------- */
+  --bw-hairline: 1px;
+  --bw-rule:     1px;
+  --bw-strong:   2px;
+
+  /* ---------- Shadows ----------
+     Print-feel system: no glossy drop shadows. Elevation comes
+     from hairlines, surfaces, and the warm paper background.
+     A single soft shadow exists for modal/popover only. */
+  --shadow-0: none;
+  --shadow-1: 0 1px 0 var(--rule);                       /* underline-as-shadow */
+  --shadow-pop: 0 16px 40px -16px rgba(31, 56, 38, 0.18),
+                0 4px 12px -4px rgba(31, 56, 38, 0.10);
+
+  /* ---------- Layout ---------- */
+  --max-content: 1200px;
+  --max-prose:   680px;
+  --gutter:      24px;
+
+  /* ---------- Motion ----------
+     IHL prefers restraint — short eases, no bounces, no parallax. */
+  --ease-standard:  cubic-bezier(0.2, 0.0, 0.0, 1);
+  --ease-emphasis:  cubic-bezier(0.2, 0.0, 0.0, 1);
+  --dur-fast:   120ms;
+  --dur-base:   180ms;
+  --dur-slow:   320ms;
+}
+
+/* =============================================================
+   BASE + SEMANTIC ELEMENT STYLES
+   Apply these by including this file at the top of any artefact.
+   ============================================================= */
+
+html, body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--sans);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+* { box-sizing: border-box; }
+
+::selection { background: var(--ihl-forest); color: var(--ihl-on-forest); }
+
+/* ---------- Headings ---------- */
+h1, .h1, .display {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: var(--fs-display);
+  line-height: var(--lh-display);
+  letter-spacing: var(--tracking-tight);
+  color: var(--fg);
+  margin: 0 0 var(--s-5);
+  text-wrap: balance;
+}
+h2, .h2 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: var(--fs-h1);
+  line-height: var(--lh-heading);
+  letter-spacing: var(--tracking-tight);
+  margin: 0 0 var(--s-4);
+  text-wrap: balance;
+}
+h3, .h3 {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: var(--fs-h3);
+  line-height: var(--lh-heading);
+  letter-spacing: var(--tracking-normal);
+  margin: 0 0 var(--s-3);
+}
+
+/* The V28 signature "section opener" eyebrow:
+   I N S T I T U T E   F O R   H E A L T H Y   L I V I N G  ·  R E F E R R E R   G U I D E */
+.eyebrow {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: var(--fs-eyebrow);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--fg-soft);
+}
+
+/* ---------- Body ---------- */
+p {
+  margin: 0 0 var(--s-4);
+  max-width: var(--max-prose);
+  text-wrap: pretty;
+}
+small, .caption {
+  font-size: var(--fs-caption);
+  color: var(--fg-mute);
+  letter-spacing: var(--tracking-loose);
+  text-transform: uppercase;
+}
+
+/* ---------- Links ---------- */
+a {
+  color: var(--brand);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  transition: color var(--dur-fast) var(--ease-standard);
+}
+a:hover { color: var(--brand-deep); }
+
+/* ---------- Hairline rule ---------- */
+hr, .rule {
+  border: 0;
+  border-top: var(--bw-hairline) solid var(--rule);
+  margin: var(--s-7) 0;
+}
+
+/* ---------- Tables (V28 spec/metadata strip) ---------- */
+.spec-row {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: var(--s-4);
+  padding: var(--s-3) 0;
+  border-bottom: var(--bw-hairline) solid var(--rule);
+  font-size: var(--fs-small);
+}
+.spec-row > dt {
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-loose);
+  color: var(--fg-soft);
+  font-weight: 500;
+}
+.spec-row > dd { margin: 0; color: var(--fg); }
