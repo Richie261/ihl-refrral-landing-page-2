@@ -116,9 +116,41 @@
   .guide-refs { margin: 10px 0 0 !important; padding-top: 10px; border-top: 1px solid var(--ihl-rule); font-family: var(--sans) !important; font-size: 11px !important; color: var(--ihl-ink-mute) !important; letter-spacing: 0.02em; }
   .guide-refs a { color: var(--ihl-ink); text-decoration: underline; text-underline-offset: 2px; }
 
-  /* Confirmation block — ack checkbox + invisible turnstile */
-  .turnstile-row { display: none; }
+  /* Confirmation block — ack checkbox + visible turnstile */
+  .turnstile-row { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; margin-top: 4px; }
   .cf-turnstile { min-height: 0; }
+  .sec-meta {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 10.5px; letter-spacing: 0.04em;
+    color: var(--ihl-ink-mute); font-family: var(--sans);
+  }
+  .sec-meta::before {
+    content: ""; display: inline-block; width: 6px; height: 6px;
+    border-radius: 999px; background: var(--ihl-rule-strong);
+  }
+  .sec-meta.is-verified::before { background: #2D4E37; }
+  .sec-meta .ip { font-family: var(--mono, ui-monospace, Menlo, monospace); }
+
+  /* Guardian section — shown only for child / adolescent */
+  .guardian { display: none; }
+  .guardian.is-shown { display: contents; }
+
+  /* Risk 7+ notice */
+  .risk-notice {
+    display: none;
+    margin: 10px 0 0;
+    padding: 10px 14px;
+    background: var(--ihl-paper);
+    border: 1px solid var(--ihl-rule-strong);
+    border-left: 3px solid var(--ihl-ink);
+    border-radius: 0 4px 4px 0;
+    font-family: var(--serif);
+    font-size: 12px;
+    line-height: 1.45;
+    color: var(--ihl-ink);
+  }
+  .risk-notice.is-shown { display: block; }
+  .risk-notice strong { font-weight: 500; }
 
   .ack {
     display: grid;
@@ -151,7 +183,7 @@
   .ack input:checked + .ack-box { background: var(--ihl-ink); border-color: var(--ihl-ink); }
   .ack input:checked + .ack-box::after { opacity: 1; }
   .ack input:focus-visible + .ack-box { outline: 2px solid var(--ihl-ink); outline-offset: 2px; }
-  .ack-text { font-family: var(--serif); font-size: 13px; line-height: 1.5; color: var(--ihl-ink-soft); }
+  .ack-text { font-family: var(--serif); font-size: 11.5px; line-height: 1.5; color: var(--ihl-ink-soft); }
 
   /* Honeypot — visually hidden but available to bots */
   .hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
@@ -237,7 +269,7 @@
       </header>
 
       <form id="referral-form" novalidate>
-        <div class="f-head"><span>P A T I E N T</span><span class="f-hint">Name and at least one contact method</span></div>
+        <div class="f-head"><span>P A T I E N T</span><span class="f-hint">Name and contact — unless a guardian is added below</span></div>
         <div class="field field--full">
           <label for="pname">Patient name</label>
           <input id="pname" name="pname" type="text" placeholder="Full name" required />
@@ -252,19 +284,28 @@
             <label class="chip"><input type="radio" name="age" value="adult" /><span>Adult</span></label>
           </div>
         </div>
+        <div class="guardian" id="guardian">
+          <div class="f-head"><span>P A R E N T &nbsp;·&nbsp; G U A R D I A N</span><span class="f-hint">Name and phone required — we may need to call</span></div>
+          <div class="field field--full">
+            <label for="gname">Guardian name</label>
+            <input id="gname" name="gname" type="text" placeholder="Full name" />
+          </div>
+          <div class="field"><label for="gphone">Phone</label><input id="gphone" name="gphone" type="tel" placeholder="0412 345 678" /></div>
+          <div class="field"><label for="gemail">Email</label><input id="gemail" name="gemail" type="email" placeholder="name@example.com" /></div>
+        </div>
         <div class="field field--full">
-          <label>Therapy type</label>
-          <div class="seg" role="radiogroup" aria-label="Therapy type">
-            <label class="chip"><input type="radio" name="therapy" value="individual" required /><span>Individual</span></label>
-            <label class="chip"><input type="radio" name="therapy" value="couples" /><span>Couples</span></label>
-            <label class="chip"><input type="radio" name="therapy" value="family" /><span>Family</span></label>
-            <label class="chip"><input type="radio" name="therapy" value="group" /><span>Group</span></label>
+          <label>Therapy type <span class="opt">one or more</span></label>
+          <div class="seg" role="group" aria-label="Therapy type">
+            <label class="chip"><input type="checkbox" name="therapy" value="individual" /><span>Individual</span></label>
+            <label class="chip"><input type="checkbox" name="therapy" value="couples" /><span>Couples</span></label>
+            <label class="chip"><input type="checkbox" name="therapy" value="family" /><span>Family</span></label>
+            <label class="chip"><input type="checkbox" name="therapy" value="group" /><span>Group</span></label>
           </div>
         </div>
 
-        <div class="f-head"><span>P R A C T I T I O N E R</span><span class="f-hint">Name, practice, and at least one contact method</span></div>
-        <div class="field"><label for="rname">Practitioner name</label><input id="rname" name="rname" type="text" placeholder="Dr Jane Smith" required /></div>
-        <div class="field"><label for="rpract">Practice</label><input id="rpract" name="rpract" type="text" placeholder="Practice / clinic" required /></div>
+        <div class="f-head"><span>P R A C T I T I O N E R</span><span class="f-hint">Practitioner or practice, and at least one contact method</span></div>
+        <div class="field"><label for="rname">Practitioner name</label><input id="rname" name="rname" type="text" placeholder="Dr Jane Smith" /></div>
+        <div class="field"><label for="rpract">Practice</label><input id="rpract" name="rpract" type="text" placeholder="Practice / clinic" /></div>
         <div class="field"><label for="rphone">Phone</label><input id="rphone" name="rphone" type="tel" placeholder="02 9999 9999" /></div>
         <div class="field"><label for="remail">Email</label><input id="remail" name="remail" type="email" placeholder="For our reply" /></div>
 
@@ -282,6 +323,9 @@
             <label class="risk-chip"><input type="radio" name="risk" value="8" /><span>8</span></label>
             <label class="risk-chip"><input type="radio" name="risk" value="9" /><span>9</span></label>
             <label class="risk-chip"><input type="radio" name="risk" value="10" /><span>10</span></label>
+          </div>
+          <div class="risk-notice" id="risk-notice">
+            <strong>For risk 7 or higher</strong> — please provide your direct mobile in the Practitioner section above. We may need to call you regarding this patient.
           </div>
         </div>
         <div class="field field--full">
@@ -309,7 +353,8 @@
         </div>
 
         <div class="field field--full turnstile-row">
-          <div class="cf-turnstile" data-sitekey="1x00000000000000000000AA" data-appearance="interaction-only" data-size="invisible"></div>
+          <div class="cf-turnstile" data-sitekey="1x00000000000000000000AA" data-theme="light" data-size="normal" data-callback="onTurnstileSuccess"></div>
+          <div class="sec-meta" id="sec-meta"><span>Secured by Cloudflare</span><span aria-hidden="true">·</span><span class="ip" id="client-ip">verifying…</span></div>
         </div>
         <div class="field field--full">
           <label class="ack">
@@ -407,9 +452,35 @@
 
       var pphone = form.pphone.value.trim();
       var pemail = form.pemail.value.trim();
-      if (!pphone && !pemail) {
+      var guardian = document.getElementById('guardian');
+      var hasGuardian = guardian && guardian.classList.contains('is-shown');
+
+      if (!hasGuardian && !pphone && !pemail) {
         form.pphone.focus();
         alert('Please provide a patient phone number or email — at least one is required.');
+        return;
+      }
+
+      if (hasGuardian) {
+        var gname = form.gname.value.trim();
+        var gphone = form.gphone.value.trim();
+        if (!gname) {
+          form.gname.focus();
+          alert('Please provide the parent or guardian name.');
+          return;
+        }
+        if (!gphone) {
+          form.gphone.focus();
+          alert('Please provide the parent or guardian phone number — a phone is required for child or adolescent referrals.');
+          return;
+        }
+      }
+
+      var rname = form.rname.value.trim();
+      var rpract = form.rpract.value.trim();
+      if (!rname && !rpract) {
+        form.rname.focus();
+        alert('Please provide a practitioner name or practice name.');
         return;
       }
 
@@ -422,10 +493,20 @@
       }
 
       var therapy = form.querySelector('input[name="therapy"]:checked');
-      if (!therapy) { alert('Please choose a therapy type.'); return; }
+      if (!therapy) { alert('Please choose at least one therapy type.'); return; }
 
-      // Cloudflare Turnstile token (invisible — only present when challenged)
-      // Validate server-side via siteverify; here just pass through.
+      // High-risk requires direct practitioner phone
+      var riskEl = form.querySelector('input[name="risk"]:checked');
+      if (riskEl && parseInt(riskEl.value, 10) >= 7 && !rphone) {
+        form.rphone.focus();
+        alert('For risk levels 7 and above, please provide your direct phone number so we can reach you regarding this patient.');
+        return;
+      }
+
+      // Cloudflare Turnstile token (visible — required to submit)
+      var turnstileEl = form.querySelector('[name="cf-turnstile-response"]');
+      var turnstileToken = turnstileEl ? turnstileEl.value : '';
+      if (!turnstileToken) { alert('Please complete the security check.'); return; }
 
       // TODO (backend): POST FormData + turnstileToken to your intake endpoint.
       // The backend should verify the token against Cloudflare's siteverify API
@@ -438,9 +519,45 @@
     again.addEventListener('click', function (e) {
       e.preventDefault();
       form.reset();
+      var g = document.getElementById('guardian');
+      if (g) g.classList.remove('is-shown');
+      var rn = document.getElementById('risk-notice');
+      if (rn) rn.classList.remove('is-shown');
       form.classList.remove('is-hidden');
       success.classList.remove('is-on');
       form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  })();
+
+  // Guardian section toggle — show for child / adolescent
+  (function () {
+    var form = document.getElementById('referral-form');
+    var guardian = document.getElementById('guardian');
+    if (!form || !guardian) return;
+    form.querySelectorAll('input[name="age"]').forEach(function (r) {
+      r.addEventListener('change', function () {
+        if (r.checked && (r.value === 'child' || r.value === 'adolescent')) {
+          guardian.classList.add('is-shown');
+        } else if (r.checked && r.value === 'adult') {
+          guardian.classList.remove('is-shown');
+        }
+      });
+    });
+  })();
+
+  // Risk 7+ notice toggle
+  (function () {
+    var form = document.getElementById('referral-form');
+    var notice = document.getElementById('risk-notice');
+    if (!form || !notice) return;
+    form.querySelectorAll('input[name="risk"]').forEach(function (r) {
+      r.addEventListener('change', function () {
+        if (r.checked && parseInt(r.value, 10) >= 7) {
+          notice.classList.add('is-shown');
+        } else if (r.checked && parseInt(r.value, 10) < 7) {
+          notice.classList.remove('is-shown');
+        }
+      });
     });
   })();
 </script>
