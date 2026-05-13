@@ -5,6 +5,7 @@ Institute for Healthy Living (Bondi Junction, Sydney).
 
 ## Entry point
 - `index.html` — the page (Editorial Ledger design, Variant B)
+- `referrer-pack.pdf` — downloadable referrer pack used by the secondary CTA
 
 ## Design system
 - `colors_and_type.css` — IHL design tokens (do not edit casually; this
@@ -14,6 +15,11 @@ Institute for Healthy Living (Bondi Junction, Sydney).
 ## Live preview
 If GitHub Pages is enabled on this repo, the page is served at:
 `https://<your-handle>.github.io/<repo-name>/`
+
+## Current link targets
+- Primary CTA, `Submit a referral`: `https://www.institute4healthyliving.com/referrals`
+- Secondary CTA, `Download referrer pack`: `referrer-pack.pdf`
+- HealthLink EDI copy value: `inshealh`
 
 ## Local preview
 Any static server works. Quickest:
