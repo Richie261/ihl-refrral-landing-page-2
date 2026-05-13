@@ -4,178 +4,184 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>For Referrers — Institute for Healthy Living</title>
-<meta name="description" content="A clinical psychology group practice in Bondi Junction. Refer once, we'll take it from there. Submit referrals via HealthLink, intake email, fax or the online form." />
+<meta name="description" content="A clinical psychology group practice in Bondi Junction. Refer with confidence — a clear pathway into considered psychological care, reviewed by our intake team." />
 <link rel="stylesheet" href="colors_and_type.css" />
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <style>
   html, body { margin: 0; background: var(--ihl-paper); }
   body { font-family: var(--sans); color: var(--ihl-ink); }
-  .page {
-    min-height: 100vh;
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 36px 56px 56px;
-    display: flex; flex-direction: column;
-  }
-  .nav {
-    display: flex; align-items: center; justify-content: space-between;
-    padding-bottom: 32px; border-bottom: 1px solid var(--ihl-rule);
-  }
-  .nav img { height: 26px; }
-  .nav nav { display: flex; gap: 28px; }
-  .nav nav a {
-    text-decoration: none; color: var(--ihl-ink-soft);
-    font-size: 13px; letter-spacing: 0.02em;
-    transition: color 180ms;
-  }
+
+  .page { min-height: 100vh; max-width: 1320px; margin: 0 auto; }
+
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 28px 56px 24px; border-bottom: 1px solid var(--ihl-rule); }
+  .nav img { height: 24px; }
+  .nav nav { display: flex; gap: 24px; }
+  .nav nav a { font-size: 13px; color: var(--ihl-ink-soft); text-decoration: none; transition: color 180ms; }
   .nav nav a:hover { color: var(--ihl-ink); }
 
-  .body {
-    flex: 1;
-    display: grid; grid-template-columns: 1fr 440px; gap: 80px;
-    padding-top: 64px;
-  }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; padding: 56px 56px 64px; }
 
-  .eyebrow {
-    font-size: 10.5px; font-weight: 500;
-    letter-spacing: 0.22em; color: var(--ihl-ink-soft);
-    text-transform: uppercase; margin-bottom: 40px;
-  }
-  .display {
-    font-family: var(--serif);
-    font-weight: 400;
-    font-size: clamp(56px, 7.2vw, 88px); line-height: 1.0;
-    letter-spacing: -0.022em;
-    margin: 0 0 32px;
-    text-wrap: balance;
-  }
-  .sub {
-    font-family: var(--serif);
-    font-size: 19px; line-height: 1.45;
-    color: var(--ihl-ink-soft);
-    max-width: 460px; margin: 0 0 48px;
-  }
-  .cta-row { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
-  .cta {
-    display: inline-flex; align-items: center; gap: 10px;
-    background: var(--ihl-ink); color: var(--ihl-paper);
-    padding: 15px 28px; border-radius: 999px;
-    text-decoration: none; font-size: 14.5px; font-weight: 500;
-    transition: gap 220ms cubic-bezier(0.2,0,0,1), background 180ms, transform 220ms;
-  }
-  .cta:hover { background: #000; gap: 14px; }
-  .cta:active { transform: scale(0.98); }
-  .cta-secondary {
-    font-size: 14px; color: var(--ihl-ink);
-    text-decoration: none;
-    border-bottom: 1px solid var(--ihl-ink);
-    padding-bottom: 2px;
-    transition: opacity 180ms;
-  }
-  .cta-secondary:hover { opacity: 0.65; }
-  .cta-meta {
-    margin-top: 18px;
-    display: inline-flex; align-items: center; gap: 10px; flex-wrap: wrap;
-    font-size: 11.5px;
-    letter-spacing: 0.04em;
-    color: var(--ihl-ink-mute);
-  }
-  .cta-meta .sep { color: var(--ihl-rule-strong); }
-  .boundary {
-    margin-top: 56px;
-    padding-top: 16px;
-    border-top: 1px solid var(--ihl-rule);
-    max-width: 420px;
-    font-family: var(--sans);
-    font-size: 11.5px; line-height: 1.5;
-    letter-spacing: 0.02em;
-    color: var(--ihl-ink-mute);
-  }
-  .boundary a { color: inherit; text-decoration: underline; text-underline-offset: 2px; text-decoration-thickness: 1px; }
-  .boundary a:hover { color: var(--ihl-ink); }
+  /* LEFT */
+  .eyebrow { font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ihl-ink-soft); font-weight: 500; }
+  .left .eyebrow { margin-bottom: 24px; }
+  .left h1 { font-family: var(--serif); font-weight: 400; font-size: 60px; line-height: 1.0; letter-spacing: -0.022em; margin: 0 0 20px; }
+  .left .lede { font-family: var(--serif); font-size: 17px; line-height: 1.45; color: var(--ihl-ink-soft); max-width: 440px; margin: 0 0 32px; }
 
-  .ledger {
-    align-self: start;
-    border-top: 1px solid var(--ihl-ink);
-  }
-  .ledger-head {
-    display: flex; justify-content: space-between; align-items: baseline;
-    padding: 14px 0 18px;
-    border-bottom: 1px solid var(--ihl-rule);
-  }
-  .ledger-eyebrow {
-    font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase;
-    color: var(--ihl-ink); font-weight: 500;
-  }
-  .ledger-hours {
-    font-size: 11px; color: var(--ihl-ink-mute);
-    letter-spacing: 0.04em;
-  }
-  .row {
-    position: relative;
-    display: grid;
-    grid-template-columns: 110px 1fr auto;
-    gap: 16px; align-items: center;
-    padding: 18px 12px 18px 4px;
-    border-bottom: 1px solid var(--ihl-rule);
-    text-decoration: none; color: var(--ihl-ink);
-    transition: padding 220ms cubic-bezier(0.2,0,0,1);
-    cursor: pointer;
-  }
-  .row::before {
-    content: ""; position: absolute; left: 0; top: 0; bottom: 0;
-    width: 0; background: var(--ihl-ink);
-    transition: width 220ms cubic-bezier(0.2,0,0,1);
-  }
-  .row:hover::before { width: 3px; }
-  .row:hover { padding-left: 14px; }
+  .panel { margin-bottom: 24px; }
+  .panel-head { font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 500; padding-bottom: 10px; border-bottom: 1px solid var(--ihl-ink); margin-bottom: 4px; }
+  .row { display: grid; grid-template-columns: 70px 1fr auto; gap: 12px; padding: 12px 4px; border-bottom: 1px solid var(--ihl-rule); align-items: center; text-decoration: none; color: var(--ihl-ink); cursor: pointer; transition: padding 180ms; }
+  .row:hover { padding-left: 8px; }
   .row--copy { cursor: default; }
   .row--copy:hover { padding-left: 4px; }
-  .row--copy:hover::before { width: 0; }
-  .row-label {
-    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
-    color: var(--ihl-ink-soft); font-weight: 500;
-  }
-  .row-val {
-    font-family: var(--serif);
-    font-size: 16px; line-height: 1.3;
-    color: var(--ihl-ink);
-  }
-  .row-val--mono {
-    font-family: var(--mono, ui-monospace, Menlo, monospace);
-    font-size: 14px;
-  }
-  .row-hint {
-    display: inline-flex; align-items: center; gap: 6px;
-    font-size: 11px; letter-spacing: 0.06em;
-    color: var(--ihl-ink-soft);
-    opacity: 0; transform: translateX(-6px);
-    transition: opacity 220ms, transform 220ms cubic-bezier(0.2,0,0,1);
-  }
-  .row:hover .row-hint { opacity: 1; transform: translateX(0); }
-  .row--copy .row-hint { opacity: 1; transform: none; }
-
-  /* copy chip */
-  .edi-copy {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: transparent; border: 0;
-    padding: 4px 4px 4px 10px; border-radius: 999px;
-    cursor: pointer; font-family: var(--sans); color: var(--ihl-ink);
-  }
-  .edi-copy__action {
-    display: inline-flex; align-items: center; gap: 6px;
+  .row-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ihl-ink-soft); font-weight: 500; }
+  .row-val { font-family: var(--serif); font-size: 14.5px; }
+  .row-val--mono { font-family: var(--mono, ui-monospace, Menlo, monospace); font-size: 13px; }
+  .copy-btn {
     background: var(--ihl-ink); color: var(--ihl-paper);
-    padding: 5px 11px; border-radius: 999px;
+    border: 0; cursor: pointer;
+    padding: 5px 12px; border-radius: 999px;
     font-size: 10.5px; font-weight: 500; letter-spacing: 0.06em;
+    font-family: var(--sans);
     transition: background 180ms;
+    min-width: 56px;
   }
-  .edi-copy:hover .edi-copy__action { background: #000; }
-  .edi-copy__text { min-width: 36px; text-align: center; transition: color 120ms; }
-  .edi-copy__text.is-copied { color: var(--ihl-cream); }
+  .copy-btn:hover { background: #000; }
 
-  @media (max-width: 900px) {
-    .page { padding: 24px 24px 40px; }
-    .body { grid-template-columns: 1fr; gap: 56px; padding-top: 40px; }
+  .pack { font-size: 13.5px; color: var(--ihl-ink-soft); margin: 4px 0 28px; line-height: 1.5; max-width: 440px; }
+  .pack a { color: var(--ihl-ink); text-decoration: underline; text-underline-offset: 2px; text-decoration-thickness: 1px; }
+
+  .boundary { padding-top: 14px; border-top: 1px solid var(--ihl-rule); max-width: 440px; font-size: 11px; line-height: 1.5; letter-spacing: 0.02em; color: var(--ihl-ink-mute); }
+  .boundary a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+  .boundary a:hover { color: var(--ihl-ink); }
+
+  /* RIGHT — FORM */
+  .form-head { margin-bottom: 24px; }
+  .form-eyebrow { font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ihl-ink-soft); font-weight: 500; margin-bottom: 14px; }
+  .form-head h2 { font-family: var(--serif); font-weight: 400; font-size: 38px; line-height: 1.05; letter-spacing: -0.02em; margin: 0; }
+
+  form { display: grid; grid-template-columns: 1fr 1fr; column-gap: 22px; row-gap: 16px;
+    background: var(--ihl-paper-deep); padding: 28px 32px; border-radius: 4px; border: 1px solid var(--ihl-rule); }
+  .f-head { grid-column: 1 / -1; padding-top: 4px; padding-bottom: 8px; border-bottom: 1px solid var(--ihl-ink); display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .f-head > span:first-child { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ihl-ink); font-weight: 500; }
+  .f-head .f-hint { font-family: var(--serif); font-size: 11.5px; line-height: 1.3; letter-spacing: 0; text-transform: none; color: var(--ihl-ink-mute); font-style: italic; font-weight: 400; }
+  .f-head + .field { margin-top: -2px; }
+  .field { display: flex; flex-direction: column; gap: 5px; }
+  .field--full { grid-column: 1 / -1; }
+  .field label { font-size: 11px; letter-spacing: 0.04em; color: var(--ihl-ink-soft); font-weight: 500; display: inline-flex; gap: 6px; align-items: baseline; }
+  .field .opt { font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ihl-ink-mute); }
+  .field input[type="text"], .field input[type="tel"], .field input[type="email"] {
+    background: transparent; border: 0; border-bottom: 1px solid var(--ihl-rule-strong);
+    padding: 8px 0; font-family: var(--serif); font-size: 14px; color: var(--ihl-ink);
+    outline: none; transition: border-color 180ms;
+  }
+  .field input::placeholder { color: var(--ihl-ink-mute); opacity: 0.5; }
+  .field input:focus { border-bottom-color: var(--ihl-ink); }
+
+  .seg { display: inline-flex; gap: 5px; flex-wrap: wrap; }
+  .chip { display: inline-flex; padding: 6px 12px; border: 1px solid var(--ihl-rule-strong); border-radius: 999px; font-size: 11.5px; color: var(--ihl-ink-soft); cursor: pointer; transition: 180ms; }
+  .chip input { display: none; }
+  .chip:hover { border-color: var(--ihl-ink); color: var(--ihl-ink); }
+  .chip:has(input:checked) { background: var(--ihl-ink); color: var(--ihl-paper); border-color: var(--ihl-ink); }
+
+  .risk { display: flex; gap: 5px; flex-wrap: wrap; }
+  .risk-chip { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border: 1px solid var(--ihl-rule-strong); border-radius: 999px; font-family: var(--serif); font-size: 13px; color: var(--ihl-ink-soft); cursor: pointer; transition: 180ms; }
+  .risk-chip input { display: none; }
+  .risk-chip:hover { border-color: var(--ihl-ink); color: var(--ihl-ink); }
+  .risk-chip:has(input:checked) { background: var(--ihl-ink); color: var(--ihl-paper); border-color: var(--ihl-ink); }
+
+  .field textarea {
+    background: var(--ihl-paper); border: 1px solid var(--ihl-rule-strong); padding: 10px 12px;
+    font-family: var(--serif); font-size: 13.5px; line-height: 1.5; color: var(--ihl-ink);
+    outline: none; border-radius: 4px; resize: vertical; min-height: 80px; transition: border-color 180ms;
+  }
+  .field textarea::placeholder { color: var(--ihl-ink-mute); opacity: 0.55; }
+  .field textarea:focus { border-color: var(--ihl-ink); }
+
+  .drop { display: flex; align-items: center; gap: 10px; cursor: pointer; background: var(--ihl-paper); border: 1px dashed var(--ihl-rule-strong); border-radius: 4px; padding: 16px 18px; color: var(--ihl-ink-soft); transition: 180ms; }
+  .drop:hover, .drop.is-drag { border-color: var(--ihl-ink); color: var(--ihl-ink); }
+  .drop-1 { font-size: 13px; }
+  .drop-2 { font-size: 11px; color: var(--ihl-ink-mute); letter-spacing: 0.02em; margin-top: 2px; }
+  .files { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-direction: column; gap: 3px; }
+  .files li { display: flex; justify-content: space-between; padding: 5px 10px; background: var(--ihl-paper); border: 1px solid var(--ihl-rule); border-radius: 4px; font-size: 12px; }
+  .files button { background: transparent; border: 0; cursor: pointer; color: var(--ihl-ink-mute); font-size: 15px; line-height: 1; }
+  .files button:hover { color: var(--ihl-ink); }
+
+  .guide { margin: 10px 0 0; }
+  .guide summary { list-style: none; cursor: pointer; display: inline-block; font-size: 11.5px; color: var(--ihl-ink-soft); padding: 3px 0; }
+  .guide summary::-webkit-details-marker { display: none; } .guide summary::marker { content: ""; }
+  .guide summary span { border-bottom: 1px solid var(--ihl-rule-strong); padding-bottom: 1px; transition: border-color 180ms; }
+  .guide summary:hover span { border-bottom-color: var(--ihl-ink); }
+  .guide-body { margin-top: 10px; padding: 14px 18px; background: var(--ihl-paper); border-radius: 4px; max-width: 540px; }
+  .guide-body p { margin: 0 0 8px; font-family: var(--serif); font-size: 13px; line-height: 1.5; color: var(--ihl-ink); }
+  .guide-refs { margin: 10px 0 0 !important; padding-top: 10px; border-top: 1px solid var(--ihl-rule); font-family: var(--sans) !important; font-size: 11px !important; color: var(--ihl-ink-mute) !important; letter-spacing: 0.02em; }
+  .guide-refs a { color: var(--ihl-ink); text-decoration: underline; text-underline-offset: 2px; }
+
+  /* Confirmation block — ack checkbox + invisible turnstile */
+  .turnstile-row { display: none; }
+  .cf-turnstile { min-height: 0; }
+
+  .ack {
+    display: grid;
+    grid-template-columns: 20px 1fr;
+    gap: 12px;
+    align-items: flex-start;
+    cursor: pointer;
+    padding: 2px 0;
+  }
+  .ack input[type="checkbox"] { position: absolute; opacity: 0; width: 20px; height: 20px; cursor: pointer; }
+  .ack-box {
+    width: 18px; height: 18px;
+    border: 1px solid var(--ihl-rule-strong);
+    border-radius: 3px;
+    background: var(--ihl-paper);
+    transition: 180ms;
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 1px;
+  }
+  .ack-box::after {
+    content: "";
+    width: 9px; height: 5px;
+    border-left: 2px solid var(--ihl-paper);
+    border-bottom: 2px solid var(--ihl-paper);
+    transform: rotate(-45deg) translate(1px, -1px);
+    opacity: 0;
+    transition: opacity 120ms;
+  }
+  .ack:hover .ack-box { border-color: var(--ihl-ink); }
+  .ack input:checked + .ack-box { background: var(--ihl-ink); border-color: var(--ihl-ink); }
+  .ack input:checked + .ack-box::after { opacity: 1; }
+  .ack input:focus-visible + .ack-box { outline: 2px solid var(--ihl-ink); outline-offset: 2px; }
+  .ack-text { font-family: var(--serif); font-size: 13px; line-height: 1.5; color: var(--ihl-ink-soft); }
+
+  /* Honeypot — visually hidden but available to bots */
+  .hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+
+  .submit-row { grid-column: 1 / -1; margin-top: 4px; padding-top: 18px; border-top: 1px solid var(--ihl-rule); display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+  .submit-btn {
+    display: inline-flex; align-items: center; gap: 9px;
+    background: var(--ihl-ink); color: var(--ihl-paper); border: 0; cursor: pointer;
+    padding: 13px 24px; border-radius: 999px; font-size: 13.5px; font-weight: 500; font-family: var(--sans);
+    transition: gap 220ms cubic-bezier(0.2,0,0,1), background 180ms;
+  }
+  .submit-btn:hover { background: #000; gap: 13px; }
+  .submit-meta { font-size: 11px; color: var(--ihl-ink-mute); }
+
+  .success { display: none; padding: 32px; background: var(--ihl-paper-deep); border: 1px solid var(--ihl-rule); border-radius: 4px; }
+  .success.is-on { display: block; }
+  .success .eyebrow { margin-bottom: 16px; }
+  .success h2 { font-family: var(--serif); font-weight: 400; font-size: 32px; letter-spacing: -0.02em; margin: 0 0 12px; }
+  .success p { font-family: var(--serif); font-size: 15px; line-height: 1.55; color: var(--ihl-ink-soft); margin: 0 0 10px; max-width: 480px; }
+  .success .again { display: inline-block; margin-top: 14px; font-size: 13px; color: var(--ihl-ink); text-decoration: none; border-bottom: 1px solid var(--ihl-ink); padding-bottom: 2px; }
+  .success .again:hover { opacity: 0.65; }
+  form.is-hidden { display: none; }
+
+  @media (max-width: 960px) {
+    .grid { grid-template-columns: 1fr; gap: 48px; padding: 32px 24px 48px; }
+    .nav { padding: 20px 24px; }
     .nav nav { display: none; }
+    .left h1 { font-size: 48px; }
+    form { grid-template-columns: 1fr; padding: 24px; }
+    .field { grid-column: 1 / -1; }
   }
 </style>
 </head>
@@ -190,103 +196,272 @@
     </nav>
   </header>
 
-  <div class="body">
-    <section>
+  <div class="grid">
+    <!-- LEFT -->
+    <section class="left">
       <div class="eyebrow">I N S T I T U T E&nbsp;&nbsp;F O R&nbsp;&nbsp;H E A L T H Y&nbsp;&nbsp;L I V I N G&nbsp;&nbsp;·&nbsp;&nbsp;F O R&nbsp;&nbsp;R E F E R R E R S</div>
-      <h1 class="display">Refer with<br/>confidence.</h1>
-      <p class="sub">A clear pathway into considered psychological care, reviewed by our intake team and matched to the right clinician.</p>
-      <div class="cta-row">
-        <a href="referral.html" class="cta">
-          <span>Submit a referral</span>
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      <h1>Refer with<br/>confidence.</h1>
+      <p class="lede">A clear pathway into considered psychological care, reviewed by our intake team and matched to the right clinician.</p>
+
+      <div class="panel">
+        <div class="panel-head">I N T A K E</div>
+        <a href="mailto:intake@institute4healthyliving.com" class="row">
+          <div class="row-label">Email</div>
+          <div class="row-val">intake@institute4healthyliving.com</div>
         </a>
-        <a href="pack.html" class="cta-secondary" target="_blank" rel="noopener">Download referrer pack</a>
+        <div class="row row--copy">
+          <div class="row-label">EDI</div>
+          <div class="row-val row-val--mono">inshealh</div>
+          <button type="button" class="copy-btn" id="copy-edi" aria-label="Copy HealthLink EDI">Copy</button>
+        </div>
+        <a href="tel:+61289370667" class="row">
+          <div class="row-label">Phone</div>
+          <div class="row-val">02 8937 0667</div>
+        </a>
+        <a href="tel:+61280723963" class="row">
+          <div class="row-label">Fax</div>
+          <div class="row-val">02 8072 3963</div>
+        </a>
       </div>
-      <div class="cta-meta">
-        <span>Two-minute referral</span>
-        <span class="sep" aria-hidden="true">·</span>
-        <span>Attachments accepted</span>
-        <span class="sep" aria-hidden="true">·</span>
-        <span>Prompt intake review</span>
-      </div>
-      <p class="boundary">Routine referrals only. IHL is not an emergency or crisis service. If urgent mental health support is required, please direct the patient to the NSW Mental Health Line on <a href="tel:1800011511">1800&nbsp;011&nbsp;511</a>, or call <a href="tel:000">000</a> in an emergency.</p>
+
+      <p class="pack">A detailed view of the practice — clinicians, presentations and approaches. <a href="pack.html" target="_blank" rel="noopener">Referrer pack →</a></p>
+
+      <p class="boundary">Routine referrals only. IHL is not an emergency or crisis service. For urgent mental health support, NSW Mental Health Line: <a href="tel:1800011511">1800&nbsp;011&nbsp;511</a>, or <a href="tel:000">000</a> in an emergency.</p>
     </section>
 
-    <aside class="ledger">
-      <div class="ledger-head">
-        <span class="ledger-eyebrow">I N T A K E</span>
-        <span class="ledger-hours">Mon – Fri · 9 am – 5 pm</span>
-      </div>
+    <!-- RIGHT — FORM -->
+    <section class="right">
+      <header class="form-head">
+        <div class="form-eyebrow">T W O&nbsp;-&nbsp;M I N U T E&nbsp;&nbsp;R E F E R R A L</div>
+        <h2>Start your referral here.</h2>
+      </header>
 
-      <a href="mailto:intake@institute4healthyliving.com" class="row">
-        <div class="row-label">Email</div>
-        <div class="row-val">intake@institute4healthyliving.com</div>
-        <div class="row-hint">
-          <span>Open in mail</span>
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
+      <form id="referral-form" novalidate>
+        <div class="f-head"><span>P A T I E N T</span><span class="f-hint">Name and at least one contact method</span></div>
+        <div class="field field--full">
+          <label for="pname">Patient name</label>
+          <input id="pname" name="pname" type="text" placeholder="Full name" required />
         </div>
-      </a>
+        <div class="field"><label for="pphone">Phone</label><input id="pphone" name="pphone" type="tel" placeholder="0412 345 678" /></div>
+        <div class="field"><label for="pemail">Email</label><input id="pemail" name="pemail" type="email" placeholder="name@example.com" /></div>
+        <div class="field field--full">
+          <label>Age <span class="opt">optional</span></label>
+          <div class="seg" role="radiogroup" aria-label="Age">
+            <label class="chip"><input type="radio" name="age" value="child" /><span>Child</span></label>
+            <label class="chip"><input type="radio" name="age" value="adolescent" /><span>Adolescent</span></label>
+            <label class="chip"><input type="radio" name="age" value="adult" /><span>Adult</span></label>
+          </div>
+        </div>
+        <div class="field field--full">
+          <label>Therapy type</label>
+          <div class="seg" role="radiogroup" aria-label="Therapy type">
+            <label class="chip"><input type="radio" name="therapy" value="individual" required /><span>Individual</span></label>
+            <label class="chip"><input type="radio" name="therapy" value="couples" /><span>Couples</span></label>
+            <label class="chip"><input type="radio" name="therapy" value="family" /><span>Family</span></label>
+            <label class="chip"><input type="radio" name="therapy" value="group" /><span>Group</span></label>
+          </div>
+        </div>
 
-      <div class="row row--copy">
-        <div class="row-label">HealthLink EDI</div>
-        <div class="row-val row-val--mono">inshealh</div>
-        <div class="row-hint">
-          <button type="button" class="edi-copy" data-copy="inshealh" aria-label="Copy HealthLink EDI: inshealh">
-            <span class="edi-copy__action">
-              <span class="edi-copy__text">Copy</span>
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="edi-copy__icon"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-            </span>
+        <div class="f-head"><span>P R A C T I T I O N E R</span><span class="f-hint">Name, practice, and at least one contact method</span></div>
+        <div class="field"><label for="rname">Practitioner name</label><input id="rname" name="rname" type="text" placeholder="Dr Jane Smith" required /></div>
+        <div class="field"><label for="rpract">Practice</label><input id="rpract" name="rpract" type="text" placeholder="Practice / clinic" required /></div>
+        <div class="field"><label for="rphone">Phone</label><input id="rphone" name="rphone" type="tel" placeholder="02 9999 9999" /></div>
+        <div class="field"><label for="remail">Email</label><input id="remail" name="remail" type="email" placeholder="For our reply" /></div>
+
+        <div class="f-head"><span>C L I N I C A L</span></div>
+        <div class="field field--full">
+          <label>Risk level <span class="opt">1 low — 10 high</span></label>
+          <div class="risk" role="radiogroup" aria-label="Risk level">
+            <label class="risk-chip"><input type="radio" name="risk" value="1" /><span>1</span></label>
+            <label class="risk-chip"><input type="radio" name="risk" value="2" /><span>2</span></label>
+            <label class="risk-chip"><input type="radio" name="risk" value="3" /><span>3</span></label>
+            <label class="risk-chip"><input type="radio" name="risk" value="4" /><span>4</span></label>
+            <label class="risk-chip"><input type="radio" name="risk" value="5" /><span>5</span></label>
+            <label class="risk-chip"><input type="radio" name="risk" value="6" /><span>6</span></label>
+            <label class="risk-chip"><input type="radio" name="risk" value="7" /><span>7</span></label>
+            <label class="risk-chip"><input type="radio" name="risk" value="8" /><span>8</span></label>
+            <label class="risk-chip"><input type="radio" name="risk" value="9" /><span>9</span></label>
+            <label class="risk-chip"><input type="radio" name="risk" value="10" /><span>10</span></label>
+          </div>
+        </div>
+        <div class="field field--full">
+          <label for="concerns">Presenting concerns</label>
+          <textarea id="concerns" name="concerns" rows="3" placeholder="A short description of presentation and anything relevant to clinical matching."></textarea>
+        </div>
+
+        <div class="f-head"><span>A T T A C H M E N T S</span></div>
+        <div class="field field--full">
+          <div class="drop" id="drop" tabindex="0" role="button" aria-label="Attach files">
+            <input id="file-input" type="file" multiple hidden />
+            <div>
+              <div class="drop-1">Drag files here or click to browse</div>
+              <div class="drop-2">MHTP · EDTP · CDM · Direct referral letter</div>
+            </div>
+          </div>
+          <ul class="files" id="file-list"></ul>
+          <details class="guide">
+            <summary><span>What’s required for a valid Medicare referral</span></summary>
+            <div class="guide-body">
+              <p>A valid Medicare referral includes patient name, date of birth and address; symptoms or diagnosis; current medications; the number of treatment services; and a statement on whether the patient has an MHTP or PAMP. Signed and dated by the referring practitioner.</p>
+              <p class="guide-refs">Reference: <a href="https://www.servicesaustralia.gov.au/allied-health-referrals-for-mental-health-treatment-services" target="_blank" rel="noopener">Services Australia</a></p>
+            </div>
+          </details>
+        </div>
+
+        <div class="field field--full turnstile-row">
+          <div class="cf-turnstile" data-sitekey="1x00000000000000000000AA" data-appearance="interaction-only" data-size="invisible"></div>
+        </div>
+        <div class="field field--full">
+          <label class="ack">
+            <input type="checkbox" id="ack" name="ack" required />
+            <span class="ack-box" aria-hidden="true"></span>
+            <span class="ack-text">I declare this information is accurate and authorise direct communication regarding this referral.</span>
+          </label>
+        </div>
+
+        <div class="hp" aria-hidden="true">
+          <label>Leave blank<input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
+        </div>
+
+        <div class="submit-row">
+          <button type="submit" class="submit-btn">
+            <span>Submit referral</span>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </button>
+          <span class="submit-meta">A confirmation is sent to your email.</span>
         </div>
+      </form>
+
+      <div class="success" id="success" aria-live="polite">
+        <div class="eyebrow">R E C E I V E D</div>
+        <h2>Thank you.</h2>
+        <p>Your referral has been received. Our intake team will review it and respond promptly — typically within one business day.</p>
+        <p>A copy of your submission has been sent to your inbox.</p>
+        <a href="#" class="again" id="again">Submit another referral</a>
       </div>
-
-      <a href="tel:+61289370667" class="row">
-        <div class="row-label">Phone</div>
-        <div class="row-val">02 8937 0667</div>
-        <div class="row-hint">
-          <span>Call</span>
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.9.37 1.78.72 2.62a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.46-1.29a2 2 0 0 1 2.11-.45c.84.35 1.72.59 2.62.72A2 2 0 0 1 22 16.92z"/></svg>
-        </div>
-      </a>
-
-      <div class="row row--copy">
-        <div class="row-label">Fax</div>
-        <div class="row-val row-val--mono">02 8072 3963</div>
-        <div class="row-hint"><span>&nbsp;</span></div>
-      </div>
-
-      <a href="https://maps.google.com/?q=Suite+306+3+Waverley+St+Bondi+Junction+NSW+2022" target="_blank" rel="noopener" class="row">
-        <div class="row-label">Address</div>
-        <div class="row-val">Suite 306, 3 Waverley St<br/>Bondi Junction NSW 2022</div>
-        <div class="row-hint">
-          <span>Maps</span>
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
-        </div>
-      </a>
-    </aside>
+    </section>
   </div>
 </div>
 
 <script>
-  document.querySelectorAll('[data-copy]').forEach(function (btn) {
-    btn.addEventListener('click', function (e) {
-      e.preventDefault();
-      var val = btn.getAttribute('data-copy');
-      var tEl = btn.querySelector('.edi-copy__text');
-      var iconEl = btn.querySelector('.edi-copy__icon');
-      try { navigator.clipboard.writeText(val); } catch (err) {}
-      var prev = tEl.textContent;
-      tEl.textContent = 'Copied';
-      tEl.classList.add('is-copied');
-      var prevIcon = iconEl.innerHTML;
-      iconEl.innerHTML = '<polyline points="20 6 9 17 4 12"></polyline>';
-      setTimeout(function () {
-        tEl.textContent = prev;
-        tEl.classList.remove('is-copied');
-        iconEl.innerHTML = prevIcon;
-      }, 1400);
+  // EDI copy
+  (function () {
+    var btn = document.getElementById('copy-edi');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      try { navigator.clipboard.writeText('inshealh'); } catch (e) {}
+      var orig = btn.textContent;
+      btn.textContent = 'Copied';
+      setTimeout(function () { btn.textContent = orig; }, 1400);
     });
-  });
+  })();
+
+  // File upload — drag/drop + click-to-browse
+  (function () {
+    var drop = document.getElementById('drop');
+    var input = document.getElementById('file-input');
+    var list = document.getElementById('file-list');
+    var files = [];
+    var MAX = 6;
+
+    function render() {
+      list.innerHTML = '';
+      files.forEach(function (f, i) {
+        var li = document.createElement('li');
+        var nm = document.createElement('span');
+        nm.textContent = f.name + ' · ' + (f.size > 1024 * 1024 ? (f.size / 1024 / 1024).toFixed(1) + ' MB' : Math.round(f.size / 1024) + ' KB');
+        var rm = document.createElement('button');
+        rm.type = 'button'; rm.innerHTML = '&times;';
+        rm.setAttribute('aria-label', 'Remove ' + f.name);
+        rm.addEventListener('click', function (e) { e.stopPropagation(); files.splice(i, 1); render(); });
+        li.appendChild(nm); li.appendChild(rm);
+        list.appendChild(li);
+      });
+    }
+    function addFiles(fl) {
+      if (!fl) return;
+      for (var i = 0; i < fl.length && files.length < MAX; i++) files.push(fl[i]);
+      render();
+    }
+    drop.addEventListener('click', function () { input.click(); });
+    drop.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); input.click(); } });
+    input.addEventListener('change', function () { addFiles(input.files); input.value = ''; });
+    ['dragenter', 'dragover'].forEach(function (ev) { drop.addEventListener(ev, function (e) { e.preventDefault(); drop.classList.add('is-drag'); }); });
+    ['dragleave', 'drop'].forEach(function (ev) { drop.addEventListener(ev, function (e) { e.preventDefault(); drop.classList.remove('is-drag'); }); });
+    drop.addEventListener('drop', function (e) { e.preventDefault(); if (e.dataTransfer && e.dataTransfer.files) addFiles(e.dataTransfer.files); });
+  })();
+
+  // Submit — validate + show success
+  // TODO (backend): replace the success-only handler with a POST to your intake endpoint.
+  (function () {
+    var form = document.getElementById('referral-form');
+    var success = document.getElementById('success');
+    var again = document.getElementById('again');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      // Honeypot — if a bot filled the hidden field, silently drop
+      if (form.elements['website'] && form.elements['website'].value !== '') return;
+
+      if (!form.checkValidity()) { form.reportValidity(); return; }
+
+      var pphone = form.pphone.value.trim();
+      var pemail = form.pemail.value.trim();
+      if (!pphone && !pemail) {
+        form.pphone.focus();
+        alert('Please provide a patient phone number or email — at least one is required.');
+        return;
+      }
+
+      var rphone = form.rphone.value.trim();
+      var remail = form.remail.value.trim();
+      if (!rphone && !remail) {
+        form.rphone.focus();
+        alert('Please provide your phone number or email — at least one is required.');
+        return;
+      }
+
+      var therapy = form.querySelector('input[name="therapy"]:checked');
+      if (!therapy) { alert('Please choose a therapy type.'); return; }
+
+      // Cloudflare Turnstile token (invisible — only present when challenged)
+      // Validate server-side via siteverify; here just pass through.
+
+      // TODO (backend): POST FormData + turnstileToken to your intake endpoint.
+      // The backend should verify the token against Cloudflare's siteverify API
+      // before treating the submission as valid.
+
+      form.classList.add('is-hidden');
+      success.classList.add('is-on');
+      success.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    again.addEventListener('click', function (e) {
+      e.preventDefault();
+      form.reset();
+      form.classList.remove('is-hidden');
+      success.classList.remove('is-on');
+      form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  })();
+</script>
+
+<script>
+  // Fetch the client IP for the security strip + flip the verified dot when
+  // Turnstile finishes. Both are presentational — the real token check happens
+  // server-side at /siteverify.
+  (function () {
+    var ipEl = document.getElementById('client-ip');
+    var meta = document.getElementById('sec-meta');
+    if (ipEl) {
+      fetch('https://api.ipify.org?format=json')
+        .then(function (r) { return r.json(); })
+        .then(function (d) { ipEl.textContent = d.ip || 'verified'; })
+        .catch(function () { ipEl.textContent = 'verified'; });
+    }
+    window.onTurnstileSuccess = function () {
+      if (meta) meta.classList.add('is-verified');
+    };
+  })();
 </script>
 </body>
 </html>
