@@ -1,0 +1,1562 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8" />
+<title>IHL Referrer Pack — May 2026 · with headshots</title>
+<link rel="stylesheet" href="colors_and_type.css" />
+<script src="image-slot.js"></script>
+<style>
+  /* =========================================================
+     A4 PAGE FRAME — 794×1123 @ 96dpi
+     ========================================================= */
+  :root {
+    --page-w: 794px;
+    --page-h: 1123px;
+    --pad-x: 56px;
+    --pad-t: 36px;
+    --pad-b: 32px;
+
+    /* Tweakable display-scale knob (1.0 default; 0.92 compact; 1.08 bold) */
+    --scale: 1.0;
+    --cover-bg: var(--ihl-paper);
+    --cover-fg: var(--ihl-ink);
+    --cover-eyebrow: var(--ihl-ink-soft);
+    --cover-rule:   var(--ihl-rule);
+  }
+
+  html, body { background: #d9d6cd; }
+  body {
+    margin: 0;
+    font-family: var(--sans);
+    color: var(--ihl-ink);
+    padding: 40px 0 64px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .page {
+    width: var(--page-w);
+    height: var(--page-h);
+    background: var(--ihl-paper);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 18px 48px -16px rgba(31,56,38,0.22), 0 4px 14px -6px rgba(0,0,0,0.10);
+    padding: var(--pad-t) var(--pad-x) var(--pad-b);
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* =========================================================
+     HEADER — universal eyebrow bar
+     ========================================================= */
+  .head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--ihl-rule);
+    color: var(--cover-eyebrow);
+  }
+  .head .mark {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .head .mark img { height: 20px; width: auto; display: block; }
+  .head .mark .mark-primary,
+  .head .mark .mark-logomark,
+  .head .mark .mark-wordmark,
+  .head .mark .mark-pair { display: none; }
+  .head .mark .mark-wordmark,
+  .head .mark .mark-pair {
+    font-family: var(--serif);
+    font-size: 14px;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    color: var(--cover-fg);
+  }
+  .head .mark .mark-wordmark em,
+  .head .mark .mark-pair em { font-style: italic; color: var(--ihl-ink-soft); font-weight: 400; }
+  .head .mark .mark-pair { display: none; align-items: center; gap: 8px; }
+  .head .mark .mark-pair img { height: 22px; }
+  /* Header variants */
+  body[data-header="primary"]   .head .mark .mark-primary  { display: block; }
+  body[data-header="primary"]   .head .mark img { height: 22px; }
+  body[data-header="logomark"]  .head .mark .mark-logomark { display: block; }
+  body[data-header="logomark"]  .head .mark img { height: 26px; }
+  body[data-header="wordmark"]  .head .mark .mark-wordmark { display: inline-block; }
+  body[data-header="pair"]      .head .mark .mark-pair     { display: inline-flex; }
+  .eyebar {
+    font-family: var(--sans);
+    font-weight: 500;
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--cover-eyebrow);
+    white-space: nowrap;
+  }
+  .head .pageno {
+    font-family: var(--sans);
+    font-feature-settings: "tnum";
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--cover-eyebrow);
+    white-space: nowrap;
+  }
+
+  /* =========================================================
+     COVER MOMENT (top of page 1) — display headline
+     ========================================================= */
+  .cover {
+    padding: 36px 0 22px;
+    border-bottom: 1px solid var(--ihl-rule);
+    background: var(--cover-bg);
+    color: var(--cover-fg);
+    margin: 0 calc(-1 * var(--pad-x));
+    padding-left: var(--pad-x);
+    padding-right: var(--pad-x);
+  }
+  .cover .kicker {
+    font-family: var(--sans);
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--cover-eyebrow);
+    margin-bottom: 14px;
+  }
+  .cover .display {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: calc(60px * var(--scale));
+    line-height: 0.96;
+    letter-spacing: -0.025em;
+    margin: 0 0 14px;
+    text-wrap: balance;
+    color: var(--cover-fg);
+  }
+  .cover .display em {
+    font-style: italic;
+    color: var(--ihl-forest);
+  }
+  .cover .lede {
+    font-family: var(--serif);
+    font-size: 14.5px;
+    line-height: 1.4;
+    color: var(--ihl-ink-soft);
+    margin: 0;
+    max-width: 560px;
+    text-wrap: pretty;
+  }
+  .cover .lede strong { font-style: italic; font-weight: 400; color: var(--ihl-ink); }
+
+  /* Cover variant: forest-flood */
+  .page[data-cover="forest"] .cover {
+    background: var(--ihl-forest);
+    color: var(--ihl-on-forest);
+  }
+  .page[data-cover="forest"] .cover .display { color: var(--ihl-on-forest); }
+  .page[data-cover="forest"] .cover .display em { color: var(--ihl-cream); }
+  .page[data-cover="forest"] .cover .lede { color: var(--ihl-on-forest-mute); }
+  .page[data-cover="forest"] .cover .lede strong { color: var(--ihl-on-forest); }
+  .page[data-cover="forest"] .cover .kicker { color: var(--ihl-on-forest-mute); }
+  .page[data-cover="paperdeep"] .cover { background: var(--ihl-paper-deep); }
+
+  /* =========================================================
+     SPEC STRIP — full-bleed tabular metadata
+     ========================================================= */
+  .specstrip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin: 0 calc(-1 * var(--pad-x));
+    padding: 12px var(--pad-x);
+    border-bottom: 1px solid var(--ihl-rule);
+    column-gap: 24px;
+  }
+  .specstrip .cell .lbl {
+    font-size: 8.5px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--ihl-ink-soft);
+    margin-bottom: 4px;
+  }
+  .specstrip .cell .val {
+    font-size: 11px;
+    line-height: 1.35;
+    color: var(--ihl-ink);
+  }
+  .specstrip .cell .val a { color: inherit; text-decoration: none; }
+
+  /* =========================================================
+     SECTION HEADERS / EYEBROWS
+     ========================================================= */
+  .sec-eyebrow {
+    font-family: var(--sans);
+    font-weight: 500;
+    font-size: 9.5px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--ihl-forest);
+    margin: 0 0 12px;
+  }
+  .sec-rule {
+    border-top: 1px solid var(--ihl-rule);
+    padding-top: 10px;
+    margin-top: 10px;
+  }
+  .sec-rule.deep { border-top-color: var(--ihl-rule-strong); }
+
+  /* =========================================================
+     ABOUT + WHY (page 1 two-col)
+     ========================================================= */
+  .about-block { padding: 14px 0 6px; }
+  .about-display {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: calc(30px * var(--scale));
+    line-height: 1.02;
+    letter-spacing: -0.018em;
+    margin: 0 0 14px;
+    text-wrap: balance;
+  }
+  .about-display em { font-style: italic; color: var(--ihl-forest); }
+  .about-body {
+    font-size: 11px;
+    line-height: 1.6;
+    color: var(--ihl-ink);
+    margin: 0;
+    max-width: 100%;
+    columns: 2;
+    column-gap: 32px;
+    column-rule: 1px solid var(--ihl-rule);
+  }
+
+  /* Why-Refer list */
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 32px;
+    margin-top: 8px;
+  }
+  .why-grid .why {
+    padding: 10px 0;
+    border-top: 1px solid var(--ihl-rule);
+  }
+  .why-grid .why .n {
+    font-family: var(--serif);
+    font-size: 13px;
+    color: var(--ihl-forest);
+    letter-spacing: 0.04em;
+    margin-right: 6px;
+  }
+  .why-grid .why h3 {
+    font-family: var(--sans);
+    font-weight: 500;
+    font-size: 11.5px;
+    margin: 0 0 4px;
+    color: var(--ihl-ink);
+    letter-spacing: 0.005em;
+  }
+  .why-grid .why p {
+    font-size: 10.5px;
+    line-height: 1.5;
+    color: var(--ihl-ink-soft);
+    margin: 0;
+  }
+
+  /* =========================================================
+     PATHWAY — huge serif numerals
+     ========================================================= */
+  .pathway {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 28px;
+  }
+  .pathway .step {
+    border-top: 1px solid var(--ihl-ink);
+    padding-top: 12px;
+  }
+  .pathway .step .num {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: calc(40px * var(--scale));
+    line-height: 1;
+    color: var(--ihl-forest);
+    letter-spacing: -0.02em;
+    margin: 2px 0 8px;
+    font-feature-settings: "tnum", "lnum";
+  }
+  .pathway .step h3 {
+    font-family: var(--sans);
+    font-weight: 500;
+    font-size: 12px;
+    margin: 0 0 6px;
+    color: var(--ihl-ink);
+  }
+  .pathway .step p {
+    font-size: 10px;
+    line-height: 1.5;
+    color: var(--ihl-ink-soft);
+    margin: 0;
+  }
+
+  /* =========================================================
+     HOW-TO-REFER — 4 channels
+     ========================================================= */
+  .how {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 8px;
+  }
+  .how .card {
+    border-top: 1px solid var(--ihl-rule);
+    padding-top: 10px;
+  }
+  .how .card .ch {
+    font-family: var(--serif);
+    font-size: 13px;
+    color: var(--ihl-forest);
+    font-feature-settings: "tnum";
+  }
+  .how .card .h {
+    font-size: 8.5px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ihl-ink-soft);
+    margin: 6px 0 4px;
+  }
+  .how .card .v {
+    font-size: 10px;
+    line-height: 1.45;
+    color: var(--ihl-ink);
+  }
+  .how .card .v a { color: inherit; text-decoration: none; }
+
+  /* =========================================================
+     PAGE FOOT
+     ========================================================= */
+  .pagefoot {
+    margin-top: auto;
+    padding-top: 10px;
+    border-top: 1px solid var(--ihl-rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 8.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ihl-ink-soft);
+  }
+  .pagefoot .lhs em {
+    font-style: italic;
+    font-family: var(--serif);
+    letter-spacing: 0;
+    text-transform: none;
+    font-size: 11px;
+    color: var(--ihl-ink);
+  }
+
+  /* =========================================================
+     PAGE 2 — Presentations & Approaches
+     ========================================================= */
+  .p2-head {
+    padding: 18px 0 14px;
+    border-bottom: 1px solid var(--ihl-rule);
+  }
+  .p2-head .display {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: calc(44px * var(--scale));
+    line-height: 0.98;
+    letter-spacing: -0.022em;
+    margin: 0 0 10px;
+  }
+  .p2-head .display em { font-style: italic; color: var(--ihl-forest); }
+  .p2-head .sub {
+    font-family: var(--serif);
+    font-size: 14px;
+    color: var(--ihl-ink-soft);
+    margin: 0;
+  }
+
+  .spec-table {
+    margin: 0;
+    padding: 0;
+  }
+  .spec-table .row {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    column-gap: 14px;
+    padding: 5px 0;
+    border-bottom: 1px solid var(--ihl-rule);
+    font-size: 10.5px;
+    line-height: 1.4;
+  }
+  .spec-table .row dt {
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ihl-ink-soft);
+    font-weight: 500;
+    margin: 1px 0 0;
+  }
+  .spec-table .row dd {
+    margin: 0;
+    color: var(--ihl-ink);
+  }
+
+  /* Areas: editorial typographic index */
+  .areas {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 24px;
+    row-gap: 0;
+    margin-top: 4px;
+  }
+  .areas .area {
+    border-top: 1px solid var(--ihl-rule);
+    padding: 10px 0 12px;
+  }
+  .areas .area h4 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-style: italic;
+    font-size: 12.5px;
+    line-height: 1.15;
+    margin: 0 0 4px;
+    color: var(--ihl-ink);
+    letter-spacing: -0.005em;
+  }
+  .areas .area .n {
+    font-family: var(--sans);
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ihl-forest);
+    margin-bottom: 6px;
+    font-feature-settings: "tnum";
+  }
+  .areas .area p {
+    margin: 0;
+    font-size: 11px;
+    line-height: 1.5;
+    color: var(--ihl-ink);
+  }
+
+  /* Modalities tabular row */
+  .modalities {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0 20px;
+  }
+  .modalities .m {
+    border-top: 1px solid var(--ihl-rule);
+    padding: 5px 0 5px;
+  }
+  .modalities .m .abbr {
+    font-family: var(--serif);
+    font-size: 18px;
+    line-height: 1;
+    color: var(--ihl-forest);
+    letter-spacing: -0.01em;
+    margin-bottom: 4px;
+  }
+  .modalities .m .nm {
+    font-size: 9px;
+    line-height: 1.35;
+    color: var(--ihl-ink-soft);
+    letter-spacing: 0.01em;
+  }
+
+  .accred-strip {
+    margin-top: 8px;
+    padding: 8px 0 0;
+    border-top: 1px solid var(--ihl-rule);
+    font-size: 10px;
+    line-height: 1.55;
+    color: var(--ihl-ink-soft);
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 14px;
+    align-items: baseline;
+  }
+  .accred-strip .lbl {
+    font-size: 8.5px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--ihl-forest);
+    font-weight: 500;
+  }
+
+  /* =========================================================
+     PAGE 3 — Clinical Team grid + endcap
+     ========================================================= */
+  .p3-head {
+    padding: 14px 0 10px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 24px;
+    border-bottom: 1px solid var(--ihl-rule);
+  }
+  .p3-head .display {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: calc(40px * var(--scale));
+    line-height: 0.98;
+    letter-spacing: -0.022em;
+    margin: 0;
+  }
+  .p3-head .display em { font-style: italic; color: var(--ihl-forest); }
+  .p3-head .meta {
+    text-align: right;
+    font-size: 10px;
+    line-height: 1.5;
+    color: var(--ihl-ink-soft);
+  }
+  .p3-head .meta .lbl {
+    font-size: 8.5px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ihl-forest);
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+  .p3-head .meta strong { font-weight: 500; color: var(--ihl-ink); }
+
+  .clin-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 16px;
+    row-gap: 0;
+    margin-top: 6px;
+  }
+  .clin {
+    display: grid;
+    grid-template-columns: 42px 1fr;
+    column-gap: 10px;
+    align-items: start;
+    padding: 7px 0 8px;
+    border-top: 1px solid var(--ihl-rule);
+  }
+  .clin .portrait {
+    width: 42px;
+    height: 42px;
+    display: block;
+    border-radius: 999px;
+    overflow: hidden;
+    background: var(--ihl-paper-deep);
+    border: 1px solid var(--ihl-rule-strong);
+    align-self: start;
+    margin-top: 2px;
+    object-fit: cover;
+    object-position: 50% 30%;
+  }
+  .clin__body {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    min-width: 0;
+  }
+  .clin .topline {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 6px;
+    margin-bottom: 1px;
+  }
+  .clin .idx {
+    font-family: var(--sans);
+    font-feature-settings: "tnum";
+    font-size: 8.5px;
+    letter-spacing: 0.18em;
+    color: var(--ihl-ink-soft);
+  }
+  .clin .name {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 1.05;
+    letter-spacing: -0.005em;
+    margin: 0;
+    color: var(--ihl-ink);
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .clin .name .ph {
+    display: none;
+  }
+  body[data-photos="on"] .clin .name .ph { display: none; }
+  .clin .role {
+    font-size: 8.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ihl-forest);
+    margin-top: 1px;
+    font-weight: 500;
+  }
+  .clin .quals {
+    font-size: 7.5px;
+    color: var(--ihl-ink-mute);
+    line-height: 1.3;
+    margin-top: 1px;
+    font-style: italic;
+    font-family: var(--serif);
+  }
+  .clin .tag {
+    display: inline-block;
+    font-size: 7px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ihl-forest);
+    border: 1px solid var(--ihl-forest);
+    padding: 0 5px 1px;
+    border-radius: 999px;
+    margin-top: 4px;
+    align-self: flex-start;
+    font-weight: 500;
+  }
+  .clin dl {
+    margin: 3px 0 0;
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    gap: 1px 6px;
+    font-size: 7.5px;
+    line-height: 1.3;
+  }
+  .clin dt {
+    color: var(--ihl-ink-soft);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .clin dd { margin: 0; color: var(--ihl-ink); }
+
+  /* Endcap on page 3 */
+  .endcap {
+    margin: 6px calc(-1 * var(--pad-x)) 0;
+    padding: 10px var(--pad-x) 12px;
+    background: var(--ihl-forest);
+    color: var(--ihl-on-forest);
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 32px;
+    align-items: end;
+  }
+  .endcap .kicker {
+    font-size: 9px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--ihl-on-forest-mute);
+    margin-bottom: 12px;
+  }
+  .endcap .big {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: calc(30px * var(--scale));
+    line-height: 0.95;
+    letter-spacing: -0.025em;
+    margin: 0;
+    color: var(--ihl-on-forest);
+  }
+  .endcap .big em { font-style: italic; color: var(--ihl-cream); }
+  .endcap .contact {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 6px;
+    font-size: 10px;
+    line-height: 1.4;
+  }
+  .endcap .contact .row .lbl {
+    font-size: 8.5px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--ihl-on-forest-mute);
+    margin-bottom: 3px;
+  }
+  .endcap .contact .row .val { color: var(--ihl-on-forest); }
+  .endcap .contact .row .val strong { font-weight: 500; }
+
+  /* Variant: ledger — paper endcap, ink rules, mono EDI (mirrors gateway Variant B) */
+  body[data-variant="ledger"] .endcap {
+    background: var(--ihl-paper);
+    color: var(--ihl-ink);
+    border-top: 1px solid var(--ihl-ink);
+    padding-top: 18px;
+  }
+  body[data-variant="ledger"] .endcap .kicker { color: var(--ihl-ink-soft); }
+  body[data-variant="ledger"] .endcap .big { color: var(--ihl-ink); }
+  body[data-variant="ledger"] .endcap .big em { color: var(--ihl-ink-soft); }
+  body[data-variant="ledger"] .endcap .contact .row {
+    display: grid; grid-template-columns: 110px 1fr;
+    gap: 12px; padding: 10px 0;
+    border-bottom: 1px solid var(--ihl-rule);
+    align-items: baseline;
+  }
+  body[data-variant="ledger"] .endcap .contact .row .lbl { color: var(--ihl-ink-soft); margin: 0; }
+  body[data-variant="ledger"] .endcap .contact .row .val {
+    font-family: var(--serif); font-size: 13px; color: var(--ihl-ink);
+  }
+  body[data-variant="ledger"] .endcap .contact .row .val strong { font-weight: 500; }
+
+  /* Variant: hybrid — forest flood kept, but contact rows adopt ledger pattern */
+  body[data-variant="hybrid"] .endcap .contact .row {
+    display: grid; grid-template-columns: 120px 1fr;
+    gap: 12px; padding: 8px 0;
+    border-bottom: 1px solid rgba(250,248,244,0.2);
+    align-items: baseline;
+  }
+  body[data-variant="hybrid"] .endcap .contact .row .lbl { margin: 0; }
+  body[data-variant="hybrid"] .endcap .contact .row .val {
+    font-family: var(--serif); font-size: 13px;
+  }
+
+  /* =========================================================
+     PRINT
+     ========================================================= */
+  @media print {
+    html, body { background: #fff; padding: 0; margin: 0; gap: 0; }
+    body { display: block; }
+    @page { size: A4; margin: 0; }
+    .page {
+      box-shadow: none;
+      page-break-after: always;
+      width: 210mm;
+      height: 297mm;
+      padding-top: 12mm;
+      padding-bottom: 11mm;
+      padding-left: 16mm;
+      padding-right: 16mm;
+    }
+    .page:last-child { page-break-after: auto; }
+    .tweaks-fab, .tweaks-panel { display: none !important; }
+  }
+
+  /* =========================================================
+     TWEAKS PANEL
+     ========================================================= */
+  .tweaks-fab {
+    display: none;
+    position: fixed;
+    bottom: 22px;
+    right: 22px;
+    background: var(--ihl-forest);
+    color: var(--ihl-on-forest);
+    border: 0;
+    padding: 10px 18px;
+    border-radius: 999px;
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 8px 24px -8px rgba(31,56,38,0.4);
+    z-index: 998;
+  }
+  .tweaks-panel {
+    display: none;
+    position: fixed;
+    bottom: 22px;
+    right: 22px;
+    width: 280px;
+    background: var(--ihl-paper);
+    border: 1px solid var(--ihl-rule-strong);
+    box-shadow: var(--shadow-pop);
+    padding: 16px 18px 18px;
+    font-family: var(--sans);
+    font-size: 11px;
+    color: var(--ihl-ink);
+    z-index: 999;
+  }
+  .tweaks-panel[data-open="true"] { display: block; }
+  .tweaks-panel header {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--ihl-rule);
+  }
+  .tweaks-panel header h2 {
+    font-family: var(--serif);
+    font-size: 18px;
+    margin: 0;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+  .tweaks-panel header button {
+    background: none;
+    border: 0;
+    color: var(--ihl-ink-soft);
+    font-size: 14px;
+    cursor: pointer;
+    padding: 2px 6px;
+  }
+  .tweaks-panel .group {
+    margin-bottom: 14px;
+  }
+  .tweaks-panel .group .lbl {
+    font-size: 8.5px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--ihl-ink-soft);
+    margin-bottom: 7px;
+  }
+  .tweaks-panel .seg {
+    display: grid;
+    grid-template-columns: repeat(var(--seg-cols,3), 1fr);
+    border: 1px solid var(--ihl-rule-strong);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .tweaks-panel .seg[style*="grid-template-rows"] button {
+    border-bottom: 1px solid var(--ihl-rule);
+  }
+  .tweaks-panel .seg[style*="grid-template-rows"] button:nth-last-child(-n+2) {
+    border-bottom: 0;
+  }
+  .tweaks-panel .seg button {
+    background: var(--ihl-paper);
+    border: 0;
+    border-right: 1px solid var(--ihl-rule);
+    padding: 7px 4px;
+    font-size: 10px;
+    color: var(--ihl-ink-soft);
+    cursor: pointer;
+    font-family: var(--sans);
+    letter-spacing: 0.04em;
+  }
+  .tweaks-panel .seg button:last-child { border-right: 0; }
+  .tweaks-panel .seg button[aria-pressed="true"] {
+    background: var(--ihl-forest);
+    color: var(--ihl-on-forest);
+  }
+  .tweaks-panel .toggle {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 6px 0;
+    font-size: 11px;
+  }
+  .tweaks-panel .toggle .sw {
+    width: 32px; height: 18px;
+    background: var(--ihl-rule-strong);
+    border-radius: 999px;
+    position: relative;
+    transition: background .18s;
+    cursor: pointer;
+  }
+  .tweaks-panel .toggle .sw::after {
+    content: ""; position: absolute;
+    top: 2px; left: 2px;
+    width: 14px; height: 14px;
+    background: var(--ihl-paper);
+    border-radius: 999px;
+    transition: left .18s;
+  }
+  .tweaks-panel .toggle[data-on="true"] .sw { background: var(--ihl-forest); }
+  .tweaks-panel .toggle[data-on="true"] .sw::after { left: 16px; }
+  .tweaks-panel .note {
+    font-size: 9.5px;
+    color: var(--ihl-ink-mute);
+    line-height: 1.5;
+    margin-top: 6px;
+    font-style: italic;
+    font-family: var(--serif);
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     PAGE 1 — Practice Overview
+============================================================= -->
+<section class="page" data-screen-label="01 Practice Overview" data-cover="paper" id="page1">
+
+  <div class="head">
+    <div class="mark">
+      <img class="mark-primary" src="assets/IHL_Logo_Green.png" alt="Institute for Healthy Living"/>
+      <img class="mark-logomark" src="assets/IHL_Logomark_Green.png" alt="IHL"/>
+      <span class="mark-wordmark">Institute <em>for</em> Healthy Living</span>
+      <span class="mark-pair"><img src="assets/IHL_Logomark_Green.png" alt=""/><span class="wm">Institute <em>for</em> Healthy Living</span></span>
+    </div>
+    <div class="eyebar">Referrer&nbsp; Guide &nbsp;·&nbsp; May &nbsp;2026</div>
+    <div class="pageno">01 / 03</div>
+  </div>
+
+  <div class="cover">
+    <div class="kicker">A clinical psychology group practice · Bondi Junction, Sydney</div>
+    <h1 class="display">Considered care,<br/><em>for fifteen years.</em></h1>
+    <p class="lede">For over fifteen years, the Institute for Healthy Living has provided <strong>evidence-based psychological care</strong> to adults, adolescents, and children — from everyday wellbeing through complex, high-risk and comorbid presentations. Every referral is matched to the right clinician by presentation, complexity and fit.</p>
+  </div>
+
+  <div class="specstrip">
+    <div class="cell">
+      <div class="lbl">Phone</div>
+      <div class="val">02 8937 0667<br/><span style="color:var(--ihl-ink-mute)">Mon – Fri, 9 am – 5 pm</span></div>
+    </div>
+    <div class="cell">
+      <div class="lbl">Intake</div>
+      <div class="val">intake@institute4<wbr/>healthyliving.com</div>
+    </div>
+    <div class="cell">
+      <div class="lbl">HealthLink EDI</div>
+      <div class="val"><strong style="font-weight:500">inshealh</strong><br/><span style="color:var(--ihl-ink-mute)">Search: Institute for Healthy Living</span></div>
+    </div>
+    <div class="cell">
+      <div class="lbl">Address</div>
+      <div class="val">Suite 306, 3 Waverley St<br/>Bondi Junction NSW 2022</div>
+    </div>
+  </div>
+
+  <!-- Why refer + Pathway -->
+  <div class="about-block">
+    <div class="sec-eyebrow">Why refer to IHL</div>
+    <div class="why-grid">
+      <div class="why">
+        <h3><span class="n">i.</span>Comprehensive intake &amp; clinician matching</h3>
+        <p>All referrals triaged by a trained team. A structured intake framework matches clients to the right clinician by presentation, complexity, and autonomy.</p>
+      </div>
+      <div class="why">
+        <h3><span class="n">ii.</span>Depth of clinical capability</h3>
+        <p>15+ AHPRA-registered psychologists across the full spectrum of presentations, including complex, high-risk and comorbid cases.</p>
+      </div>
+      <div class="why">
+        <h3><span class="n">iii.</span>Timely access &amp; continuity</h3>
+        <p>Referrals reviewed during business hours. Progress reports and clinical correspondence to the treating team, with client consent.</p>
+      </div>
+      <div class="why">
+        <h3><span class="n">iv.</span>Evidence-based &amp; integrative</h3>
+        <p>CBT, DBT, Schema, EMDR, ACT and other modality-informed approaches. Treatment tailored to presentation and goals.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-rule" style="margin-top:14px;">
+    <div class="sec-eyebrow">Referral pathway</div>
+    <div class="pathway">
+      <div class="step">
+        <div class="num">01</div>
+        <h3>Submit referral</h3>
+        <p>Via HealthLink, online form, intake email or fax. Direct referrals accepted from psychiatrists and paediatricians.</p>
+      </div>
+      <div class="step">
+        <div class="num">02</div>
+        <h3>Clinician matching</h3>
+        <p>Detailed clinical review by presentation, complexity, age, comorbidities, and clinician expertise. Thorough by design.</p>
+      </div>
+      <div class="step">
+        <div class="num">03</div>
+        <h3>Appointment &amp; feedback</h3>
+        <p>Appointment options confirmed after intake review. Progress reports at clinically appropriate intervals, with consent.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-rule">
+    <div class="sec-eyebrow">How to refer</div>
+    <div class="how">
+      <div class="card">
+        <div class="ch">1</div>
+        <div class="h">HealthLink eReferral</div>
+        <div class="v">Search: Institute for Healthy Living<br/>EDI: <strong style="font-weight:500">inshealh</strong></div>
+      </div>
+      <div class="card">
+        <div class="ch">2</div>
+        <div class="h">Online form</div>
+        <div class="v">institute4healthyliving.com<wbr/>/referrals<br/>Complete, attach, submit.</div>
+      </div>
+      <div class="card">
+        <div class="ch">3</div>
+        <div class="h">Intake email</div>
+        <div class="v">intake@institute4<wbr/>healthyliving.com<br/>Mon – Fri, 9 am – 5 pm.</div>
+      </div>
+      <div class="card">
+        <div class="ch">4</div>
+        <div class="h">Fax</div>
+        <div class="v">02 8072 3963</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pagefoot">
+    <div class="lhs"><em>Right fit, from the start.</em></div>
+    <div>02 8937 0667 &nbsp;·&nbsp; institute4healthyliving.com/referrals &nbsp;·&nbsp; EDI inshealh</div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     PAGE 2 — Presentations & Approaches
+============================================================= -->
+<section class="page" data-screen-label="02 Presentations &amp; Approaches">
+
+  <div class="head">
+    <div class="mark">
+      <img class="mark-primary" src="assets/IHL_Logo_Green.png" alt="Institute for Healthy Living"/>
+      <img class="mark-logomark" src="assets/IHL_Logomark_Green.png" alt="IHL"/>
+      <span class="mark-wordmark">Institute <em>for</em> Healthy Living</span>
+      <span class="mark-pair"><img src="assets/IHL_Logomark_Green.png" alt=""/><span class="wm">Institute <em>for</em> Healthy Living</span></span>
+    </div>
+    <div class="eyebar">Referrer&nbsp; Guide &nbsp;·&nbsp; May &nbsp;2026</div>
+    <div class="pageno">02 / 03</div>
+  </div>
+
+  <div class="p2-head">
+    <h1 class="display">Presentations &amp;<br/><em>approaches.</em></h1>
+    <p class="sub">Presenting concerns, populations and therapeutic approaches.</p>
+  </div>
+
+  <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 32px; padding: 22px 0 8px;">
+    <div>
+      <div class="sec-eyebrow">Who we see</div>
+      <dl class="spec-table">
+        <div class="row"><dt>Adults</dt><dd>All presentations</dd></div>
+        <div class="row"><dt>Adolescents</dt><dd>From age 13</dd></div>
+        <div class="row"><dt>Children</dt><dd>From age 5</dd></div>
+        <div class="row"><dt>Couples</dt><dd>Emotionally Focused Therapy (EFT) · Gottman Method</dd></div>
+        <div class="row"><dt>Families</dt><dd>Systemic Therapy · Parent–child work · Family therapy</dd></div>
+        <div class="row"><dt>Groups</dt><dd>DBT Skills · Trauma · Grief &amp; Loss</dd></div>
+      </dl>
+    </div>
+    <div>
+      <div class="sec-eyebrow">Funding &amp; access</div>
+      <dl class="spec-table">
+        <div class="row"><dt>Medicare</dt><dd>MHTP · EDTP · CDM · Direct referral from psychiatrists &amp; paediatricians</dd></div>
+        <div class="row"><dt>CTP Insurance</dt><dd>Motor vehicle accidents · SIRA · TAC</dd></div>
+        <div class="row"><dt>WorkCover NSW</dt><dd>Workplace injury · SIRA</dd></div>
+        <div class="row"><dt>NDIS</dt><dd>Self-managed · Plan-managed</dd></div>
+        <div class="row"><dt>Veterans / DVA</dt><dd>DVA-registered clinician on team</dd></div>
+        <div class="row"><dt>Victims Support</dt><dd>Domestic violence · Victims of crime support</dd></div>
+      </dl>
+    </div>
+  </div>
+
+  <div class="sec-rule">
+    <div class="sec-eyebrow">Core areas of clinical support</div>
+    <div class="areas">
+      <div class="area">
+        <div class="n">01 · Mood &amp; Anxiety</div>
+        <p>Depression · Anxiety · OCD · Bipolar · Perfectionism · Stress &amp; Burnout · Chronic Pain</p>
+      </div>
+      <div class="area">
+        <div class="n">02 · Eating &amp; Body Image</div>
+        <p>Anorexia · Bulimia · Binge Eating · Body Image</p>
+      </div>
+      <div class="area">
+        <div class="n">03 · Trauma &amp; PTSD</div>
+        <p>Complex Trauma · Grief &amp; Loss · Abuse (all types)</p>
+      </div>
+      <div class="area">
+        <div class="n">04 · Neurodevelopmental</div>
+        <p>ADHD · ASD · Adult &amp; adolescent assessment-informed support</p>
+      </div>
+      <div class="area">
+        <div class="n">05 · Personality &amp; Emotion</div>
+        <p>Borderline · Narcissistic · Avoidant · Emotion Dysregulation</p>
+      </div>
+      <div class="area">
+        <div class="n">06 · Perinatal</div>
+        <p>Prenatal · Perinatal · Postnatal · Pregnancy &amp; Birth Support</p>
+      </div>
+      <div class="area">
+        <div class="n">07 · Substance &amp; Addiction</div>
+        <p>Substance Use Disorders · Addiction · Impulse Control</p>
+      </div>
+      <div class="area">
+        <div class="n">08 · Couples &amp; Family</div>
+        <p>Couples Therapy · Family Therapy · Relationship Difficulties · Parenting</p>
+      </div>
+      <div class="area">
+        <div class="n">09 · LGBTQIA+</div>
+        <p>Minority Stress · Gender Identity · Sexuality</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-rule">
+    <div class="sec-eyebrow">Therapeutic modalities</div>
+    <p style="font-size:10.5px; line-height:1.55; color:var(--ihl-ink-soft); margin:0 0 12px; max-width:none;">Clinicians are trained across a broad range of evidence-based modalities and tailor treatment to the individual presentation. Clinical matching considers presenting concerns, complexity, age, and each clinician’s specific training and expertise.</p>
+    <div class="modalities">
+      <div class="m"><div class="abbr">ACT</div><div class="nm">Acceptance &amp; Commitment Therapy</div></div>
+      <div class="m"><div class="abbr">CBT</div><div class="nm">Cognitive Behavioural Therapy</div></div>
+      <div class="m"><div class="abbr">DBT</div><div class="nm">Dialectical Behaviour Therapy</div></div>
+      <div class="m"><div class="abbr">EMDR</div><div class="nm">Eye Movement Desensitisation &amp; Reprocessing</div></div>
+      <div class="m"><div class="abbr">Schema</div><div class="nm">Schema Therapy</div></div>
+      <div class="m"><div class="abbr">CBT-E</div><div class="nm">Enhanced CBT (Eating Disorders)</div></div>
+      <div class="m"><div class="abbr">MBi</div><div class="nm">Mindfulness-Based Interventions</div></div>
+      <div class="m"><div class="abbr">SFT</div><div class="nm">Solution-Focused Therapy</div></div>
+      <div class="m"><div class="abbr">PMT</div><div class="nm">Parent Management Training</div></div>
+      <div class="m"><div class="abbr">Mi</div><div class="nm">Motivational Interviewing</div></div>
+    </div>
+  </div>
+
+  <div class="accred-strip">
+    <div class="lbl">Memberships &amp;<br/>Accreditations</div>
+    <div>APS · AHPRA · ACPA · ANZAED (Eating Disorder Accredited) · DVA Registered · NDIS Registered · SIRA Registered · Victims Support</div>
+  </div>
+
+  <div class="pagefoot">
+    <div class="lhs">Availability &amp; funding subject to change · Routine referrals only, not an emergency pathway.</div>
+    <div>02 8937 0667 &nbsp;·&nbsp; institute4healthyliving.com/referrals</div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     PAGE 3 — Clinical Team + Endcap
+============================================================= -->
+<section class="page" data-screen-label="03 Clinical Team">
+
+  <div class="head">
+    <div class="mark">
+      <img class="mark-primary" src="assets/IHL_Logo_Green.png" alt="Institute for Healthy Living"/>
+      <img class="mark-logomark" src="assets/IHL_Logomark_Green.png" alt="IHL"/>
+      <span class="mark-wordmark">Institute <em>for</em> Healthy Living</span>
+      <span class="mark-pair"><img src="assets/IHL_Logomark_Green.png" alt=""/><span class="wm">Institute <em>for</em> Healthy Living</span></span>
+    </div>
+    <div class="eyebar">Referrer&nbsp; Guide &nbsp;·&nbsp; May &nbsp;2026</div>
+    <div class="pageno">03 / 03</div>
+  </div>
+
+  <div class="p3-head">
+    <h1 class="display">Clinical <em>team.</em></h1>
+    <div class="meta">
+      <div class="lbl">AHPRA Registered</div>
+      <div>In-person &amp; Telehealth<br/>Consulting <strong>Mon – Fri, 8 am – 8 pm</strong><br/>Pre-referral enquiries welcome · 02 8937 0667</div>
+    </div>
+  </div>
+
+  <div class="clin-grid">
+
+    <article class="clin">
+      <img class="portrait" src="assets/clinicians/ashleigh-fararoui.png" alt=""/>
+      <div class="clin__body">
+        <div class="topline"><span class="idx">01</span></div>
+      <p class="name">Ashleigh Fararoui</p>
+      <div class="role">Psychologist</div>
+      <div class="quals">BA Psych, GradDipPsych, MProfPsych</div>
+      <span class="tag">ANZAED</span>
+      <dl>
+        <dt>Days</dt><dd>Th</dd>
+        <dt>Ages</dt><dd>Adults, Adol 17+</dd>
+        <dt>Tx</dt><dd>CBT, ACT, DBT, CBT-E</dd>
+        <dt>Areas</dt><dd>Eating, OCD, ASD, ADHD, Anxiety, Trauma</dd>
+      </dl>
+          </div>
+    </article>
+
+    <article class="clin">
+      <img class="portrait" src="assets/clinicians/brooke-naylor.png" alt=""/>
+      <div class="clin__body">
+        <div class="topline"><span class="idx">02</span></div>
+      <p class="name">Brooke Naylor</p>
+      <div class="role">Clinical Psychologist</div>
+      <div class="quals">BPsych (Hons), MPsych (Clin)</div>
+      <dl>
+        <dt>Days</dt><dd>M T</dd>
+        <dt>Ages</dt><dd>Adults, Adol 16+</dd>
+        <dt>Tx</dt><dd>EMDR, CBT, DBT, Schema, MBi, Mi</dd>
+        <dt>Areas</dt><dd>Eating, Anxiety, Trauma, Personality</dd>
+      </dl>
+          </div>
+    </article>
+
+    <article class="clin">
+      <img class="portrait" src="assets/clinicians/gavin-surjadinata.png" alt=""/>
+      <div class="clin__body">
+        <div class="topline"><span class="idx">03</span></div>
+      <p class="name">Gavin Surjadinata</p>
+      <div class="role">Clinical Psychologist</div>
+      <div class="quals">BPsych (Hons), MPsych (Clin)</div>
+      <dl>
+        <dt>Days</dt><dd>W</dd>
+        <dt>Ages</dt><dd>Adults</dd>
+        <dt>Tx</dt><dd>CBT, ACT, MBi, Mi</dd>
+        <dt>Areas</dt><dd>ADHD, Chronic Pain, Complex Trauma, Substance Use</dd>
+      </dl>
+          </div>
+    </article>
+
+    <article class="clin">
+      <img class="portrait" src="assets/clinicians/jade-shubitz.png" alt=""/>
+      <div class="clin__body">
+        <div class="topline"><span class="idx">04</span></div>
+      <p class="name">Jade Shubitz</p>
+      <div class="role">Psychologist</div>
+      <div class="quals">BPsych (Hons), MClinPsych</div>
+      <span class="tag">Returning end 2026</span>
+      <dl>
+        <dt>Days</dt><dd>T</dd>
+        <dt>Ages</dt><dd>Adults, Adol, Ch. 5+</dd>
+        <dt>Tx</dt><dd>CBT-E, CBT, ACT, DBT, Mi</dd>
+        <dt>Areas</dt><dd>Eating, Grief, Parenting, Mood, Anxiety</dd>
+      </dl>
+          </div>
+    </article>
+
+    <article class="clin">
+      <img class="portrait" src="assets/clinicians/jenna-doff.png" alt=""/>
+      <div class="clin__body">
+        <div class="topline"><span class="idx">05</span></div>
+      <p class="name">Jenna Doff</p>
+      <div class="role">Clinical Psychologist</div>
+      <div class="quals">BPsych (Hons), MPsych (Clin)</div>
+      <span class="tag">Director</span>
+      <dl>
+        <dt>Days</dt><dd>W Th F</dd>
+        <dt>Ages</dt><dd>Adults</dd>
+        <dt>Tx</dt><dd>CBT, Schema, ACT, DBT, CBT-E</dd>
+        <dt>Areas</dt><dd>Eating, Trauma, Perinatal, Parenting</dd>
+      </dl>
+          </div>
+    </article>
+
+    <article class="clin">
+      <img class="portrait" src="assets/clinicians/jenn-gardner.png" alt=""/>
+      <div class="clin__body">
+        <div class="topline"><span class="idx">06</span></div>
+      <p class="name">Jenn Gardner</p>
+      <div class="role">Clinical Psychologist</div>
+      <div class="quals">MClinPsych, BSc (Hons), MCouns</div>
+      <span class="tag">DVA</span>
+      <dl>
+        <dt>Days</dt><dd>Th</dd>
+        <dt>Ages</dt><dd>Adults, Adol 16+</dd>
+        <dt>Tx</dt><dd>EMDR, CBT, DBT, Mi, Schema</dd>
+        <dt>Areas</dt><dd>Complex Trauma, PTSD, Addiction, ASD, ADHD</dd>
+      </dl>
+          </div>
+    </article>
+
+    <article class="clin">
+      <img class="portrait" src="assets/clinicians/kara-borecki.png" alt=""/>
+      <div class="clin__body">
+        <div class="topline"><span class="idx">07</span></div>
+      <p class="name">Kara Borecki</p>
+      <div class="role">Psychologist (Registrar)</div>
+      <div class="quals">BPsych (Hons), MPsych (Clin)</div>
+      <span class="tag">SIRA</span>
+      <dl>
+        <dt>Days</dt><dd>M T W</dd>
+        <dt>Ages</dt><dd>Adults, Adol, Ch., Fam.</dd>
+        <dt>Tx</dt><dd>CBT, ACT, DBT, MBi, Mi</dd>
+        <dt>Areas</dt><dd>Trauma, PTSD, OCD, Grief, Anxiety</dd>
+      </dl>
+          </div>
+    </article>
+
+    <article class="clin">
+      <img class="portrait" src="assets/clinicians/natalie-herron.png" alt=""/>
+      <div class="clin__body">
+        <div class="topline"><span class="idx">08</span></div>
+      <p class="name">Natalie Herron</p>
+      <div class="role">Clinical Psychologist</div>
+      <div class="quals">BPsych (Hons), MPsych (Clin)</div>
+      <span class="tag">ANZAED</span>
+      <dl>
+        <dt>Days</dt><dd>Th F</dd>
+        <dt>Ages</dt><dd>Adults, Adol, Ch. 8+</dd>
+        <dt>Tx</dt><dd>CBT, ACT, DBT, Schema, CBT-E</dd>
+        <dt>Areas</dt><dd>Eating, OCD, ASD, Grief, Stress</dd>
+      </dl>
+          </div>
+    </article>
+
+    <article class="clin">
+      <img class="portrait" src="assets/clinicians/naomi-radom.png" alt=""/>
+      <div class="clin__body">
+        <div class="topline"><span class="idx">09</span></div>
+      <p class="name">Naomi Radom</p>
+      <div class="role">Clinical Psychologist</div>
+      <div class="quals">GradDipPsych, BPsych (Hons), MPsych (Clin)</div>
+      <dl>
+        <dt>Days</dt><dd>Th F</dd>
+        <dt>Ages</dt><dd>Adults</dd>
+        <dt>Tx</dt><dd>Schema, CBT, ACT, Mi</dd>
+        <dt>Areas</dt><dd>OCD, ASD, LGBTQIA+, Sexuality</dd>
+      </dl>
+          </div>
+    </article>
+
+    <article class="clin">
+      <img class="portrait" src="assets/clinicians/pip-dean.png" alt=""/>
+      <div class="clin__body">
+        <div class="topline"><span class="idx">10</span></div>
+      <p class="name">Pip Dean</p>
+      <div class="role">Clinical Psychologist</div>
+      <div class="quals">BSc, MSc (Forensic), GradDipClinPsych</div>
+      <span class="tag">SIRA</span>
+      <dl>
+        <dt>Days</dt><dd>T W</dd>
+        <dt>Ages</dt><dd>Adults</dd>
+        <dt>Tx</dt><dd>CBT, ACT, EMDR</dd>
+        <dt>Areas</dt><dd>Mood, Anxiety, Complex Trauma, PTSD</dd>
+      </dl>
+          </div>
+    </article>
+
+    <article class="clin">
+      <img class="portrait" src="assets/clinicians/rebecca-joyce.png" alt=""/>
+      <div class="clin__body">
+        <div class="topline"><span class="idx">11</span></div>
+      <p class="name">Rebecca Joyce</p>
+      <div class="role">Psychologist</div>
+      <div class="quals">BSc (Psych), GradDipPsych, MClinPsych</div>
+      <dl>
+        <dt>Days</dt><dd>M T</dd>
+        <dt>Ages</dt><dd>Adults, Adolescents</dd>
+        <dt>Tx</dt><dd>CBT, ACT, Schema, MBi, SFT</dd>
+        <dt>Areas</dt><dd>Anxiety, Trauma, Substance Use, Parenting</dd>
+      </dl>
+          </div>
+    </article>
+
+    <article class="clin">
+      <img class="portrait" src="assets/clinicians/saria-green.png" alt=""/>
+      <div class="clin__body">
+        <div class="topline"><span class="idx">12</span></div>
+      <p class="name">Saria Green</p>
+      <div class="role">Clinical Psychologist</div>
+      <div class="quals">BPsych (Hons), MPsych (Clin)</div>
+      <dl>
+        <dt>Days</dt><dd>T Th</dd>
+        <dt>Ages</dt><dd>Adults, Adol 14+</dd>
+        <dt>Tx</dt><dd>Schema, CBT, ACT, DBT, Mi</dd>
+        <dt>Areas</dt><dd>Trauma, PTSD, Personality, Eating, LGBTQIA+</dd>
+      </dl>
+          </div>
+    </article>
+
+    <article class="clin">
+      <img class="portrait" src="assets/clinicians/sarah-kewin.png" alt=""/>
+      <div class="clin__body">
+        <div class="topline"><span class="idx">13</span></div>
+      <p class="name">Sarah Kewin</p>
+      <div class="role">Psychologist (Registrar)</div>
+      <div class="quals">BPsych (Hons), MPsych (Clin)</div>
+      <dl>
+        <dt>Days</dt><dd>M T W</dd>
+        <dt>Ages</dt><dd>Adults, Adol, Ch. 5+</dd>
+        <dt>Tx</dt><dd>CBT, ACT, DBT, CBT-E</dd>
+        <dt>Areas</dt><dd>OCD, Anxiety, Disordered Eating, Mood</dd>
+      </dl>
+          </div>
+    </article>
+
+    <article class="clin">
+      <img class="portrait" src="assets/clinicians/theresa-donnelly.png" alt=""/>
+      <div class="clin__body">
+        <div class="topline"><span class="idx">14</span></div>
+      <p class="name">Theresa Donnelly</p>
+      <div class="role">Clinical Psychologist</div>
+      <div class="quals">BPsych (Hons), LLB, MClinPsych</div>
+      <span class="tag">ANZAED</span>
+      <dl>
+        <dt>Days</dt><dd>W Th F</dd>
+        <dt>Ages</dt><dd>Adults</dd>
+        <dt>Tx</dt><dd>EMDR, CBT, ACT, DBT, Schema, Mi</dd>
+        <dt>Areas</dt><dd>Trauma, Eating, Relationship, Perinatal</dd>
+      </dl>
+          </div>
+    </article>
+
+    <article class="clin">
+      <img class="portrait" src="assets/clinicians/tracy-freedman.png" alt=""/>
+      <div class="clin__body">
+        <div class="topline"><span class="idx">15</span></div>
+      <p class="name">Tracy Freedman</p>
+      <div class="role">Psychologist</div>
+      <div class="quals">BPsych (Hons), MA (Psych)</div>
+      <dl>
+        <dt>Days</dt><dd>M T</dd>
+        <dt>Ages</dt><dd>Adults, Adol 13+, Couples</dd>
+        <dt>Tx</dt><dd>CBT, ACT, DBT, MBi, Mi, PMT</dd>
+        <dt>Areas</dt><dd>Couples, Parenting, Substance Use, Anxiety</dd>
+      </dl>
+          </div>
+    </article>
+
+  </div>
+
+  <div class="endcap">
+    <div>
+      <div class="kicker">Intake &amp; matching</div>
+      <p class="big">Right fit,<br/><em>from the start.</em></p>
+    </div>
+    <div class="contact">
+      <div class="row">
+        <div class="lbl">Phone</div>
+        <div class="val"><strong>02 8937 0667</strong> · Mon – Fri, 9 am – 5 pm</div>
+      </div>
+      <div class="row">
+        <div class="lbl">Online referral</div>
+        <div class="val">institute4healthyliving.com/referrals</div>
+      </div>
+      <div class="row">
+        <div class="lbl">HealthLink EDI</div>
+        <div class="val"><strong>inshealh</strong> · Search Institute for Healthy Living</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pagefoot">
+    <div class="lhs">A group practice of independently registered clinicians.</div>
+    <div>institute4healthyliving.com/referrals &nbsp;·&nbsp; EDI inshealh</div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     TWEAKS PANEL
+============================================================= -->
+<button class="tweaks-fab" id="tweaksFab">Tweaks</button>
+<aside class="tweaks-panel" id="tweaksPanel" data-open="false">
+  <header>
+    <h2>Tweaks</h2>
+    <button id="tweaksClose" aria-label="Close">×</button>
+  </header>
+
+  <div class="group">
+    <div class="lbl">Header lockup</div>
+    <div class="seg" data-knob="header" style="--seg-cols:2; grid-template-rows: 1fr 1fr;">
+      <button data-value="primary" aria-pressed="true">Primary</button>
+      <button data-value="logomark">Mark only</button>
+      <button data-value="wordmark">Wordmark</button>
+      <button data-value="pair">Mark + word</button>
+    </div>
+  </div>
+
+  <div class="group">
+    <div class="lbl">Cover treatment</div>
+    <div class="seg" data-knob="cover">
+      <button data-value="paper" aria-pressed="true">Paper</button>
+      <button data-value="paperdeep">Paper-deep</button>
+      <button data-value="forest">Forest</button>
+    </div>
+  </div>
+
+  <div class="group">
+    <div class="lbl">Display scale</div>
+    <div class="seg" data-knob="scale">
+      <button data-value="0.92">Compact</button>
+      <button data-value="1.0" aria-pressed="true">Standard</button>
+      <button data-value="1.08">Bold</button>
+    </div>
+  </div>
+
+  <div class="group">
+    <div class="lbl">Clinician headshots</div>
+    <div class="seg" data-knob="photos" style="--seg-cols:2">
+      <button data-value="off" aria-pressed="true">Off</button>
+      <button data-value="on">Placeholders</button>
+    </div>
+  </div>
+
+  <div class="group">
+    <div class="lbl">Clinician grid density</div>
+    <div class="seg" data-knob="grid">
+      <button data-value="3" aria-pressed="true">3 col</button>
+      <button data-value="2">2 col</button>
+      <button data-value="5">5 col</button>
+    </div>
+  </div>
+
+  <div class="note">Tweaks affect on-screen only — print follows the chosen state. Use your browser’s Print dialog → A4 → No margins to produce the PDF.</div>
+</aside>
+
+<script>
+(function () {
+  const DEFAULTS = /*EDITMODE-BEGIN*/{
+    "cover": "forest",
+    "scale": "0.92",
+    "grid": "3",
+    "photos": "on",
+    "header": "primary"
+  }/*EDITMODE-END*/;
+
+  const state = Object.assign({}, DEFAULTS);
+
+  // URL param overrides — lets the Pack Variants Canvas mount the pack
+  // in different preset states via iframe src (?cover=forest&header=pair&variant=ledger)
+  try {
+    const params = new URLSearchParams(location.search);
+    ['cover','header','photos','scale','grid','variant'].forEach(k => {
+      const v = params.get(k);
+      if (v != null) state[k] = v;
+    });
+    if (params.get('hideTweaks') === '1') {
+      const css = document.createElement('style');
+      css.textContent = '.tweaks-fab,.tweaks-panel{display:none!important}';
+      document.head.appendChild(css);
+    }
+  } catch (_) {}
+
+  const fab = document.getElementById('tweaksFab');
+  const panel = document.getElementById('tweaksPanel');
+  const closeBtn = document.getElementById('tweaksClose');
+
+  function apply() {
+    // Cover treatment
+    document.getElementById('page1').setAttribute('data-cover', state.cover);
+    // Display scale
+    document.documentElement.style.setProperty('--scale', state.scale);
+    // Clinician grid columns
+    const grid = document.querySelector('.clin-grid');
+    if (grid) grid.style.gridTemplateColumns = 'repeat(' + state.grid + ', 1fr)';
+    // Photos
+    document.body.setAttribute('data-photos', state.photos || 'off');
+    document.body.setAttribute('data-header', state.header || 'primary');
+    document.body.setAttribute('data-variant', state.variant || 'default');
+    // Sync segmented controls
+    document.querySelectorAll('.seg').forEach(seg => {
+      const knob = seg.dataset.knob;
+      seg.querySelectorAll('button').forEach(b => {
+        b.setAttribute('aria-pressed', String(b.dataset.value === state[knob]));
+      });
+    });
+  }
+
+  // Wire up segmented controls
+  document.querySelectorAll('.seg').forEach(seg => {
+    seg.addEventListener('click', e => {
+      const btn = e.target.closest('button');
+      if (!btn) return;
+      const knob = seg.dataset.knob;
+      state[knob] = btn.dataset.value;
+      apply();
+      try {
+        window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { [knob]: btn.dataset.value } }, '*');
+      } catch (_) {}
+    });
+  });
+
+  // Tweaks host protocol
+  window.addEventListener('message', (e) => {
+    if (!e || !e.data) return;
+    if (e.data.type === '__activate_edit_mode') {
+      panel.setAttribute('data-open', 'true');
+      fab.style.display = 'none';
+    } else if (e.data.type === '__deactivate_edit_mode') {
+      panel.setAttribute('data-open', 'false');
+      fab.style.display = 'none';
+    }
+  });
+  closeBtn.addEventListener('click', () => {
+    panel.setAttribute('data-open', 'false');
+    try { window.parent.postMessage({ type: '__edit_mode_dismissed' }, '*'); } catch (_) {}
+  });
+  fab.addEventListener('click', () => {
+    panel.setAttribute('data-open', 'true');
+    fab.style.display = 'none';
+  });
+
+  // Announce availability LAST
+  try { window.parent.postMessage({ type: '__edit_mode_available' }, '*'); } catch (_) {}
+
+  apply();
+})();
+</script>
+
+</body>
+</html>

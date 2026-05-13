@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Refer a patient — Institute for Healthy Living</title>
+<meta name="description" content="Submit a referral to the Institute for Healthy Living. A short clinical intake form for healthcare professionals." />
+<link rel="stylesheet" href="colors_and_type.css" />
+<style>
+  html, body { margin: 0; background: var(--ihl-paper-deep); }
+  body { font-family: var(--sans); color: var(--ihl-ink); }
+
+  .page-wrap { min-height: 100vh; padding: 36px 56px 56px; max-width: 1280px; margin: 0 auto; }
+
+  .nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-bottom: 28px;
+  }
+  .nav img { height: 26px; }
+  .nav .back {
+    font-size: 13px; color: var(--ihl-ink-soft); text-decoration: none;
+    transition: color 180ms;
+  }
+  .nav .back:hover { color: var(--ihl-ink); }
+
+  .shell { display: flex; justify-content: center; padding-top: 32px; }
+  .card {
+    width: 100%; max-width: 760px;
+    background: var(--ihl-paper);
+    border: 1px solid var(--ihl-rule);
+    padding: 48px 56px;
+  }
+
+  .head { padding-bottom: 36px; border-bottom: 1px solid var(--ihl-rule); margin-bottom: 36px; }
+  .head .eyebrow {
+    font-size: 10.5px; font-weight: 500;
+    letter-spacing: 0.22em; color: var(--ihl-ink-soft);
+    text-transform: uppercase; margin-bottom: 18px;
+  }
+  .head h1 {
+    font-family: var(--serif); font-weight: 400;
+    font-size: 44px; line-height: 1.05; letter-spacing: -0.02em;
+    margin: 0 0 14px;
+  }
+  .head .meta {
+    display: inline-flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 0;
+    font-size: 11.5px; letter-spacing: 0.04em; color: var(--ihl-ink-mute);
+  }
+  .head .meta .sep { color: var(--ihl-rule-strong); }
+
+  form { display: grid; grid-template-columns: 1fr 1fr; column-gap: 28px; row-gap: 22px; }
+  .row { grid-column: 1 / -1; }
+  .row--head { padding-top: 8px; }
+  .row--head span {
+    font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--ihl-ink); font-weight: 500;
+    display: block; padding-bottom: 12px;
+    border-bottom: 1px solid var(--ihl-ink);
+  }
+  .row--head + .field { margin-top: -4px; }
+
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .field--full { grid-column: 1 / -1; }
+  .field label {
+    font-size: 12px; letter-spacing: 0.04em;
+    color: var(--ihl-ink-soft); font-weight: 500;
+    display: inline-flex; align-items: baseline; gap: 8px;
+  }
+  .field .opt {
+    font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--ihl-ink-mute);
+  }
+  .field input[type="text"],
+  .field input[type="tel"],
+  .field input[type="email"] {
+    background: transparent; border: 0;
+    border-bottom: 1px solid var(--ihl-rule-strong);
+    padding: 10px 0;
+    font-family: var(--serif);
+    font-size: 15px;
+    color: var(--ihl-ink);
+    outline: none;
+    transition: border-color 180ms;
+  }
+  .field input::placeholder { color: var(--ihl-ink-mute); opacity: 0.5; }
+  .field input:focus { border-bottom-color: var(--ihl-ink); }
+
+  .seg { display: inline-flex; gap: 6px; flex-wrap: wrap; }
+  .chip {
+    display: inline-flex; align-items: center;
+    padding: 8px 14px;
+    border: 1px solid var(--ihl-rule-strong);
+    border-radius: 999px;
+    font-size: 12.5px;
+    color: var(--ihl-ink-soft);
+    cursor: pointer;
+    transition: border-color 180ms, background 180ms, color 180ms;
+  }
+  .chip input { display: none; }
+  .chip:hover { border-color: var(--ihl-ink); color: var(--ihl-ink); }
+  .chip:has(input:checked) { background: var(--ihl-ink); color: var(--ihl-paper); border-color: var(--ihl-ink); }
+
+  .risk { display: flex; gap: 6px; flex-wrap: wrap; }
+  .risk-chip {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 40px; height: 40px;
+    border: 1px solid var(--ihl-rule-strong);
+    border-radius: 999px;
+    font-family: var(--serif);
+    font-size: 14px;
+    color: var(--ihl-ink-soft);
+    cursor: pointer;
+    transition: border-color 180ms, background 180ms, color 180ms;
+  }
+  .risk-chip input { display: none; }
+  .risk-chip:hover { border-color: var(--ihl-ink); color: var(--ihl-ink); }
+  .risk-chip:has(input:checked) { background: var(--ihl-ink); color: var(--ihl-paper); border-color: var(--ihl-ink); }
+
+  .field textarea {
+    background: transparent;
+    border: 1px solid var(--ihl-rule-strong);
+    padding: 12px 14px;
+    font-family: var(--serif);
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--ihl-ink);
+    outline: none;
+    border-radius: 4px;
+    resize: vertical;
+    min-height: 110px;
+    transition: border-color 180ms;
+  }
+  .field textarea::placeholder { color: var(--ihl-ink-mute); opacity: 0.55; }
+  .field textarea:focus { border-color: var(--ihl-ink); }
+
+  /* attachment zone */
+  .attach { }
+  .attach-zone {
+    display: flex; align-items: center; gap: 14px;
+    background: var(--ihl-paper-deep);
+    border: 1px dashed var(--ihl-rule-strong);
+    padding: 22px 24px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: border-color 180ms, background 180ms, color 180ms;
+    color: var(--ihl-ink-soft);
+  }
+  .attach-zone:hover, .attach-zone.is-drag { border-color: var(--ihl-ink); color: var(--ihl-ink); }
+  .attach-lead { display: flex; flex-direction: column; gap: 3px; }
+  .attach-line1 { font-size: 14px; }
+  .attach-line2 { font-size: 11.5px; color: var(--ihl-ink-mute); letter-spacing: 0.02em; }
+  .attach-list { list-style: none; padding: 0; margin: 12px 0 0; display: flex; flex-direction: column; gap: 4px; }
+  .attach-list li {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 8px 14px;
+    background: var(--ihl-paper); border: 1px solid var(--ihl-rule);
+    border-radius: 4px; font-size: 13px;
+  }
+  .attach-list .rm {
+    background: transparent; border: 0; cursor: pointer;
+    color: var(--ihl-ink-mute); font-size: 18px; line-height: 1;
+    padding: 2px 6px;
+  }
+  .attach-list .rm:hover { color: var(--ihl-ink); }
+
+  /* expandable Medicare guide */
+  .guide { margin: 14px 0 0; }
+  .guide summary {
+    list-style: none;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 12px;
+    letter-spacing: 0.02em;
+    color: var(--ihl-ink-soft);
+    padding: 4px 0;
+    transition: color 180ms;
+  }
+  .guide summary::-webkit-details-marker { display: none; }
+  .guide summary::marker { content: ""; }
+  .guide summary span {
+    border-bottom: 1px solid var(--ihl-rule-strong);
+    padding-bottom: 1px;
+    transition: border-color 180ms;
+  }
+  .guide summary:hover { color: var(--ihl-ink); }
+  .guide summary:hover span { border-bottom-color: var(--ihl-ink); }
+  .guide-body {
+    margin: 14px 0 0;
+    padding: 18px 22px;
+    background: var(--ihl-paper-deep);
+    border-radius: 4px;
+    max-width: 580px;
+  }
+  .guide-lead {
+    margin: 0;
+    font-family: var(--serif);
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--ihl-ink);
+  }
+  .guide-refs {
+    padding-top: 12px;
+    margin: 12px 0 0;
+    border-top: 1px solid var(--ihl-rule);
+    font-size: 11px;
+    letter-spacing: 0.02em;
+    color: var(--ihl-ink-mute);
+  }
+  .guide-refs a { color: var(--ihl-ink); text-decoration: underline; text-underline-offset: 2px; text-decoration-thickness: 1px; }
+  .guide-refs a:hover { color: var(--ihl-ink-soft); }
+
+  /* submit row */
+  .submit-row {
+    margin-top: 16px;
+    padding-top: 24px;
+    border-top: 1px solid var(--ihl-rule);
+    display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+  }
+  .submit {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--ihl-ink); color: var(--ihl-paper);
+    border: 0; cursor: pointer;
+    padding: 14px 26px; border-radius: 999px;
+    font-size: 14.5px; font-weight: 500;
+    font-family: var(--sans);
+    transition: gap 220ms cubic-bezier(0.2,0,0,1), background 180ms, transform 220ms;
+  }
+  .submit:hover { background: #000; gap: 14px; }
+  .submit:active { transform: scale(0.98); }
+  .submit-meta { font-size: 11.5px; color: var(--ihl-ink-mute); letter-spacing: 0.02em; }
+
+  /* validation */
+  .field input:invalid:not(:placeholder-shown),
+  .field textarea:invalid:not(:placeholder-shown) { border-color: #b03a2e; }
+
+  /* success state */
+  .success { display: none; padding: 24px 0 8px; }
+  .success.is-on { display: block; }
+  .success .eyebrow {
+    font-size: 10.5px; font-weight: 500;
+    letter-spacing: 0.22em; color: var(--ihl-ink-soft);
+    text-transform: uppercase; margin-bottom: 18px;
+  }
+  .success h2 {
+    font-family: var(--serif); font-weight: 400;
+    font-size: 36px; line-height: 1.05; letter-spacing: -0.02em;
+    margin: 0 0 16px;
+  }
+  .success p {
+    font-family: var(--serif);
+    font-size: 16px; line-height: 1.55;
+    color: var(--ihl-ink-soft);
+    margin: 0 0 12px; max-width: 520px;
+  }
+  .success .again {
+    display: inline-block; margin-top: 18px;
+    font-size: 13px; color: var(--ihl-ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--ihl-ink);
+    padding-bottom: 2px;
+  }
+  .success .again:hover { opacity: 0.65; }
+
+  form.is-hidden { display: none; }
+
+  @media (max-width: 720px) {
+    .page-wrap { padding: 24px 16px 40px; }
+    .card { padding: 32px 24px; }
+    .head h1 { font-size: 34px; }
+    form { grid-template-columns: 1fr; }
+    .field { grid-column: 1 / -1; }
+    .risk-chip { width: 36px; height: 36px; font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+  <header class="nav">
+    <a href="index.html" aria-label="Institute for Healthy Living"><img src="assets/logo/IHL_Logo_Black.svg" alt="Institute for Healthy Living" /></a>
+    <a href="index.html" class="back">← Back to referrers</a>
+  </header>
+
+  <div class="shell">
+    <div class="card">
+      <header class="head">
+        <div class="eyebrow">I N S T I T U T E&nbsp;&nbsp;F O R&nbsp;&nbsp;H E A L T H Y&nbsp;&nbsp;L I V I N G&nbsp;&nbsp;·&nbsp;&nbsp;R E F E R R A L</div>
+        <h1>Refer a patient</h1>
+        <p class="meta">
+          <span>Two-minute referral</span>
+          <span class="sep" aria-hidden="true">·</span>
+          <span>Attachments accepted</span>
+          <span class="sep" aria-hidden="true">·</span>
+          <span>Prompt intake review</span>
+        </p>
+      </header>
+
+      <form id="referral-form" novalidate>
+        <div class="row row--head"><span>P A T I E N T</span></div>
+        <div class="field field--full">
+          <label for="pname">Patient name</label>
+          <input id="pname" name="pname" type="text" placeholder="Full name" autocomplete="off" required />
+        </div>
+        <div class="field">
+          <label for="pphone">Contact number</label>
+          <input id="pphone" name="pphone" type="tel" placeholder="0412 345 678" autocomplete="off" required />
+        </div>
+        <div class="field">
+          <label for="pemail">Email</label>
+          <input id="pemail" name="pemail" type="email" placeholder="name@example.com" autocomplete="off" required />
+        </div>
+        <div class="field field--full">
+          <label>Age <span class="opt">optional</span></label>
+          <div class="seg" role="radiogroup" aria-label="Age">
+            <label class="chip"><input type="radio" name="age" value="child" /><span>Child (under 12)</span></label>
+            <label class="chip"><input type="radio" name="age" value="adolescent" /><span>Adolescent (12–17)</span></label>
+            <label class="chip"><input type="radio" name="age" value="adult" /><span>Adult (18+)</span></label>
+          </div>
+        </div>
+        <div class="field field--full">
+          <label>Therapy type</label>
+          <div class="seg" role="radiogroup" aria-label="Therapy type">
+            <label class="chip"><input type="radio" name="therapy" value="individual" required /><span>Individual</span></label>
+            <label class="chip"><input type="radio" name="therapy" value="couples" /><span>Couples</span></label>
+            <label class="chip"><input type="radio" name="therapy" value="family" /><span>Family</span></label>
+            <label class="chip"><input type="radio" name="therapy" value="group" /><span>Group</span></label>
+          </div>
+        </div>
+
+        <div class="row row--head"><span>R E F E R R I N G &nbsp;&nbsp; P R A C T I T I O N E R</span></div>
+        <div class="field">
+          <label for="rname">Practitioner name</label>
+          <input id="rname" name="rname" type="text" placeholder="Dr Jane Smith" autocomplete="off" required />
+        </div>
+        <div class="field">
+          <label for="rpract">Practice name</label>
+          <input id="rpract" name="rpract" type="text" placeholder="Practice / clinic" autocomplete="off" required />
+        </div>
+        <div class="field">
+          <label for="rprov">Provider number</label>
+          <input id="rprov" name="rprov" type="text" placeholder="1234567A" autocomplete="off" required />
+        </div>
+        <div class="field">
+          <label for="rphone">Phone</label>
+          <input id="rphone" name="rphone" type="tel" placeholder="02 9999 9999" autocomplete="off" required />
+        </div>
+        <div class="field field--full">
+          <label for="remail">Your email</label>
+          <input id="remail" name="remail" type="email" placeholder="For our reply" autocomplete="off" required />
+        </div>
+
+        <div class="row row--head"><span>C L I N I C A L</span></div>
+        <div class="field field--full">
+          <label>Risk level <span class="opt">1 low — 10 high</span></label>
+          <div class="risk" role="radiogroup" aria-label="Risk level">
+            <label class="risk-chip"><input type="radio" name="risk" value="1" /><span>1</span></label>
+            <label class="risk-chip"><input type="radio" name="risk" value="2" /><span>2</span></label>
+            <label class="risk-chip"><input type="radio" name="risk" value="3" /><span>3</span></label>
+            <label class="risk-chip"><input type="radio" name="risk" value="4" /><span>4</span></label>
+            <label class="risk-chip"><input type="radio" name="risk" value="5" /><span>5</span></label>
+            <label class="risk-chip"><input type="radio" name="risk" value="6" /><span>6</span></label>
+            <label class="risk-chip"><input type="radio" name="risk" value="7" /><span>7</span></label>
+            <label class="risk-chip"><input type="radio" name="risk" value="8" /><span>8</span></label>
+            <label class="risk-chip"><input type="radio" name="risk" value="9" /><span>9</span></label>
+            <label class="risk-chip"><input type="radio" name="risk" value="10" /><span>10</span></label>
+          </div>
+        </div>
+        <div class="field field--full">
+          <label for="concerns">Presenting concerns</label>
+          <textarea id="concerns" name="concerns" rows="4" placeholder="A short description of presentation and anything relevant to clinical matching."></textarea>
+        </div>
+
+        <div class="row row--head"><span>A T T A C H M E N T S</span></div>
+        <div class="field field--full attach">
+          <div class="attach-zone" id="drop">
+            <input id="file-input" type="file" multiple hidden />
+            <div class="attach-lead">
+              <span class="attach-line1">Drag files here or click to browse</span>
+              <span class="attach-line2">MHTP · EDTP · CDM · Direct referral letter</span>
+            </div>
+          </div>
+          <ul class="attach-list" id="file-list"></ul>
+          <details class="guide">
+            <summary><span>What’s required for a valid Medicare referral</span></summary>
+            <div class="guide-body">
+              <p class="guide-lead">A valid Medicare referral includes patient name, date of birth and address; symptoms or diagnosis; current medications; the number of treatment services; and a statement on whether the patient has an MHTP or PAMP. Signed and dated by the referring practitioner.</p>
+              <p class="guide-refs">
+                Reference: <a href="https://www.servicesaustralia.gov.au/allied-health-referrals-for-mental-health-treatment-services" target="_blank" rel="noopener">Services Australia</a> · <a href="https://www.health.gov.au/our-work/better-access-initiative" target="_blank" rel="noopener">Better Access</a>
+              </p>
+            </div>
+          </details>
+        </div>
+
+        <div class="row submit-row">
+          <button type="submit" class="submit">
+            <span>Submit referral</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+          <span class="submit-meta">A confirmation is sent to your email.</span>
+        </div>
+      </form>
+
+      <div class="success" id="success" aria-live="polite">
+        <div class="eyebrow">R E C E I V E D</div>
+        <h2>Thank you.</h2>
+        <p id="success-line">Your referral has been received. Our intake team will review it and respond promptly — typically within one business day.</p>
+        <p>A copy of your submission has been sent to your inbox.</p>
+        <a href="#" class="again" id="again">Submit another referral</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ────────────────────────────────────────────────
+  // File upload — drag/drop + click-to-browse
+  // ────────────────────────────────────────────────
+  (function () {
+    var drop = document.getElementById('drop');
+    var input = document.getElementById('file-input');
+    var list = document.getElementById('file-list');
+    var files = [];
+    var MAX_FILES = 6;
+
+    function render() {
+      list.innerHTML = '';
+      files.forEach(function (f, i) {
+        var li = document.createElement('li');
+        var name = document.createElement('span');
+        name.textContent = f.name + ' · ' + (f.size > 1024 * 1024 ? (f.size / 1024 / 1024).toFixed(1) + ' MB' : Math.round(f.size / 1024) + ' KB');
+        var rm = document.createElement('button');
+        rm.type = 'button';
+        rm.className = 'rm';
+        rm.innerHTML = '&times;';
+        rm.setAttribute('aria-label', 'Remove ' + f.name);
+        rm.addEventListener('click', function (e) {
+          e.stopPropagation();
+          files.splice(i, 1);
+          render();
+        });
+        li.appendChild(name);
+        li.appendChild(rm);
+        list.appendChild(li);
+      });
+    }
+
+    function addFiles(fl) {
+      if (!fl) return;
+      for (var i = 0; i < fl.length && files.length < MAX_FILES; i++) {
+        files.push(fl[i]);
+      }
+      render();
+    }
+
+    drop.addEventListener('click', function () { input.click(); });
+    drop.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); input.click(); } });
+    drop.setAttribute('tabindex', '0');
+    drop.setAttribute('role', 'button');
+
+    input.addEventListener('change', function () { addFiles(input.files); input.value = ''; });
+
+    ['dragenter', 'dragover'].forEach(function (ev) {
+      drop.addEventListener(ev, function (e) { e.preventDefault(); drop.classList.add('is-drag'); });
+    });
+    ['dragleave', 'drop'].forEach(function (ev) {
+      drop.addEventListener(ev, function (e) { e.preventDefault(); drop.classList.remove('is-drag'); });
+    });
+    drop.addEventListener('drop', function (e) {
+      e.preventDefault();
+      if (e.dataTransfer && e.dataTransfer.files) addFiles(e.dataTransfer.files);
+    });
+  })();
+
+  // ────────────────────────────────────────────────
+  // Submit — validate, then show success state
+  //
+  // TODO (backend): replace the success-only handler
+  // with a POST to your real intake endpoint. The form
+  // already validates the minimum required fields.
+  // ────────────────────────────────────────────────
+  (function () {
+    var form = document.getElementById('referral-form');
+    var success = document.getElementById('success');
+    var successLine = document.getElementById('success-line');
+    var again = document.getElementById('again');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      // Native browser validation
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      // Therapy type is required but it's a chip group — check manually
+      var therapy = form.querySelector('input[name="therapy"]:checked');
+      if (!therapy) {
+        alert('Please choose a therapy type.');
+        return;
+      }
+
+      // Capture the referrer email for the success copy
+      var remail = form.querySelector('#remail').value.trim();
+      if (remail) {
+        successLine.textContent = 'Your referral has been received. Our intake team will review it and respond promptly — typically within one business day.';
+      }
+
+      // (Real backend would POST FormData here, including files)
+      // var fd = new FormData(form); files.forEach(f => fd.append('files[]', f));
+      // fetch('/intake', { method: 'POST', body: fd });
+
+      form.classList.add('is-hidden');
+      success.classList.add('is-on');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    again.addEventListener('click', function (e) {
+      e.preventDefault();
+      form.reset();
+      form.classList.remove('is-hidden');
+      success.classList.remove('is-on');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  })();
+</script>
+</body>
+</html>

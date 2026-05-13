@@ -80,6 +80,18 @@
     color: var(--ihl-ink-mute);
   }
   .cta-meta .sep { color: var(--ihl-rule-strong); }
+  .boundary {
+    margin-top: 56px;
+    padding-top: 16px;
+    border-top: 1px solid var(--ihl-rule);
+    max-width: 420px;
+    font-family: var(--sans);
+    font-size: 11.5px; line-height: 1.5;
+    letter-spacing: 0.02em;
+    color: var(--ihl-ink-mute);
+  }
+  .boundary a { color: inherit; text-decoration: underline; text-underline-offset: 2px; text-decoration-thickness: 1px; }
+  .boundary a:hover { color: var(--ihl-ink); }
 
   .ledger {
     align-self: start;
@@ -170,33 +182,34 @@
 <body>
 <div class="page">
   <header class="nav">
-    <a href="https://www.institute4healthyliving.com/" aria-label="Institute for Healthy Living"><img src="assets/logo/IHL_Logo_Black.svg" alt="Institute for Healthy Living" /></a>
+    <a href="/" aria-label="Institute for Healthy Living"><img src="assets/logo/IHL_Logo_Black.svg" alt="Institute for Healthy Living" /></a>
     <nav>
-      <a href="https://www.institute4healthyliving.com/for-clients">For clients</a>
-      <a href="https://www.institute4healthyliving.com/our-clinicians">Our clinicians</a>
-      <a href="https://www.institute4healthyliving.com/about">About</a>
+      <a href="/for-clients">For clients</a>
+      <a href="/our-clinicians">Our clinicians</a>
+      <a href="/about">About</a>
     </nav>
   </header>
 
   <div class="body">
     <section>
       <div class="eyebrow">I N S T I T U T E&nbsp;&nbsp;F O R&nbsp;&nbsp;H E A L T H Y&nbsp;&nbsp;L I V I N G&nbsp;&nbsp;·&nbsp;&nbsp;F O R&nbsp;&nbsp;R E F E R R E R S</div>
-      <h1 class="display">Refer once,<br/>we&rsquo;ll take it<br/>from there.</h1>
-      <p class="sub">A clinical psychology group practice in Bondi Junction. Fifteen years of considered care for adults, adolescents and children.</p>
+      <h1 class="display">Refer with<br/>confidence.</h1>
+      <p class="sub">A clear pathway into considered psychological care, reviewed by our intake team and matched to the right clinician.</p>
       <div class="cta-row">
-        <a href="https://www.institute4healthyliving.com/referrals" class="cta">
+        <a href="referral.html" class="cta">
           <span>Submit a referral</span>
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
-        <a href="referrer-pack.pdf" class="cta-secondary" download>Download referrer pack</a>
+        <a href="pack.html" class="cta-secondary" target="_blank" rel="noopener">Download referrer pack</a>
       </div>
       <div class="cta-meta">
-        <span>Two-minute form</span>
+        <span>Two-minute referral</span>
         <span class="sep" aria-hidden="true">·</span>
         <span>Attachments accepted</span>
         <span class="sep" aria-hidden="true">·</span>
-        <span>Reply within one business day</span>
+        <span>Prompt intake review</span>
       </div>
+      <p class="boundary">Routine referrals only. IHL is not an emergency or crisis service. If urgent mental health support is required, please direct the patient to the NSW Mental Health Line on <a href="tel:1800011511">1800&nbsp;011&nbsp;511</a>, or call <a href="tel:000">000</a> in an emergency.</p>
     </section>
 
     <aside class="ledger">
