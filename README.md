@@ -10,6 +10,7 @@ Static GitHub candidate for the Institute for Healthy Living referrer page.
 - `referrer-pack.pdf` - current public-facing three-page referrer pack download, rebuilt from the checked 2026-06-02 page renders and kept under Webflow's 10 MB document asset limit.
 - `colors_and_type.css` - IHL design tokens.
 - `webflow-package/` - implementation checklist, secure workflow spec and QA gates for Webflow handoff.
+  - `NEXT_EXECUTION_RUNBOOK_2026-06-04.md` - no-Max execution path for Webflow, secure endpoint verification and launch gates.
 
 ## Referral module structure
 
