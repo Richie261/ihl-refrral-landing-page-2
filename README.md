@@ -9,7 +9,7 @@ Static GitHub candidate for the Institute for Healthy Living referrer page.
 - `pack.html` - existing referrer pack page/link target.
 - `referrer-pack.pdf` - current public-facing three-page referrer pack download, rebuilt from the checked 2026-06-02 page renders and kept under Webflow's 10 MB document asset limit.
 - `colors_and_type.css` - IHL design tokens.
-- `webflow-package/` - implementation checklist and QA gates for Webflow handoff.
+- `webflow-package/` - implementation checklist, secure workflow spec and QA gates for Webflow handoff.
 
 ## Referral module structure
 
@@ -47,6 +47,7 @@ Before public Webflow publish:
 - confirm attachment storage is private and not publicly indexed;
 - confirm the auto-response is from and reply-to `intake@institute4healthyliving.com`;
 - add the approved human verification layer, such as Cloudflare Turnstile or equivalent;
+- validate the human verification token server-side before accepting the submission;
 - confirm no patient or clinical content is written to HubSpot.
 
 ## Local preview

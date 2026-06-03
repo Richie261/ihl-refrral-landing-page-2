@@ -26,7 +26,8 @@ Status: implementation package only. Do not publish without CEO approval.
    - Complete referral online.
 6. Make the referrer pack link visible near the action area.
 7. Upload `referrer-pack.pdf` to Webflow Assets and replace the GitHub PDF link with the Webflow CDN URL returned by Webflow.
-8. Use page-level scrolling only. Do not implement a slide-over, modal, iframe with its own scroll, or nine-step wizard.
+8. Implement both referral routes through the approved secure intake pathway, not a generic marketing/contact form.
+9. Use page-level scrolling only. Do not implement a slide-over, modal, iframe with its own scroll, or nine-step wizard.
 
 ## Do Not Touch
 
@@ -56,6 +57,8 @@ Required:
 - patient name;
 - patient phone;
 - acknowledgement.
+
+This route is deliberately minimal. If the uploaded referral, plan or specialist letter already carries the referral details, do not force the referrer through the full online referral fields.
 
 Document type options:
 
@@ -88,6 +91,7 @@ Required:
 - referrer phone;
 - typed / electronic signature;
 - acknowledgement.
+- submission date/time captured by the secure intake workflow.
 
 Optional:
 
@@ -111,6 +115,7 @@ Validation:
 Before publish, confirm:
 
 - form submissions land only in the approved secure intake destination;
+- Cloudflare Turnstile token is validated server-side before the submission is processed;
 - attachments are private, access-controlled and not publicly indexed;
 - intake team receives an alert with only the safe operational minimum;
 - auto-response is from and reply-to `intake@institute4healthyliving.com`;
@@ -120,7 +125,9 @@ HubSpot may receive either nothing, or only safe referrer/practice metadata afte
 
 ## Human Verification
 
-The GitHub candidate includes a basic human/authorised-referrer confirmation and honeypot only. Webflow production still needs an approved CAPTCHA/human verification layer, such as Cloudflare Turnstile or equivalent, before public campaign push.
+The GitHub candidate includes an authorised-referrer confirmation and honeypot only. Webflow production still needs Cloudflare Turnstile or equivalent before public campaign push.
+
+Turnstile must be validated server-side by the live submission endpoint or automation workflow before any submission is accepted, stored or alerted. A client-side widget by itself is not sufficient.
 
 ## QA Gates
 

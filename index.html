@@ -881,19 +881,21 @@
         <div class="route-options" role="tablist" aria-label="Referral submission route">
           <button class="route-option is-active" type="button" role="tab" aria-selected="true" aria-controls="upload-form" id="upload-tab" data-route="upload">
             <strong>Upload existing referral / plan / letter</strong>
-            <span>MHTP · EDTP · CDM · PAMP · Psychiatrist / Paediatrician Referral Letter.</span>
+            <span>Use this when the referral, plan or specialist letter is already completed.</span>
           </button>
           <button class="route-option" type="button" role="tab" aria-selected="false" aria-controls="online-form" id="online-tab" data-route="online">
             <strong>Complete referral online</strong>
-            <span>Use this if you do not have a separate document ready and want the online form to carry the referral details.</span>
+            <span>Use this when the online form needs to carry the referral details.</span>
           </button>
         </div>
       </div>
 
       <form class="route-form is-active" id="upload-form" data-route-form="upload" aria-labelledby="upload-heading" novalidate>
+        <input type="hidden" name="submission_route" value="upload_existing_document" />
+        <input type="hidden" name="security_label" value="confidential_referral_intake" />
         <div class="form-intro">
           <h3 id="upload-heading">Upload existing referral</h3>
-          <p>Upload the existing referral document and add the routing details intake needs to contact the patient and referrer.</p>
+          <p>If the referral, plan or letter is already completed, upload it here and add only the routing details intake needs to identify the patient, referrer and document.</p>
         </div>
 
         <div class="form-section">
@@ -954,11 +956,11 @@
 
         <label class="security-row">
           <input type="checkbox" name="human_check" required />
-          <span>I confirm I am a healthcare referrer or authorised practice team member submitting this referral for routine intake review.</span>
+          <span>I confirm I am a healthcare referrer or authorised practice team member using this secure referral pathway.</span>
         </label>
         <label class="ack">
           <input type="checkbox" name="acknowledgement" required />
-          <span>I confirm this submission is for routine intake review and that the uploaded document is intended for Institute for Healthy Living intake.</span>
+          <span>I confirm the uploaded document is intended for Institute for Healthy Living intake and has been provided with appropriate authority to share it for referral review.</span>
         </label>
         <div class="hp" aria-hidden="true">
           <label>Leave blank <input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
@@ -971,9 +973,12 @@
       </form>
 
       <form class="route-form" id="online-form" data-route-form="online" aria-labelledby="online-heading" novalidate>
+        <input type="hidden" name="submission_route" value="complete_referral_online" />
+        <input type="hidden" name="security_label" value="confidential_referral_intake" />
+        <input type="hidden" name="signature_timestamp_local" data-signature-timestamp />
         <div class="form-intro">
           <h3 id="online-heading">Complete referral online</h3>
-          <p>Use this option when you want to complete the referral details online.</p>
+          <p>Use this option when you want the secure online form to carry the referral details.</p>
         </div>
 
         <div class="form-section">
@@ -1090,16 +1095,17 @@
           <div class="field full">
             <label for="online-signature">Typed / electronic signature</label>
             <input id="online-signature" name="signature" type="text" required />
+            <small>By typing your name, you electronically sign this referral. The secure intake workflow records the submission date and time.</small>
           </div>
         </div>
 
         <label class="security-row">
           <input type="checkbox" name="human_check" required />
-          <span>I confirm I am a healthcare referrer or authorised practice team member submitting this referral for routine intake review.</span>
+          <span>I confirm I am a healthcare referrer or authorised practice team member using this secure referral pathway.</span>
         </label>
         <label class="ack">
           <input type="checkbox" name="acknowledgement" required />
-          <span>I confirm this referral is intended for routine intake review and that the information provided is accurate to the best of my knowledge.</span>
+          <span>I confirm this referral is intended for Institute for Healthy Living intake and that the information provided is accurate to the best of my knowledge.</span>
         </label>
         <div class="hp" aria-hidden="true">
           <label>Leave blank <input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
@@ -1202,6 +1208,11 @@
 
         if (form.elements.website && form.elements.website.value.trim() !== '') {
           return;
+        }
+
+        var signatureTimestamp = form.querySelector('[data-signature-timestamp]');
+        if (signatureTimestamp) {
+          signatureTimestamp.value = new Date().toISOString();
         }
 
         if (!form.checkValidity()) {
