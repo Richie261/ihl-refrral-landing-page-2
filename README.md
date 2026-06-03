@@ -1,48 +1,74 @@
-# IHL — For Referrers
+# IHL Referrer Gateway
 
-Standalone landing page for healthcare professionals referring to the
-Institute for Healthy Living (Bondi Junction, Sydney).
+Static GitHub candidate for the Institute for Healthy Living referrer page.
 
-## Entry point
-- `index.html` — the gateway page (Editorial Ledger design)
-- `referral.html` — the referral form (Centred card design, linked from the gateway CTA)
+## Current implementation
 
-## Pages
+- `index.html` - referrer gateway candidate with live-site navigation labels and URLs, intake-first referral details strip, upload route and complete-online route.
+- `referral.html` - legacy URL redirect to `index.html#referral-module`.
+- `pack.html` - existing referrer pack page/link target.
+- `referrer-pack.pdf` - current public-facing three-page referrer pack download, rebuilt from the checked 2026-06-02 page renders and kept under Webflow's 10 MB document asset limit.
+- `colors_and_type.css` - IHL design tokens.
+- `webflow-package/` - implementation checklist and QA gates for Webflow handoff.
 
-### Gateway (`index.html`)
-Landing page for healthcare professionals. Three contact pathways in an editorial ledger; a single primary CTA — “Submit a referral” — that routes to `referral.html`.
+## Referral module structure
 
-### Referral form (`referral.html`)
-Short clinical intake form: patient details, therapy type, referring practitioner, clinical (risk + presenting concerns), attachments. Native browser validation. Drag-and-drop file upload (no backend wired — the submit handler currently shows a success state; a TODO comment marks the spot to POST to a real intake endpoint).
+The page uses the locked MVP direction:
 
-## Design system
-- `colors_and_type.css` — IHL design tokens (do not edit casually; this
-  file is the single source of truth for colours, type, spacing, radii)
-- `assets/logo/` — IHL logo SVGs
+- Referral details utility strip:
+  - Email intake: `intake@institute4healthyliving.com`
+  - Secure messaging EDI: `inshealh`
+  - Search: `Institute for Healthy Living`
+  - Copy actions for all three values
+- Upload existing referral / plan / letter route:
+  - document type
+  - uploaded document
+  - referrer details
+  - patient name and phone
+  - acknowledgement
+- Complete referral online route:
+  - patient details
+  - referral / plan details
+  - therapy type
+  - patient concern / risk context
+  - presenting concerns
+  - diagnosis and medication context, if known
+  - referrer details
+  - typed signature
+  - acknowledgement
 
-## Live preview
-If GitHub Pages is enabled on this repo, the page is served at:
-`https://<your-handle>.github.io/<repo-name>/`
+## Safety state
+
+This GitHub build does not submit or store referral data. The submit handler prevents transmission and shows a safe fallback message until Webflow is connected to an approved secure intake destination.
+
+Before public Webflow publish:
+
+- connect the form to the approved secure submission destination;
+- confirm attachment storage is private and not publicly indexed;
+- confirm the auto-response is from and reply-to `intake@institute4healthyliving.com`;
+- add the approved human verification layer, such as Cloudflare Turnstile or equivalent;
+- confirm no patient or clinical content is written to HubSpot.
 
 ## Local preview
-Any static server works. Quickest:
-```
+
+```bash
 python3 -m http.server 8000
-# then open http://localhost:8000
 ```
 
-## Notes for Codex / contributors
-- Match the existing visual vocabulary in `colors_and_type.css`. Use
-  the CSS custom properties (`--ihl-ink`, `--ihl-paper`, `--ihl-rule`,
-  `--serif`, `--sans`) rather than introducing new values.
-- The page is intentionally minimal — three referral routes (form,
-  HealthLink, email) presented as a quiet ledger. Resist adding
-  marketing copy, icons, or "feature" sections.
-- Primary CTA is `Submit a referral`. Black pill, not forest green —
-  forest is reserved for the brand mark.
-- The EDI copy chip is plain JS (see inline script at the bottom of
-  `index.html`). No build step.
-- The form (`referral.html`) handles file uploads and validation in
-  vanilla JS at the bottom of the file. To wire a real backend,
-  replace the submit handler's success-only branch with a POST to
-  your intake endpoint (a `TODO (backend)` comment marks the line).
+Then open `http://localhost:8000`.
+
+## GitHub Pages
+
+If GitHub Pages is enabled, the candidate should be available at:
+
+`https://richie261.github.io/ihl-refrral-landing-page-2/`
+
+Public PDF URL:
+
+`https://richie261.github.io/ihl-refrral-landing-page-2/referrer-pack.pdf`
+
+## Webflow PDF URL
+
+The final Webflow-hosted PDF URL is created only after `referrer-pack.pdf` is uploaded to Webflow Assets. Webflow will assign the file a public CDN URL. Use that returned URL for the live `/referrals` page once the page has CEO approval to publish.
+
+Do not upload referral submissions, referral letters, treatment plans or clinical attachments as public Webflow assets. The referrer pack PDF is public campaign material; referral uploads are private intake records and must land only in the approved secure intake destination.

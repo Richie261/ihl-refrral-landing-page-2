@@ -334,6 +334,34 @@
     color: var(--ihl-ink);
   }
   .how .card .v a { color: inherit; text-decoration: none; }
+  .how .card .qr-block {
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 8px;
+    align-items: start;
+  }
+  .how .card .qr {
+    width: 60px;
+    height: 60px;
+    display: block;
+    background: #fff;
+    border: 1px solid var(--ihl-rule);
+    padding: 3px;
+    box-sizing: border-box;
+  }
+  .how .card .qr-copy {
+    display: block;
+    min-width: 0;
+  }
+  .how .card .qr-copy .mini {
+    display: block;
+    font-size: 8px;
+    line-height: 1.2;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ihl-ink-soft);
+    margin-bottom: 3px;
+  }
 
   /* =========================================================
      PAGE FOOT
@@ -529,22 +557,22 @@
 
   .clin-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    column-gap: 16px;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 12px;
     row-gap: 0;
     margin-top: 6px;
   }
   .clin {
     display: grid;
-    grid-template-columns: 42px 1fr;
-    column-gap: 10px;
+    grid-template-columns: 34px 1fr;
+    column-gap: 8px;
     align-items: start;
-    padding: 7px 0 8px;
+    padding: 6px 0 6px;
     border-top: 1px solid var(--ihl-rule);
   }
   .clin .portrait {
-    width: 42px;
-    height: 42px;
+    width: 34px;
+    height: 34px;
     display: block;
     border-radius: 999px;
     overflow: hidden;
@@ -578,7 +606,7 @@
   .clin .name {
     font-family: var(--serif);
     font-weight: 400;
-    font-size: 13px;
+    font-size: 11.5px;
     line-height: 1.05;
     letter-spacing: -0.005em;
     margin: 0;
@@ -592,25 +620,25 @@
   }
   body[data-photos="on"] .clin .name .ph { display: none; }
   .clin .role {
-    font-size: 8.5px;
-    letter-spacing: 0.16em;
+    font-size: 7.3px;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--ihl-forest);
     margin-top: 1px;
     font-weight: 500;
   }
   .clin .quals {
-    font-size: 7.5px;
+    font-size: 6.6px;
     color: var(--ihl-ink-mute);
-    line-height: 1.3;
+    line-height: 1.2;
     margin-top: 1px;
     font-style: italic;
     font-family: var(--serif);
   }
   .clin .tag {
     display: inline-block;
-    font-size: 7px;
-    letter-spacing: 0.18em;
+    font-size: 6px;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--ihl-forest);
     border: 1px solid var(--ihl-forest);
@@ -623,9 +651,9 @@
   .clin dl {
     margin: 3px 0 0;
     display: grid;
-    grid-template-columns: 32px 1fr;
-    gap: 1px 6px;
-    font-size: 7.5px;
+    grid-template-columns: 26px 1fr;
+    gap: 1px 4px;
+    font-size: 6.6px;
     line-height: 1.3;
   }
   .clin dt {
@@ -938,7 +966,7 @@
       <div class="step">
         <div class="num">01</div>
         <h3>Submit referral</h3>
-        <p>Via HealthLink, online form, intake email or fax. Direct referrals accepted from psychiatrists and paediatricians.</p>
+        <p>Via HealthLink, online form, intake email or fax. Accepted: MHTP · EDTP · CDM · PAMP · Psychiatrist / Paediatrician Referral Letter.</p>
       </div>
       <div class="step">
         <div class="num">02</div>
@@ -964,7 +992,10 @@
       <div class="card">
         <div class="ch">2</div>
         <div class="h">Online form</div>
-        <div class="v">institute4healthyliving.com<wbr/>/referrals<br/>Complete, attach, submit.</div>
+        <div class="v qr-block">
+          <img class="qr" src="IHL_referrals_production_qr_2026-06-02.png" alt="QR code for the IHL referrals page"/>
+          <span class="qr-copy"><span class="mini">Scan QR</span>or visit /referrals<br/>Complete, attach, submit.</span>
+        </div>
       </div>
       <div class="card">
         <div class="ch">3</div>
@@ -1022,11 +1053,11 @@
     <div>
       <div class="sec-eyebrow">Funding &amp; access</div>
       <dl class="spec-table">
-        <div class="row"><dt>Medicare</dt><dd>MHTP · EDTP · CDM · Direct referral from psychiatrists &amp; paediatricians</dd></div>
-        <div class="row"><dt>CTP Insurance</dt><dd>Motor vehicle accidents · SIRA · TAC</dd></div>
+        <div class="row"><dt>Medicare</dt><dd>MHTP · EDTP · CDM · PAMP · Psychiatrist / Paediatrician Referral Letter</dd></div>
+        <div class="row"><dt>CTP</dt><dd>Motor vehicle accidents · insurer-approved treatment pathways</dd></div>
         <div class="row"><dt>WorkCover NSW</dt><dd>Workplace injury · SIRA</dd></div>
         <div class="row"><dt>NDIS</dt><dd>Self-managed · Plan-managed</dd></div>
-        <div class="row"><dt>Veterans / DVA</dt><dd>DVA-registered clinician on team</dd></div>
+        <div class="row"><dt>DVA</dt><dd>DVA-registered clinician on team</dd></div>
         <div class="row"><dt>Victims Support</dt><dd>Domestic violence · Victims of crime support</dd></div>
       </dl>
     </div>
@@ -1049,7 +1080,7 @@
       </div>
       <div class="area">
         <div class="n">04 · Neurodevelopmental</div>
-        <p>ADHD · ASD · Adult &amp; adolescent assessment-informed support</p>
+        <p>ADHD-informed and autism-informed therapy support for adults and adolescents</p>
       </div>
       <div class="area">
         <div class="n">05 · Personality &amp; Emotion</div>
@@ -1097,7 +1128,7 @@
   </div>
 
   <div class="pagefoot">
-    <div class="lhs">Availability &amp; funding subject to change · Routine referrals only, not an emergency pathway.</div>
+    <div class="lhs">Availability subject to change · IHL is not a crisis or emergency pathway.</div>
     <div>02 8937 0667 &nbsp;·&nbsp; institute4healthyliving.com/referrals</div>
   </div>
 </section>
@@ -1139,9 +1170,26 @@
       <span class="tag">ANZAED</span>
       <dl>
         <dt>Days</dt><dd>Th</dd>
-        <dt>Ages</dt><dd>Adults, Adol 17+</dd>
+        <dt>Ages</dt><dd>Adults, Adol</dd>
         <dt>Tx</dt><dd>CBT, ACT, DBT, CBT-E</dd>
-        <dt>Areas</dt><dd>Eating, OCD, ASD, ADHD, Anxiety, Trauma</dd>
+        <dt>Areas</dt><dd>Eating, Body Image, Anxiety, Depression, Stress</dd>
+      </dl>
+          </div>
+    </article>
+
+    <article class="clin">
+      <img class="portrait" src="ashleigh-james.png" alt=""/>
+      <div class="clin__body">
+        <div class="topline"><span class="idx">02</span></div>
+      <p class="name">Ashleigh James</p>
+      <div class="role">Psychologist</div>
+      <div class="quals">MClinPsych, GradDip Human Nutrition</div>
+      <span class="tag">SIRA</span>
+      <dl>
+        <dt>Days</dt><dd>M Sat</dd>
+        <dt>Ages</dt><dd>Adults, Adol 16+</dd>
+        <dt>Tx</dt><dd>CBT, ACT, DBT, Schema, Narrative</dd>
+        <dt>Areas</dt><dd>Anxiety, Depression, Trauma, Emotion Dysregulation, Relationships</dd>
       </dl>
           </div>
     </article>
@@ -1149,15 +1197,15 @@
     <article class="clin">
       <img class="portrait" src="brooke-naylor.png" alt=""/>
       <div class="clin__body">
-        <div class="topline"><span class="idx">02</span></div>
+        <div class="topline"><span class="idx">03</span></div>
       <p class="name">Brooke Naylor</p>
       <div class="role">Clinical Psychologist</div>
       <div class="quals">BPsych (Hons), MPsych (Clin)</div>
       <dl>
         <dt>Days</dt><dd>M T</dd>
         <dt>Ages</dt><dd>Adults, Adol 16+</dd>
-        <dt>Tx</dt><dd>EMDR, CBT, DBT, Schema, MBi, Mi</dd>
-        <dt>Areas</dt><dd>Eating, Anxiety, Trauma, Personality</dd>
+        <dt>Tx</dt><dd>Schema, DBT, CBT, ACT, EMDR</dd>
+        <dt>Areas</dt><dd>Anxiety, Depression, Eating, Trauma, Chronic Pain</dd>
       </dl>
           </div>
     </article>
@@ -1165,7 +1213,7 @@
     <article class="clin">
       <img class="portrait" src="gavin-surjadinata.png" alt=""/>
       <div class="clin__body">
-        <div class="topline"><span class="idx">03</span></div>
+        <div class="topline"><span class="idx">04</span></div>
       <p class="name">Gavin Surjadinata</p>
       <div class="role">Clinical Psychologist</div>
       <div class="quals">BPsych (Hons), MPsych (Clin)</div>
@@ -1173,7 +1221,7 @@
         <dt>Days</dt><dd>W</dd>
         <dt>Ages</dt><dd>Adults</dd>
         <dt>Tx</dt><dd>CBT, ACT, MBi, Mi</dd>
-        <dt>Areas</dt><dd>ADHD, Chronic Pain, Complex Trauma, Substance Use</dd>
+        <dt>Areas</dt><dd>Anxiety, Stress, Depression, Trauma, Chronic Pain, ADHD/ASD</dd>
       </dl>
           </div>
     </article>
@@ -1181,33 +1229,16 @@
     <article class="clin">
       <img class="portrait" src="jade-shubitz.png" alt=""/>
       <div class="clin__body">
-        <div class="topline"><span class="idx">04</span></div>
+        <div class="topline"><span class="idx">05</span></div>
       <p class="name">Jade Shubitz</p>
       <div class="role">Psychologist</div>
       <div class="quals">BPsych (Hons), MClinPsych</div>
-      <span class="tag">Returning end 2026</span>
+      <span class="tag">Returning mid-2026</span>
       <dl>
-        <dt>Days</dt><dd>T</dd>
+        <dt>Days</dt><dd>On leave</dd>
         <dt>Ages</dt><dd>Adults, Adol, Ch. 5+</dd>
-        <dt>Tx</dt><dd>CBT-E, CBT, ACT, DBT, Mi</dd>
-        <dt>Areas</dt><dd>Eating, Grief, Parenting, Mood, Anxiety</dd>
-      </dl>
-          </div>
-    </article>
-
-    <article class="clin">
-      <img class="portrait" src="jenna-doff.png" alt=""/>
-      <div class="clin__body">
-        <div class="topline"><span class="idx">05</span></div>
-      <p class="name">Jenna Doff</p>
-      <div class="role">Clinical Psychologist</div>
-      <div class="quals">BPsych (Hons), MPsych (Clin)</div>
-      <span class="tag">Director</span>
-      <dl>
-        <dt>Days</dt><dd>W Th F</dd>
-        <dt>Ages</dt><dd>Adults</dd>
-        <dt>Tx</dt><dd>CBT, Schema, ACT, DBT, CBT-E</dd>
-        <dt>Areas</dt><dd>Eating, Trauma, Perinatal, Parenting</dd>
+        <dt>Tx</dt><dd>CBT, CBT-E, DBT, Mi, ACT</dd>
+        <dt>Areas</dt><dd>Eating, Anxiety, Depression, Parenting, Relationships</dd>
       </dl>
           </div>
     </article>
@@ -1223,8 +1254,25 @@
       <dl>
         <dt>Days</dt><dd>Th</dd>
         <dt>Ages</dt><dd>Adults, Adol 16+</dd>
-        <dt>Tx</dt><dd>EMDR, CBT, DBT, Mi, Schema</dd>
-        <dt>Areas</dt><dd>Complex Trauma, PTSD, Addiction, ASD, ADHD</dd>
+        <dt>Tx</dt><dd>CBT, EMDR, DBT, MBi, Schema, ACT</dd>
+        <dt>Areas</dt><dd>Trauma, Personality, Addiction, Anxiety, Depression, Relationships</dd>
+      </dl>
+          </div>
+    </article>
+
+    <article class="clin">
+      <img class="portrait" src="jenna-doff.png" alt=""/>
+      <div class="clin__body">
+        <div class="topline"><span class="idx">07</span></div>
+      <p class="name">Jenna Doff</p>
+      <div class="role">Clinical Psychologist</div>
+      <div class="quals">BPsych (Hons), MPsych (Clin)</div>
+      <span class="tag">Director</span>
+      <dl>
+        <dt>Days</dt><dd>W Th F</dd>
+        <dt>Ages</dt><dd>Adults</dd>
+        <dt>Tx</dt><dd>CBT, DBT, ACT, Mi, Schema</dd>
+        <dt>Areas</dt><dd>Anxiety, Personality, Addiction, Depression, Trauma, Perinatal</dd>
       </dl>
           </div>
     </article>
@@ -1232,7 +1280,7 @@
     <article class="clin">
       <img class="portrait" src="kara-borecki.png" alt=""/>
       <div class="clin__body">
-        <div class="topline"><span class="idx">07</span></div>
+        <div class="topline"><span class="idx">08</span></div>
       <p class="name">Kara Borecki</p>
       <div class="role">Psychologist (Registrar)</div>
       <div class="quals">BPsych (Hons), MPsych (Clin)</div>
@@ -1240,25 +1288,8 @@
       <dl>
         <dt>Days</dt><dd>M T W</dd>
         <dt>Ages</dt><dd>Adults, Adol, Ch., Fam.</dd>
-        <dt>Tx</dt><dd>CBT, ACT, DBT, MBi, Mi</dd>
-        <dt>Areas</dt><dd>Trauma, PTSD, OCD, Grief, Anxiety</dd>
-      </dl>
-          </div>
-    </article>
-
-    <article class="clin">
-      <img class="portrait" src="natalie-herron.png" alt=""/>
-      <div class="clin__body">
-        <div class="topline"><span class="idx">08</span></div>
-      <p class="name">Natalie Herron</p>
-      <div class="role">Clinical Psychologist</div>
-      <div class="quals">BPsych (Hons), MPsych (Clin)</div>
-      <span class="tag">ANZAED</span>
-      <dl>
-        <dt>Days</dt><dd>Th F</dd>
-        <dt>Ages</dt><dd>Adults, Adol, Ch. 8+</dd>
-        <dt>Tx</dt><dd>CBT, ACT, DBT, Schema, CBT-E</dd>
-        <dt>Areas</dt><dd>Eating, OCD, ASD, Grief, Stress</dd>
+        <dt>Tx</dt><dd>ACT, CBT, Mi</dd>
+        <dt>Areas</dt><dd>Self-Esteem, OCD, Anxiety, Depression, Trauma, Parenting</dd>
       </dl>
           </div>
     </article>
@@ -1273,8 +1304,25 @@
       <dl>
         <dt>Days</dt><dd>Th F</dd>
         <dt>Ages</dt><dd>Adults</dd>
-        <dt>Tx</dt><dd>Schema, CBT, ACT, Mi</dd>
-        <dt>Areas</dt><dd>OCD, ASD, LGBTQIA+, Sexuality</dd>
+        <dt>Tx</dt><dd>CBT, ACT, MBi, Mi, Schema</dd>
+        <dt>Areas</dt><dd>LGBTQIA+, ADHD/ASD, Trauma, Anxiety, Relationships</dd>
+      </dl>
+          </div>
+    </article>
+
+    <article class="clin">
+      <img class="portrait" src="natalie-herron.png" alt=""/>
+      <div class="clin__body">
+        <div class="topline"><span class="idx">10</span></div>
+      <p class="name">Natalie Herron</p>
+      <div class="role">Clinical Psychologist</div>
+      <div class="quals">BPsych (Hons), MPsych (Clin)</div>
+      <span class="tag">ANZAED</span>
+      <dl>
+        <dt>Days</dt><dd>Th F</dd>
+        <dt>Ages</dt><dd>Adults, Adol, Ch. 8+</dd>
+        <dt>Tx</dt><dd>CBT, DBT, Schema, ACT</dd>
+        <dt>Areas</dt><dd>Anxiety, Eating, Stress, Depression, Relationships, ADHD/ASD</dd>
       </dl>
           </div>
     </article>
@@ -1282,7 +1330,7 @@
     <article class="clin">
       <img class="portrait" src="pip-dean.png" alt=""/>
       <div class="clin__body">
-        <div class="topline"><span class="idx">10</span></div>
+        <div class="topline"><span class="idx">11</span></div>
       <p class="name">Pip Dean</p>
       <div class="role">Clinical Psychologist</div>
       <div class="quals">BSc, MSc (Forensic), GradDipClinPsych</div>
@@ -1291,7 +1339,7 @@
         <dt>Days</dt><dd>T W</dd>
         <dt>Ages</dt><dd>Adults</dd>
         <dt>Tx</dt><dd>CBT, ACT, EMDR</dd>
-        <dt>Areas</dt><dd>Mood, Anxiety, Complex Trauma, PTSD</dd>
+        <dt>Areas</dt><dd>Body Image, Self-Esteem, Anxiety, Trauma, Relationships, Depression</dd>
       </dl>
           </div>
     </article>
@@ -1299,31 +1347,15 @@
     <article class="clin">
       <img class="portrait" src="rebecca-joyce.png" alt=""/>
       <div class="clin__body">
-        <div class="topline"><span class="idx">11</span></div>
+        <div class="topline"><span class="idx">12</span></div>
       <p class="name">Rebecca Joyce</p>
       <div class="role">Psychologist</div>
       <div class="quals">BSc (Psych), GradDipPsych, MClinPsych</div>
       <dl>
         <dt>Days</dt><dd>M T</dd>
         <dt>Ages</dt><dd>Adults, Adolescents</dd>
-        <dt>Tx</dt><dd>CBT, ACT, Schema, MBi, SFT</dd>
-        <dt>Areas</dt><dd>Anxiety, Trauma, Substance Use, Parenting</dd>
-      </dl>
-          </div>
-    </article>
-
-    <article class="clin">
-      <img class="portrait" src="saria-green.png" alt=""/>
-      <div class="clin__body">
-        <div class="topline"><span class="idx">12</span></div>
-      <p class="name">Saria Green</p>
-      <div class="role">Clinical Psychologist</div>
-      <div class="quals">BPsych (Hons), MPsych (Clin)</div>
-      <dl>
-        <dt>Days</dt><dd>T Th</dd>
-        <dt>Ages</dt><dd>Adults, Adol 14+</dd>
-        <dt>Tx</dt><dd>Schema, CBT, ACT, DBT, Mi</dd>
-        <dt>Areas</dt><dd>Trauma, PTSD, Personality, Eating, LGBTQIA+</dd>
+        <dt>Tx</dt><dd>ACT, CBT, CFT, Schema, EMDR</dd>
+        <dt>Areas</dt><dd>Emotion Regulation, Addiction, Anxiety, Body Image, Depression, Trauma</dd>
       </dl>
           </div>
     </article>
@@ -1338,8 +1370,24 @@
       <dl>
         <dt>Days</dt><dd>M T W</dd>
         <dt>Ages</dt><dd>Adults, Adol, Ch. 5+</dd>
-        <dt>Tx</dt><dd>CBT, ACT, DBT, CBT-E</dd>
-        <dt>Areas</dt><dd>OCD, Anxiety, Disordered Eating, Mood</dd>
+        <dt>Tx</dt><dd>CBT, ACT, DBT</dd>
+        <dt>Areas</dt><dd>Anxiety, Depression, Stress, Personality, OCD, ADHD/ASD</dd>
+      </dl>
+          </div>
+    </article>
+
+    <article class="clin">
+      <img class="portrait" src="saria-green.png" alt=""/>
+      <div class="clin__body">
+        <div class="topline"><span class="idx">14</span></div>
+      <p class="name">Saria Green</p>
+      <div class="role">Clinical Psychologist</div>
+      <div class="quals">BPsych (Hons), MPsych (Clin)</div>
+      <dl>
+        <dt>Days</dt><dd>T Th</dd>
+        <dt>Ages</dt><dd>Adults, Adol 14+</dd>
+        <dt>Tx</dt><dd>Schema, DBT, ACT, CBT</dd>
+        <dt>Areas</dt><dd>Eating, Trauma, LGBTQIA+, Relationships, Personality, Emotion Regulation</dd>
       </dl>
           </div>
     </article>
@@ -1347,7 +1395,7 @@
     <article class="clin">
       <img class="portrait" src="theresa-donnelly.png" alt=""/>
       <div class="clin__body">
-        <div class="topline"><span class="idx">14</span></div>
+        <div class="topline"><span class="idx">15</span></div>
       <p class="name">Theresa Donnelly</p>
       <div class="role">Clinical Psychologist</div>
       <div class="quals">BPsych (Hons), LLB, MClinPsych</div>
@@ -1355,8 +1403,8 @@
       <dl>
         <dt>Days</dt><dd>W Th F</dd>
         <dt>Ages</dt><dd>Adults</dd>
-        <dt>Tx</dt><dd>EMDR, CBT, ACT, DBT, Schema, Mi</dd>
-        <dt>Areas</dt><dd>Trauma, Eating, Relationship, Perinatal</dd>
+        <dt>Tx</dt><dd>CBT, ACT, EMDR, Schema, DBT</dd>
+        <dt>Areas</dt><dd>Anxiety, Perinatal, Relationships, Eating, Trauma, Parenting</dd>
       </dl>
           </div>
     </article>
@@ -1364,15 +1412,15 @@
     <article class="clin">
       <img class="portrait" src="tracy-freedman.png" alt=""/>
       <div class="clin__body">
-        <div class="topline"><span class="idx">15</span></div>
+        <div class="topline"><span class="idx">16</span></div>
       <p class="name">Tracy Freedman</p>
       <div class="role">Psychologist</div>
       <div class="quals">BPsych (Hons), MA (Psych)</div>
       <dl>
         <dt>Days</dt><dd>M T</dd>
         <dt>Ages</dt><dd>Adults, Adol 13+, Couples</dd>
-        <dt>Tx</dt><dd>CBT, ACT, DBT, MBi, Mi, PMT</dd>
-        <dt>Areas</dt><dd>Couples, Parenting, Substance Use, Anxiety</dd>
+        <dt>Tx</dt><dd>CBT, DBT, ACT, Mi, REBT</dd>
+        <dt>Areas</dt><dd>Anxiety, Depression, Relationships, Self-Esteem, Parenting, Grief</dd>
       </dl>
           </div>
     </article>
@@ -1470,7 +1518,7 @@
   const DEFAULTS = /*EDITMODE-BEGIN*/{
     "cover": "forest",
     "scale": "0.92",
-    "grid": "3",
+    "grid": "4",
     "photos": "on",
     "header": "primary"
   }/*EDITMODE-END*/;
