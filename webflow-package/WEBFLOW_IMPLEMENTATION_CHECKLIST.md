@@ -27,7 +27,13 @@ Status: implementation package only. Do not publish without CEO approval.
 6. Make the referrer pack link visible near the action area.
 7. Upload `referrer-pack.pdf` to Webflow Assets and replace the GitHub PDF link with the Webflow CDN URL returned by Webflow.
 8. Implement both referral routes through the approved secure intake pathway, not a generic marketing/contact form.
-9. Use page-level scrolling only. Do not implement a slide-over, modal, iframe with its own scroll, or nine-step wizard.
+9. Keep the referrer pack section visible below the referral gateway:
+   - heading: `The IHL referrer pack.`
+   - copy: `How we work, on a page — what we treat and how to refer.`
+   - actions: Download Referrer Pack, Email to Practice Team.
+10. Keep the emergency and acute-care boundary visible below the pack section.
+11. Use the existing IHL favicon/site identity, not GitHub/prototype identity.
+12. Use page-level scrolling only. Do not implement a slide-over, modal, iframe with its own scroll, or nine-step wizard.
 
 ## Do Not Touch
 
@@ -140,6 +146,8 @@ Turnstile must be validated server-side by the live submission endpoint or autom
 - Risk-context rule works.
 - Referrer discussion requires direct phone.
 - Referrer pack link opens.
+- All pack links marked `data-ihl="pack-download"` use the final Webflow PDF URL.
+- Email to Practice Team opens a prefilled mailto with the public `/referrals` pathway link.
 - Success/fallback message is correct for the connected state.
 - No `contact@institute4healthyliving.com` auto-response.
 - No GitHub/prototype/version artefacts visible.

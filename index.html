@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Referrals | Institute for Healthy Living</title>
 <meta name="description" content="Refer to the Institute for Healthy Living through HealthLink, by uploading an existing referral or plan, or by completing the online referral pathway." />
+<link rel="icon" type="image/png" href="IHL_Logomark_Green.png" />
 <link rel="stylesheet" href="colors_and_type.css" />
 <style>
   html, body { margin: 0; background: var(--ihl-paper); }
@@ -645,31 +646,55 @@
     text-underline-offset: 3px;
   }
 
-  .support-section {
+  .pack-section {
     padding: 0 0 72px;
   }
-  .support-grid {
+  .pack-grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 16px;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 24px;
+    align-items: start;
     border-top: 1px solid var(--ihl-rule);
-    padding-top: 24px;
-  }
-  .support-item {
-    padding: 18px 0;
+    padding: 28px 0;
     border-bottom: 1px solid var(--ihl-rule);
   }
-  .support-item h3 {
-    margin: 0 0 8px;
-    color: var(--ihl-ink);
-    font-size: 15px;
-    font-weight: 700;
+  .pack-content {
+    display: grid;
+    gap: 8px;
   }
-  .support-item p {
+  .pack-content h2,
+  .emergency-boundary h2 {
+    margin: 0;
+    font-family: var(--serif);
+    font-size: clamp(26px, 3vw, 34px);
+    font-weight: 400;
+    line-height: 1.15;
+    color: var(--ihl-ink);
+  }
+  .pack-content p,
+  .emergency-boundary p {
     margin: 0;
     color: var(--ihl-ink-soft);
-    font-size: 13px;
+    font-size: 14px;
     line-height: 1.55;
+  }
+  .pack-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+  .emergency-boundary {
+    display: grid;
+    gap: 8px;
+    padding: 24px 0 0;
+  }
+  .emergency-boundary .boundary-label {
+    color: var(--ihl-ink-mute);
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
   }
 
   .site-footer {
@@ -733,7 +758,7 @@
     }
     .route-options,
     .form-section,
-    .support-grid,
+    .pack-grid,
     .footer-inner {
       grid-template-columns: 1fr;
     }
@@ -745,6 +770,7 @@
     }
     .copy-btn { justify-self: start; }
     .check-grid { grid-template-columns: 1fr; }
+    .pack-actions { justify-content: flex-start; }
     .footer-links { justify-items: start; }
   }
 </style>
@@ -815,13 +841,13 @@
 <main id="main" class="page">
   <section class="hero-grid" aria-labelledby="page-title">
     <div class="intro">
-      <div class="eyebrow">For referrers</div>
-      <h1 id="page-title">A clear pathway into IHL intake.</h1>
-      <p class="lede">Send referrals through the route that works best for your practice. Our intake team reviews submissions during business hours and follows up when more context is needed.</p>
+      <div class="eyebrow">Institute for Healthy Living · For referrers</div>
+      <h1 id="page-title">Refer a patient to IHL.</h1>
+      <p class="lede">A clinical psychology group practice in Bondi Junction. Referrals are reviewed by our intake team during business hours.</p>
 
       <div class="intro-actions">
         <a class="button-primary" href="#referral-module">Submit a Referral</a>
-        <a class="button-secondary" href="referrer-pack.pdf" download>Download Referrer Pack</a>
+        <a class="button-secondary" href="referrer-pack.pdf" download data-ihl="pack-download">Download Referrer Pack</a>
         <a class="button-secondary" href="tel:+61289370667">Speak with Intake Team</a>
       </div>
 
@@ -877,15 +903,15 @@
       </div>
 
       <div class="route-selector" aria-labelledby="route-title">
-        <h3 id="route-title">How would you like to submit?</h3>
+        <h3 id="route-title">How would you like to submit the referral?</h3>
         <div class="route-options" role="tablist" aria-label="Referral submission route">
           <button class="route-option is-active" type="button" role="tab" aria-selected="true" aria-controls="upload-form" id="upload-tab" data-route="upload">
-            <strong>Upload existing referral / plan / letter</strong>
-            <span>Use this when the referral, plan or specialist letter is already completed.</span>
+            <strong>01 · Upload a referral, letter or plan</strong>
+            <span>Already have a signed plan or referral letter? Attach it and add a few contact fields.</span>
           </button>
           <button class="route-option" type="button" role="tab" aria-selected="false" aria-controls="online-form" id="online-tab" data-route="online">
-            <strong>Complete referral online</strong>
-            <span>Use this when the online form needs to carry the referral details.</span>
+            <strong>02 · Complete a referral online</strong>
+            <span>No document to attach? Enter the referral here and sign digitally.</span>
           </button>
         </div>
       </div>
@@ -1118,25 +1144,26 @@
       </form>
 
       <div class="module-footer">
-        This pathway is reviewed by IHL intake during business hours. It is not an emergency, acute-care or crisis-support pathway. For more practice information, <a href="referrer-pack.pdf" download>download the referrer pack</a>.
+        This pathway is reviewed by IHL intake during business hours. It is not an emergency, acute-care or crisis-support pathway. For more practice information, <a href="referrer-pack.pdf" download data-ihl="pack-download">download the referrer pack</a>.
       </div>
     </section>
   </section>
 
-  <section class="support-section" aria-label="Supporting referral information">
-    <div class="support-grid">
-      <article class="support-item">
-        <h3>Cleaner intake</h3>
-        <p>The module asks for the core details intake needs to contact the patient, confirm the referrer and route the referral.</p>
-      </article>
-      <article class="support-item">
-        <h3>Flexible pathway</h3>
-        <p>HealthLink, document upload and online referral are kept separate so referrers can use the route that suits their workflow.</p>
-      </article>
-      <article class="support-item">
-        <h3>Clear data boundary</h3>
-        <p>Patient and clinical referral content must remain in the approved secure intake destination and must not be written to HubSpot.</p>
-      </article>
+  <section class="pack-section" aria-label="Referrer pack and pathway notes">
+    <div class="pack-grid">
+      <div class="pack-content">
+        <h2>The IHL referrer pack.</h2>
+        <p>How we work, on a page — what we treat and how to refer.</p>
+      </div>
+      <div class="pack-actions">
+        <a class="button-primary" href="referrer-pack.pdf" download data-ihl="pack-download">Download Referrer Pack</a>
+        <a class="button-secondary" href="mailto:?subject=IHL%20referrer%20information&body=Sharing%20the%20Institute%20for%20Healthy%20Living%20referral%20pathway%3A%0Ahttps%3A%2F%2Fwww.institute4healthyliving.com%2Freferrals">Email to Practice Team</a>
+      </div>
+    </div>
+    <div class="emergency-boundary">
+      <div class="boundary-label">Emergency and acute-care support</div>
+      <h2>For urgent care, use urgent pathways.</h2>
+      <p>IHL provides appointment-based clinical psychology. Our intake team reviews referrals during business hours. We are not an emergency, acute-care or crisis service.</p>
     </div>
   </section>
 </main>
