@@ -40,7 +40,7 @@ The refined referral gateway is now published at `https://www.institute4healthyl
 | Live form submission | Dummy upload completed accidentally | A QA-only upload submission appears to have completed while diagnosing the stuck live form. No real clinical data was intended or submitted. |
 | Attachment destination/privacy | Landing confirmed; privacy still needs sign-off | Dummy file landed in Google Drive folder `Referral Documents_ Webform - IHL Intake` as `doff_John_05062026_referrer-pack.pdf`. Sharing/privacy settings still require deliberate review. |
 | Auto-response from/reply-to intake | Evidence observed; not fully audited | Browser showed a Gmail tab titled `Referral received — Institute For Healthy Living`; sender/reply-to still needs direct email header check if required. |
-| Zapier intake alert | Draft configured; publish gated | New Zapier draft `New Referral (Slack + Email)` / Zap ID `367421738` was duplicated from the existing `New Patient (Slack + Email)` alert. Trigger points to `Dr. Referrals 3.0` / `Sheet1`. Slack and email messages contain only a private sheet pointer and privacy note; no patient/clinical fields are mapped. Output tests were skipped to avoid sending team notifications before final approval. |
+| Zapier intake alert | Published; delivery test still needed | Zapier Zap `New Referral (Slack + Email)` / Zap ID `367421738` is published. Trigger points to `Dr. Referrals 3.0` / `Sheet1`. Slack and email messages contain only a private sheet pointer and privacy note; no patient/clinical fields are mapped. Slack/email output tests were skipped to avoid sending team notifications before the controlled dummy referral test. |
 | HubSpot boundary | Pass in page/source | Page and embed keep patient/clinical content in the secure intake pathway; no HubSpot write was performed. |
 
 ## Backend Security Probe
@@ -79,7 +79,7 @@ Interpretation: the public endpoint is present and is not accepting direct bot-s
 1. Review/archive/delete the accidental dummy upload record/file if desired: `doff_John_05062026_referrer-pack.pdf` in `Referral Documents_ Webform - IHL Intake`.
 2. Confirm the Drive file is private/restricted and that referral uploads are not publicly shared.
 3. Confirm spreadsheet row contains secure attachment link only, and no public file sharing is created.
-4. Publish and verify the Zapier/team alert draft `New Referral (Slack + Email)` after Richie gives final activation approval.
+4. Run one controlled dummy referral test and confirm the Zapier Slack/email alerts arrive with no patient/clinical details in the alert text.
 5. Confirm auto-response sender and reply-to are `intake@institute4healthyliving.com`.
 6. Confirm no patient/clinical content enters HubSpot after test submission.
 7. Remove inherited announcement/version blocks from the Webflow nav/component when there is time; the current embed-level cleanup is acceptable for MVP but not ideal as a permanent site hygiene fix.
