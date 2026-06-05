@@ -1,75 +1,102 @@
-# IHL Referrals Webflow Draft QA Status
+# IHL Referrals Webflow Launch QA Status
 
 Date: 2026-06-05
 
 ## Status Verdict
 
-Needs light fix before publish.
+Live MVP published. Needs final operational dummy submission checks before campaign traffic.
 
-The updated referral gateway has been transferred into the Webflow `/referrals` page draft and renders in Webflow preview. It is not yet published to the public production site.
+The refined referral gateway is now published at `https://www.institute4healthyliving.com/referrals` on the production Webflow domain. The page is suitable for controlled review/use, but campaign push should still wait for one clean browser dummy submission, upload/attachment storage confirmation, and auto-response confirmation.
 
-## Verified Live / Draft State
+## Verified Production State
 
 - Production URL: `https://www.institute4healthyliving.com/referrals`
-- Production status: still the earlier Webflow publish from 2026-05-25.
-- Production still contains visible/prototype artefacts in source including `v7`, `v1`, and placeholder announcement text.
-- Webflow draft status: updated referral gateway is saved in Designer preview.
-- GitHub candidate status: updated source/package is pushed to GitHub.
-- Referrer pack PDF: Webflow CDN-hosted PDF returns `200` and `application/pdf`.
+- Webflow publish readback: `Last Published: Fri Jun 05 2026 12:04:06 GMT+0000`.
+- Webflow publish destinations: production `www.institute4healthyliving.com` and staging `ihl-therapy.webflow.io` were published from Designer.
+- GitHub source status: pushed to `main`, latest commit `a2bbf82` (`Hide inherited Webflow prototype artefacts`).
+- Referrer pack PDF: Webflow CDN PDF returns `200`, `application/pdf`, length `665824`.
 - Public PDF URL: `https://cdn.prod.website-files.com/66fb6bc216ae048b2c95647d/6a22a95cdccc42a061e09c06_referrer-pack.pdf`
 
-## Draft QA Results
+## Live QA Results
 
 | Item | Result | Notes |
 | --- | --- | --- |
-| Existing site header/footer | Pass with caveat | Draft uses current Webflow header/footer. Narrow mobile inherits the existing menu behaviour, which is a little cramped at 393px but not caused by the embed. |
-| Referral gateway visible at top | Pass | Hero and gateway render in Webflow preview after scoped IHL tokens were embedded. |
-| Intake-first utility strip | Pass | Shows intake email first, then secure messaging EDI, then lookup name. |
+| Existing site header/footer | Pass | Production page uses current Webflow header/footer. |
+| Referral gateway visible at top | Pass | New hero/gateway renders on production. |
+| Intake-first utility strip | Pass | Shows intake email first, then EDI, then lookup name. |
 | HealthLink EDI | Pass | `inshealh` visible and copy action present. |
 | Lookup name | Pass | `Institute for Healthy Living` visible and copy action present. |
-| Upload route visible | Pass | Upload route is visible before form entry. |
-| Complete online route visible | Pass | Complete online route is visible before form entry. |
-| Route switching | Pass | Switching between upload and complete online works in Webflow preview. |
-| PDF links | Pass | Links point to the Webflow CDN-hosted referrer pack PDF. |
+| Upload route visible | Pass | Upload referral/plan/letter route visible before data entry. |
+| Complete online route visible | Pass | Online form route visible before data entry. |
+| Route switching | Pass | Upload/online switch works on production. |
+| Copy intake email | Pass | Button changed to `Copied` after click. |
+| PDF links | Pass | Links point to the Webflow CDN-hosted PDF. |
 | Emergency/crisis wording | Pass | Uses soft boundary language: not an emergency, acute-care or crisis-support pathway. |
-| Form scroll | Pass in preview | Mouse/trackpad scroll works naturally in Webflow preview across the form. |
-| Mobile layout | Pass with caveat | Embed stacks and remains readable at Mobile L and Mobile P. Existing site nav remains the inherited constraint. |
-| Cloudflare Turnstile containers | Present | Turnstile placeholder containers render; final live behaviour still needs dummy-test approval. |
-| Live form submission | Not tested | Do not run live dummy submission until CEO approval. |
-| Attachment destination/privacy | Not verified in live workflow | Must be verified before publish or before accepting public submissions. |
-| Auto-response from/reply-to intake | Not verified in live workflow | Must be confirmed before campaign push. |
-| HubSpot boundary | Design-safe | Page copy and package specify no patient/clinical content to HubSpot. Actual workflow must preserve this. |
+| Removed old harsh wording | Pass | No `Routine referrals only`, `Direct referral`, or multidisciplinary wording found in the published embed. |
+| GitHub/prototype visual artefacts | Pass with caveat | Old inherited Webflow announcement/version blocks still exist in global source, but are hidden/removed on this page by the referrals embed cleanup. Future tidy-up: remove them from the Webflow nav/component itself. |
+| Form scroll | Scroll fix prepared | Webflow embed now includes a scroll restoration guard for body/page overflow locks and route changes. Republish and browser retest required. |
+| Mobile layout | Pass with caveat | Embed stacks and remains readable. Existing site mobile nav remains the inherited constraint. |
+| Cloudflare Turnstile | Pass for presence/security probe | Turnstile renders on production. Direct backend tests without a valid browser token are rejected. |
+| Live form submission | Not completed | Manual browser dummy submission still required. Agent did not submit live data; partial QA-only values were pasted into the visible form only. |
+| Attachment destination/privacy | Not verified live | Requires a dummy upload test into the approved intake Drive/folder path. |
+| Auto-response from/reply-to intake | Not verified live | Must be checked after dummy submission. |
+| HubSpot boundary | Pass in page/source | Page and embed keep patient/clinical content in the secure intake pathway; no HubSpot write was performed. |
+
+## Backend Security Probe
+
+Direct POST to the configured Apps Script endpoint using the live form's flat field shape and a fake Turnstile token returned:
+
+```json
+{"success":false,"error":"Security verification failed"}
+```
+
+Direct POST without a usable token returned:
+
+```json
+{"success":false,"error":"Missing security token"}
+```
+
+Interpretation: the public endpoint is present and is not accepting direct bot-style submissions without valid Cloudflare Turnstile verification.
 
 ## Button / Link Matrix
 
 | Button / Link | Expected Behaviour | Status |
 | --- | --- | --- |
-| Submit a Referral | Anchor-scrolls to referral gateway/module. | Ready for final preview retest |
+| Submit a Referral | Anchor-scrolls to referral gateway/module. | Pass by page structure |
 | Download Referrer Pack | Opens/downloads Webflow-hosted PDF. | Pass |
 | Speak with Intake Team | `tel:+61289370667` link. | Link present; not clicked to avoid OS call handoff |
-| Copy intake email | Copies `intake@institute4healthyliving.com`. | Ready for final preview retest |
-| Copy EDI | Copies `inshealh`. | Ready for final preview retest |
-| Copy lookup name | Copies `Institute for Healthy Living`. | Ready for final preview retest |
+| Copy intake email | Copies `intake@institute4healthyliving.com`. | Pass |
+| Copy EDI | Copies `inshealh`. | Present; not separately clicked after intake copy pass |
+| Copy lookup name | Copies `Institute for Healthy Living`. | Present; not separately clicked after intake copy pass |
 | Upload route tab | Shows upload referral/plan/letter form. | Pass |
 | Complete online tab | Shows full online referral form. | Pass |
-| Submit Referral | Sends to approved secure intake destination only after Turnstile and validation. | Not live-tested |
+| Submit Referral | Sends to approved secure intake endpoint only after validation and Turnstile. | Pending full browser dummy submission |
 | Email to Practice Team | Opens local mail client with referrer pathway share text. | Link present; not clicked |
 
-## Remaining Publish Blockers
+## Remaining Operational Blockers
 
-1. Remove or hide public/prototype artefacts from the production page before publish: `v7`, `v1`, and placeholder announcement text.
-2. Confirm the Webflow draft contains only one intended referral page body between the existing header and footer.
-3. Confirm live form submissions land in the approved secure intake destination.
-4. Confirm attachments are private and stored in the approved intake Drive/folder path, with secure links in the intake spreadsheet where appropriate.
+1. Run one human browser dummy submission on the online route with fake QA-only data.
+2. Run one dummy upload route test with a harmless dummy PDF and confirm the Drive file is private/restricted.
+3. Confirm spreadsheet row contains secure attachment link only, and no public file sharing is created.
+4. Confirm Zapier/team alert fires to the intended intake team destination.
 5. Confirm auto-response sender and reply-to are `intake@institute4healthyliving.com`.
-6. Confirm Cloudflare Turnstile passes on the live domain.
-7. Run one CEO-approved dummy referral test after publish gate approval.
-8. Confirm HubSpot receives no patient names, DOB, Medicare details, referral letters, MHTPs, clinical notes, presenting concerns, risk details or attachments.
+6. Confirm no patient/clinical content enters HubSpot after test submission.
+7. Remove inherited announcement/version blocks from the Webflow nav/component when there is time; the current embed-level cleanup is acceptable for MVP but not ideal as a permanent site hygiene fix.
 
-## Publish Gate
+## Scroll Fix Added
 
-Do not publish Webflow until Richie/CEO explicitly approves.
+The Webflow embed generator now adds page-level scroll hardening for the referrals page:
 
-Do not run a live dummy referral submission until Richie/CEO explicitly approves.
+- forces `html` and `body` back to natural vertical page scrolling;
+- keeps the referral module, active route form and wrapper elements at `height: auto` / `max-height: none`;
+- restores scroll state on load, route switching, Turnstile render and user wheel/touch/key interaction.
 
-Do not start campaign sends until page/form QA and HubSpot campaign gates pass.
+This fix is intended to address Webflow/body overflow locks or custom embed wrapper scroll traps without changing the visual design.
+
+## Campaign Gate
+
+Webflow publish is complete with CEO approval.
+
+Campaign sending remains NO-GO until page/form live dummy tests and HubSpot campaign gates pass.
+
+Do not write patient names, DOB, Medicare details, referral letters, MHTPs, clinical notes, presenting concerns, risk details or attachments to HubSpot.

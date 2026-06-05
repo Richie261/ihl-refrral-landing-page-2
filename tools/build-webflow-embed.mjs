@@ -162,18 +162,47 @@ scopedStyle += `
 .nav_wrap > .announcement_wrap:nth-of-type(2) {
   display: none !important;
 }
+html,
+body {
+  overflow-y: auto !important;
+  height: auto !important;
+  min-height: 100% !important;
+  max-height: none !important;
+  overscroll-behavior-y: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+body {
+  touch-action: pan-y !important;
+}
+html[data-ihl-referrals-scroll-ready="true"],
+html[data-ihl-referrals-scroll-ready="true"] body {
+  overflow-y: auto !important;
+  height: auto !important;
+  max-height: none !important;
+}
 #ihl-referrals-v3 {
   width: 100%;
   max-width: 100%;
   display: block;
   overflow-x: hidden;
+  overflow-y: visible !important;
   background: var(--ihl-paper);
   color: var(--ihl-ink);
   font-family: var(--sans);
+  touch-action: pan-y;
 }
 #ihl-referrals-v3,
 #ihl-referrals-v3 * {
   box-sizing: border-box;
+}
+#ihl-referrals-v3 .page,
+#ihl-referrals-v3 .hero-grid,
+#ihl-referrals-v3 .referral-module,
+#ihl-referrals-v3 .route-form,
+#ihl-referrals-v3 .form-section {
+  overflow: visible !important;
+  height: auto !important;
+  max-height: none !important;
 }
 #ihl-referrals-v3 .turnstile-row {
   grid-column: 1 / -1;
@@ -208,6 +237,34 @@ const script = String.raw`
   var root = document.getElementById('ihl-referrals-v3');
   if (!root) return;
 
+  function restorePageScroll() {
+    document.documentElement.setAttribute('data-ihl-referrals-scroll-ready', 'true');
+
+    [document.documentElement, document.body].forEach(function (node) {
+      if (!node) return;
+      node.style.overflowY = 'auto';
+      node.style.height = 'auto';
+      node.style.maxHeight = 'none';
+      node.style.webkitOverflowScrolling = 'touch';
+    });
+
+    if (document.body) {
+      document.body.style.touchAction = 'pan-y';
+      if (document.body.style.position === 'fixed') {
+        document.body.style.position = '';
+      }
+    }
+
+    var node = root;
+    while (node && node !== document.body) {
+      if (node.style) {
+        node.style.overflowY = 'visible';
+        node.style.maxHeight = 'none';
+      }
+      node = node.parentElement;
+    }
+  }
+
   function cleanupPrototypeArtifacts() {
     document.querySelectorAll('.announcement_version').forEach(function (node) {
       node.remove();
@@ -221,6 +278,9 @@ const script = String.raw`
 
   cleanupPrototypeArtifacts();
   setTimeout(cleanupPrototypeArtifacts, 600);
+  restorePageScroll();
+  requestAnimationFrame(restorePageScroll);
+  setTimeout(restorePageScroll, 700);
 
   var INTAKE_URL = 'APPS_SCRIPT_INTAKE_URL_REPLACE_ME';
   var MAX_FILES = 6;
@@ -262,6 +322,7 @@ const script = String.raw`
       forms.forEach(function (form) {
         form.classList.toggle('is-active', form.getAttribute('data-route-form') === route);
       });
+      restorePageScroll();
     });
   });
 
@@ -552,6 +613,7 @@ const script = String.raw`
       widgets.push({ formId: formId, widgetId: widgetId });
       widget.setAttribute('data-rendered', 'true');
     });
+    restorePageScroll();
   }
 
   window.ihlReferralGatewayV3RenderTurnstile = renderTurnstile;
@@ -564,6 +626,10 @@ const script = String.raw`
     script.defer = true;
     document.head.appendChild(script);
   }
+
+  ['wheel', 'touchstart', 'touchmove', 'keydown'].forEach(function (eventName) {
+    root.addEventListener(eventName, restorePageScroll, { passive: true });
+  });
 })();
 </script>`;
 
