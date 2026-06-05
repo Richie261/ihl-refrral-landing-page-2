@@ -17,7 +17,7 @@ In the Webflow embed, replace:
 
 | Placeholder | Replace with |
 |---|---|
-| `WEBFLOW_REFERRER_PACK_PDF_URL` | the Webflow Assets CDN URL after `referrer-pack.pdf` is uploaded |
+| `WEBFLOW_REFERRER_PACK_PDF_URL` | `https://cdn.prod.website-files.com/66fb6bc216ae048b2c95647d/6a22a95cdccc42a061e09c06_referrer-pack.pdf` |
 | `TURNSTILE_SITE_KEY_REPLACE_ME` | the production Cloudflare Turnstile site key for `www.institute4healthyliving.com` |
 | `APPS_SCRIPT_INTAKE_URL_REPLACE_ME` | the approved Apps Script intake web app URL |
 
@@ -28,8 +28,8 @@ Do not put the Cloudflare Turnstile secret in Webflow. The secret belongs only i
 1. Open Webflow site and go to the existing `/referrals` page.
 2. Keep the existing live Webflow header, navigation and footer.
 3. Replace only the referral page embed/action area with `REFERRALS_WEBFLOW_EMBED_V3_2026-06-05.html`.
-4. Upload `referrer-pack.pdf` to Webflow Assets.
-5. Copy the returned Webflow CDN URL and replace every `WEBFLOW_REFERRER_PACK_PDF_URL` placeholder.
+4. Confirm `referrer-pack.pdf` is present in Webflow Assets.
+5. Replace every `WEBFLOW_REFERRER_PACK_PDF_URL` placeholder with the verified Webflow CDN URL.
 6. Add the production Turnstile site key.
 7. Add the approved Apps Script intake URL.
 8. Save as a Webflow draft.
@@ -82,7 +82,8 @@ Passed on 2026-06-05 using system Chrome against a local Webflow-style wrapper:
 - route switch works;
 - intake email copy button changes to `Copied`;
 - two Turnstile containers are present;
-- all three referrer pack links use the Webflow PDF placeholder;
+- all three referrer pack links use the Webflow PDF placeholder in the source embed and are ready to be replaced in the Webflow draft;
+- Webflow PDF URL verified: `https://cdn.prod.website-files.com/66fb6bc216ae048b2c95647d/6a22a95cdccc42a061e09c06_referrer-pack.pdf`;
 - no horizontal overflow at desktop 1365px or mobile 390px.
 
 ## Final Gates

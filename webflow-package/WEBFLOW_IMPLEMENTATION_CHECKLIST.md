@@ -26,7 +26,7 @@ Status: implementation package only. Do not publish without CEO approval.
    - Upload existing referral / plan / letter.
    - Complete referral online.
 7. Make the referrer pack link visible near the action area.
-8. Upload `referrer-pack.pdf` to Webflow Assets and replace the PDF placeholder with the Webflow CDN URL returned by Webflow.
+8. Use the verified Webflow Assets PDF URL for all referrer pack links: `https://cdn.prod.website-files.com/66fb6bc216ae048b2c95647d/6a22a95cdccc42a061e09c06_referrer-pack.pdf`.
 9. Implement both referral routes through the approved secure intake pathway, not a generic marketing/contact form.
 10. Use `webflow-package/FORM_FIELD_MAPPING_V3_TO_SECURE_ENDPOINT_2026-06-05.md` for the MVP field mapping.
 11. Keep the referrer pack section visible below the referral gateway:
@@ -153,7 +153,7 @@ Turnstile must be validated server-side by the live submission endpoint or autom
 - Success/fallback message is correct for the connected state.
 - No `contact@institute4healthyliving.com` auto-response.
 - No GitHub/prototype/version artefacts visible.
-- Referrer pack link uses the final Webflow CDN PDF URL after upload, not a local file path or GitHub prototype URL.
+- Referrer pack link uses the verified final Webflow CDN PDF URL, not a local file path or GitHub prototype URL.
 
 ## Publish Gate
 

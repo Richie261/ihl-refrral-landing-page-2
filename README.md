@@ -74,6 +74,10 @@ Public PDF URL:
 
 ## Webflow PDF URL
 
-The final Webflow-hosted PDF URL is created only after `referrer-pack.pdf` is uploaded to Webflow Assets. Webflow will assign the file a public CDN URL. Use that returned URL for the live `/referrals` page once the page has CEO approval to publish.
+Verified Webflow-hosted PDF URL:
+
+`https://cdn.prod.website-files.com/66fb6bc216ae048b2c95647d/6a22a95cdccc42a061e09c06_referrer-pack.pdf`
+
+Use this URL for the live `/referrals` page once the page has CEO approval to publish.
 
 Do not upload referral submissions, referral letters, treatment plans or clinical attachments as public Webflow assets. The referrer pack PDF is public campaign material; referral uploads are private intake records and must land only in the approved secure intake destination.
