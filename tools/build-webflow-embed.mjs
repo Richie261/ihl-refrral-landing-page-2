@@ -111,6 +111,23 @@ function addTurnstileRows(html) {
   return html.slice(0, second) + turnstileOnline + html.slice(second);
 }
 
+function minifyCss(css) {
+  return css
+    .replace(/\/\*[\s\S]*?\*\//g, '')
+    .replace(/\s+/g, ' ')
+    .replace(/\s*([{}:;,>+~])\s*/g, '$1')
+    .replace(/;}/g, '}')
+    .trim();
+}
+
+function minifyHtml(html) {
+  return html
+    .replace(/<!--[\s\S]*?-->/g, '')
+    .replace(/>\s+</g, '><')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
+}
+
 const rawStyle = extractBetween(index, '<style>', '</style>');
 let scopedStyle = prefixCss(rawStyle);
 scopedStyle += `
@@ -142,12 +159,14 @@ scopedStyle += `
   color: #23452d;
 }
 `;
+scopedStyle = minifyCss(scopedStyle);
 
 let mainHtml = extractBetween(index, '<main id="main" class="page">', '</main>');
 mainHtml = '<main id="main" class="page">' + mainHtml + '</main>';
 mainHtml = replaceMainWrapper(mainHtml);
 mainHtml = replacePackLinks(mainHtml);
 mainHtml = addTurnstileRows(mainHtml);
+mainHtml = minifyHtml(mainHtml);
 
 const script = String.raw`
 <script>
@@ -502,31 +521,8 @@ const script = String.raw`
 })();
 </script>`;
 
-const output = `<!--
-  IHL Referrals Webflow Embed V3
-  Date: 2026-06-05
-  Scope: body-only Webflow custom-code/embed package.
-  Keep the existing Webflow header, navigation and footer. Paste this into the referrals page action area only.
-
-  Replace before publish:
-  - WEBFLOW_REFERRER_PACK_PDF_URL
-  - TURNSTILE_SITE_KEY_REPLACE_ME
-  - APPS_SCRIPT_INTAKE_URL_REPLACE_ME
-
-  Data boundary:
-  - Patient and clinical content must land only in the approved secure intake Drive/Sheet workflow.
-  - Do not route patient names, DOB, clinical notes, risk details, referral letters, MHTPs or attachments to HubSpot.
-  - Do not publish or run a live dummy referral without CEO approval.
--->
-
-<div id="ihl-referrals-v3" data-ihl-referrals-gateway>
-  <style>
-${scopedStyle.trim()}
-  </style>
-
-${mainHtml}
-</div>
-
+const output = `<!-- IHL referrals V3 Webflow embed. Replace PDF, Turnstile site key and intake endpoint before publish. No patient/clinical content to HubSpot. -->
+<div id="ihl-referrals-v3" data-ihl-referrals-gateway><style>${scopedStyle}</style>${mainHtml}</div>
 ${script}
 `;
 
