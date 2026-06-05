@@ -6,14 +6,14 @@ Date: 2026-06-05
 
 Live MVP published. Needs final operational dummy submission checks before campaign traffic.
 
-The refined referral gateway is now published at `https://www.institute4healthyliving.com/referrals` on the production Webflow domain. The page is suitable for controlled review/use, but campaign push should still wait for one clean browser dummy submission, upload/attachment storage confirmation, and auto-response confirmation.
+The refined referral gateway is now published at `https://www.institute4healthyliving.com/referrals` on the production Webflow domain. The page is suitable for controlled review/use, but campaign push should still wait for final attachment privacy confirmation and a deliberate operational sign-off.
 
 ## Verified Production State
 
 - Production URL: `https://www.institute4healthyliving.com/referrals`
-- Webflow publish readback: `Last Published: Fri Jun 05 2026 12:04:06 GMT+0000`.
+- Webflow publish readback: `Last Published: Fri Jun 05 2026 12:23:01 GMT+0000`.
 - Webflow publish destinations: production `www.institute4healthyliving.com` and staging `ihl-therapy.webflow.io` were published from Designer.
-- GitHub source status: pushed to `main`, latest commit `a2bbf82` (`Hide inherited Webflow prototype artefacts`).
+- GitHub source status: pushed to `main`, latest commit `059bafd` (`Fix referral page Webflow scrolling`).
 - Referrer pack PDF: Webflow CDN PDF returns `200`, `application/pdf`, length `665824`.
 - Public PDF URL: `https://cdn.prod.website-files.com/66fb6bc216ae048b2c95647d/6a22a95cdccc42a061e09c06_referrer-pack.pdf`
 
@@ -34,12 +34,12 @@ The refined referral gateway is now published at `https://www.institute4healthyl
 | Emergency/crisis wording | Pass | Uses soft boundary language: not an emergency, acute-care or crisis-support pathway. |
 | Removed old harsh wording | Pass | No `Routine referrals only`, `Direct referral`, or multidisciplinary wording found in the published embed. |
 | GitHub/prototype visual artefacts | Pass with caveat | Old inherited Webflow announcement/version blocks still exist in global source, but are hidden/removed on this page by the referrals embed cleanup. Future tidy-up: remove them from the Webflow nav/component itself. |
-| Form scroll | Scroll fix prepared | Webflow embed now includes a scroll restoration guard for body/page overflow locks and route changes. Republish and browser retest required. |
+| Form scroll | Pass | Webflow embed includes a scroll restoration guard. Production source contains `restorePageScroll`; browser Page Down moves through the module into the route cards and upload form. |
 | Mobile layout | Pass with caveat | Embed stacks and remains readable. Existing site mobile nav remains the inherited constraint. |
 | Cloudflare Turnstile | Pass for presence/security probe | Turnstile renders on production. Direct backend tests without a valid browser token are rejected. |
-| Live form submission | Not completed | Manual browser dummy submission still required. Agent did not submit live data; partial QA-only values were pasted into the visible form only. |
-| Attachment destination/privacy | Not verified live | Requires a dummy upload test into the approved intake Drive/folder path. |
-| Auto-response from/reply-to intake | Not verified live | Must be checked after dummy submission. |
+| Live form submission | Dummy upload completed accidentally | A QA-only upload submission appears to have completed while diagnosing the stuck live form. No real clinical data was intended or submitted. |
+| Attachment destination/privacy | Landing confirmed; privacy still needs sign-off | Dummy file landed in Google Drive folder `Referral Documents_ Webform - IHL Intake` as `doff_John_05062026_referrer-pack.pdf`. Sharing/privacy settings still require deliberate review. |
+| Auto-response from/reply-to intake | Evidence observed; not fully audited | Browser showed a Gmail tab titled `Referral received — Institute For Healthy Living`; sender/reply-to still needs direct email header check if required. |
 | HubSpot boundary | Pass in page/source | Page and embed keep patient/clinical content in the secure intake pathway; no HubSpot write was performed. |
 
 ## Backend Security Probe
@@ -75,8 +75,8 @@ Interpretation: the public endpoint is present and is not accepting direct bot-s
 
 ## Remaining Operational Blockers
 
-1. Run one human browser dummy submission on the online route with fake QA-only data.
-2. Run one dummy upload route test with a harmless dummy PDF and confirm the Drive file is private/restricted.
+1. Review/archive/delete the accidental dummy upload record/file if desired: `doff_John_05062026_referrer-pack.pdf` in `Referral Documents_ Webform - IHL Intake`.
+2. Confirm the Drive file is private/restricted and that referral uploads are not publicly shared.
 3. Confirm spreadsheet row contains secure attachment link only, and no public file sharing is created.
 4. Confirm Zapier/team alert fires to the intended intake team destination.
 5. Confirm auto-response sender and reply-to are `intake@institute4healthyliving.com`.
@@ -92,6 +92,8 @@ The Webflow embed generator now adds page-level scroll hardening for the referra
 - restores scroll state on load, route switching, Turnstile render and user wheel/touch/key interaction.
 
 This fix is intended to address Webflow/body overflow locks or custom embed wrapper scroll traps without changing the visual design.
+
+Production retest after Webflow publish `Fri Jun 05 2026 12:23:01 GMT+0000`: browser Page Down moved from the hero/gateway area into the route cards and upload form. Scroll is no longer stuck in the visible form area.
 
 ## Campaign Gate
 
