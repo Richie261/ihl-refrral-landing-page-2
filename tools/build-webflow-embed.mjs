@@ -129,11 +129,37 @@ function minifyHtml(html) {
 }
 
 const rawStyle = extractBetween(index, '<style>', '</style>');
-let scopedStyle = prefixCss(rawStyle);
+const tokenCss = `
+@import url("https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Albert+Sans:ital,wght@0,300..700;1,300..700&display=swap");
+#ihl-referrals-v3 {
+  --ihl-forest: #2D4E37;
+  --ihl-forest-deep: #1F3826;
+  --ihl-paper: #FAF8F4;
+  --ihl-paper-deep: #F4F0E8;
+  --ihl-ink: #1A1A1A;
+  --ihl-ink-soft: #4A4A4A;
+  --ihl-ink-mute: #6B6B6B;
+  --ihl-rule: #E5E2DC;
+  --ihl-rule-strong: #CFCBC2;
+  --ihl-on-forest: #FAF8F4;
+  --ihl-on-forest-mute: #C9D6CE;
+  --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --sans: "Albert Sans", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --r-1: 2px;
+  --r-2: 4px;
+  --r-3: 8px;
+  --shadow-pop: 0 16px 40px -16px rgba(31,56,38,0.18), 0 4px 12px -4px rgba(31,56,38,0.10);
+  --ease-standard: cubic-bezier(0.2,0,0,1);
+  --dur-fast: 120ms;
+}
+`;
+let scopedStyle = tokenCss + prefixCss(rawStyle);
 scopedStyle += `
 #ihl-referrals-v3 {
   width: 100%;
   max-width: 100%;
+  display: block;
   overflow-x: hidden;
   background: var(--ihl-paper);
   color: var(--ihl-ink);
