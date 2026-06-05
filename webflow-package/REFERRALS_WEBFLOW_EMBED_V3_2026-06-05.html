@@ -1,0 +1,1473 @@
+<!--
+  IHL Referrals Webflow Embed V3
+  Date: 2026-06-05
+  Scope: body-only Webflow custom-code/embed package.
+  Keep the existing Webflow header, navigation and footer. Paste this into the referrals page action area only.
+
+  Replace before publish:
+  - WEBFLOW_REFERRER_PACK_PDF_URL
+  - TURNSTILE_SITE_KEY_REPLACE_ME
+  - APPS_SCRIPT_INTAKE_URL_REPLACE_ME
+
+  Data boundary:
+  - Patient and clinical content must land only in the approved secure intake Drive/Sheet workflow.
+  - Do not route patient names, DOB, clinical notes, risk details, referral letters, MHTPs or attachments to HubSpot.
+  - Do not publish or run a live dummy referral without CEO approval.
+-->
+
+<div id="ihl-referrals-v3" data-ihl-referrals-gateway>
+  <style>
+#ihl-referrals-v3, #ihl-referrals-v3 { margin: 0; background: var(--ihl-paper); }
+#ihl-referrals-v3 { font-family: var(--sans); color: var(--ihl-ink); }
+#ihl-referrals-v3 a { color: inherit; }
+#ihl-referrals-v3 button, #ihl-referrals-v3 input, #ihl-referrals-v3 select, #ihl-referrals-v3 textarea { font: inherit; }
+#ihl-referrals-v3 button { cursor: pointer; }
+#ihl-referrals-v3 .skip-link {
+    position: absolute;
+    left: 16px;
+    top: -80px;
+    z-index: 100;
+    background: var(--ihl-ink);
+    color: var(--ihl-paper);
+    padding: 10px 14px;
+    border-radius: var(--r-2);
+    text-decoration: none;
+    transition: top var(--dur-fast) var(--ease-standard);
+  }
+#ihl-referrals-v3 .skip-link:focus { top: 16px; }
+#ihl-referrals-v3 .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(250, 248, 244, 0.94);
+    backdrop-filter: saturate(140%) blur(12px);
+    border-bottom: 1px solid var(--ihl-rule);
+  }
+#ihl-referrals-v3 .nav-inner {
+    width: min(1220px, calc(100% - 48px));
+    min-height: 78px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+#ihl-referrals-v3 .brand {
+    display: inline-flex;
+    align-items: center;
+    flex: 0 0 auto;
+    text-decoration: none;
+  }
+#ihl-referrals-v3 .brand img {
+    display: block;
+    width: 158px;
+    height: auto;
+  }
+#ihl-referrals-v3 .primary-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    flex: 1 1 auto;
+  }
+#ihl-referrals-v3 .nav-link, #ihl-referrals-v3 .nav-group > a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    padding: 0 12px;
+    border-radius: 999px;
+    color: var(--ihl-ink-soft);
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+#ihl-referrals-v3 .nav-link:hover, #ihl-referrals-v3 .nav-group:hover > a, #ihl-referrals-v3 .nav-group:focus-within > a {
+    color: var(--ihl-ink);
+    background: var(--ihl-paper-deep);
+  }
+#ihl-referrals-v3 .nav-link.is-active {
+    color: var(--ihl-ink);
+    background: var(--ihl-paper-deep);
+    border: 1px solid var(--ihl-rule);
+  }
+#ihl-referrals-v3 .nav-group {
+    position: relative;
+    display: inline-flex;
+  }
+#ihl-referrals-v3 .nav-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    min-width: 214px;
+    display: grid;
+    gap: 2px;
+    padding: 8px;
+    background: var(--ihl-paper);
+    border: 1px solid var(--ihl-rule);
+    border-radius: var(--r-3);
+    box-shadow: var(--shadow-pop);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-4px);
+    transition: opacity var(--dur-fast) var(--ease-standard), transform var(--dur-fast) var(--ease-standard);
+  }
+#ihl-referrals-v3 .nav-group:hover .nav-dropdown, #ihl-referrals-v3 .nav-group:focus-within .nav-dropdown {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+#ihl-referrals-v3 .nav-dropdown a {
+    padding: 10px 12px;
+    border-radius: var(--r-2);
+    color: var(--ihl-ink-soft);
+    font-size: 13px;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+#ihl-referrals-v3 .nav-dropdown a:hover, #ihl-referrals-v3 .nav-dropdown a:focus {
+    color: var(--ihl-ink);
+    background: var(--ihl-paper-deep);
+    outline: none;
+  }
+#ihl-referrals-v3 .nav-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    flex: 0 0 auto;
+  }
+#ihl-referrals-v3 .phone-link {
+    color: var(--ihl-ink-soft);
+    font-size: 13px;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+#ihl-referrals-v3 .phone-link:hover { color: var(--ihl-ink); }
+#ihl-referrals-v3 .book-link, #ihl-referrals-v3 .button-primary, #ihl-referrals-v3 .button-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    padding: 0 18px;
+    border-radius: 999px;
+    border: 1px solid var(--ihl-ink);
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background var(--dur-fast) var(--ease-standard), color var(--dur-fast) var(--ease-standard), border-color var(--dur-fast) var(--ease-standard);
+  }
+#ihl-referrals-v3 .book-link, #ihl-referrals-v3 .button-primary {
+    background: var(--ihl-ink);
+    color: var(--ihl-paper);
+  }
+#ihl-referrals-v3 .book-link:hover, #ihl-referrals-v3 .button-primary:hover {
+    background: var(--ihl-forest-deep);
+    border-color: var(--ihl-forest-deep);
+    color: var(--ihl-paper);
+  }
+#ihl-referrals-v3 .button-secondary {
+    background: transparent;
+    color: var(--ihl-ink);
+  }
+#ihl-referrals-v3 .button-secondary:hover {
+    background: var(--ihl-paper-deep);
+    color: var(--ihl-ink);
+  }
+#ihl-referrals-v3 .mobile-menu { display: none; }
+#ihl-referrals-v3 .mobile-menu summary {
+    list-style: none;
+    min-height: 42px;
+    padding: 0 14px;
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--ihl-rule-strong);
+    border-radius: 999px;
+    color: var(--ihl-ink);
+    font-size: 13px;
+    font-weight: 500;
+  }
+#ihl-referrals-v3 .mobile-menu summary::-webkit-details-marker { display: none; }
+#ihl-referrals-v3 .mobile-panel {
+    position: absolute;
+    left: 24px;
+    right: 24px;
+    top: 70px;
+    display: grid;
+    gap: 4px;
+    padding: 16px;
+    background: var(--ihl-paper);
+    border: 1px solid var(--ihl-rule);
+    border-radius: var(--r-3);
+    box-shadow: var(--shadow-pop);
+  }
+#ihl-referrals-v3 .mobile-panel a {
+    padding: 10px 12px;
+    border-radius: var(--r-2);
+    color: var(--ihl-ink-soft);
+    font-size: 14px;
+    text-decoration: none;
+  }
+#ihl-referrals-v3 .mobile-panel a:hover { background: var(--ihl-paper-deep); color: var(--ihl-ink); }
+#ihl-referrals-v3 .mobile-panel .mobile-label {
+    padding: 12px 12px 4px;
+    color: var(--ihl-ink-mute);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+#ihl-referrals-v3 .page {
+    width: min(1220px, calc(100% - 48px));
+    margin: 0 auto;
+  }
+#ihl-referrals-v3 .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.84fr) minmax(420px, 1fr);
+    gap: clamp(36px, 5vw, 72px);
+    align-items: start;
+    padding: clamp(40px, 6vw, 76px) 0 clamp(56px, 7vw, 92px);
+  }
+#ihl-referrals-v3 .intro {
+    padding-top: 12px;
+  }
+#ihl-referrals-v3 .intro .eyebrow, #ihl-referrals-v3 .module-eyebrow, #ihl-referrals-v3 .section-label {
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ihl-ink-soft);
+  }
+#ihl-referrals-v3 .intro h1 {
+    max-width: 620px;
+    margin: 18px 0 20px;
+    font-family: var(--serif);
+    font-size: clamp(46px, 7vw, 78px);
+    font-weight: 400;
+    line-height: 0.98;
+    letter-spacing: 0;
+  }
+#ihl-referrals-v3 .intro .lede {
+    max-width: 560px;
+    margin: 0 0 30px;
+    font-family: var(--serif);
+    font-size: clamp(18px, 2vw, 22px);
+    line-height: 1.42;
+    color: var(--ihl-ink-soft);
+  }
+#ihl-referrals-v3 .intro-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 0 0 28px;
+  }
+#ihl-referrals-v3 .quiet-list {
+    display: grid;
+    max-width: 560px;
+    margin: 0;
+    border-top: 1px solid var(--ihl-rule);
+  }
+#ihl-referrals-v3 .quiet-row {
+    display: grid;
+    grid-template-columns: 132px 1fr;
+    gap: 18px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--ihl-rule);
+  }
+#ihl-referrals-v3 .quiet-row dt {
+    margin: 0;
+    color: var(--ihl-ink-mute);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+#ihl-referrals-v3 .quiet-row dd {
+    margin: 0;
+    color: var(--ihl-ink);
+    font-family: var(--serif);
+    font-size: 15px;
+    line-height: 1.4;
+  }
+#ihl-referrals-v3 .quiet-row a {
+    color: var(--ihl-ink);
+    text-decoration: none;
+  }
+#ihl-referrals-v3 .quiet-row a:hover { text-decoration: underline; text-underline-offset: 3px; }
+#ihl-referrals-v3 .boundary-note {
+    max-width: 560px;
+    margin-top: 18px;
+    color: var(--ihl-ink-mute);
+    font-size: 12px;
+    line-height: 1.55;
+  }
+#ihl-referrals-v3 .referral-module {
+    background: var(--ihl-paper);
+    border: 1px solid var(--ihl-rule);
+    border-radius: var(--r-3);
+    padding: clamp(22px, 3.2vw, 34px);
+    box-shadow: 0 1px 0 var(--ihl-rule);
+  }
+#ihl-referrals-v3 .module-head {
+    display: grid;
+    gap: 10px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid var(--ihl-rule);
+  }
+#ihl-referrals-v3 .module-head h2 {
+    margin: 0;
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(30px, 4vw, 44px);
+    line-height: 1.05;
+  }
+#ihl-referrals-v3 .module-head p {
+    max-width: 560px;
+    margin: 0;
+    color: var(--ihl-ink-soft);
+    font-size: 14.5px;
+    line-height: 1.55;
+  }
+#ihl-referrals-v3 .referral-details-strip {
+    margin: 22px 0;
+    padding: 18px;
+    background: var(--ihl-paper-deep);
+    border: 1px solid var(--ihl-rule);
+    border-radius: var(--r-2);
+  }
+#ihl-referrals-v3 .referral-details-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 18px;
+    margin-bottom: 16px;
+  }
+#ihl-referrals-v3 .referral-details-top h3 {
+    margin: 0 0 4px;
+    color: var(--ihl-ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    font-weight: 700;
+  }
+#ihl-referrals-v3 .referral-details-top p {
+    margin: 0;
+    color: var(--ihl-ink-soft);
+    font-size: 13px;
+    line-height: 1.45;
+  }
+#ihl-referrals-v3 .referral-details-grid {
+    display: grid;
+    gap: 8px;
+  }
+#ihl-referrals-v3 .utility-row {
+    display: grid;
+    grid-template-columns: 86px 1fr auto;
+    gap: 12px;
+    align-items: center;
+    padding: 10px 0;
+    border-top: 1px solid var(--ihl-rule);
+  }
+#ihl-referrals-v3 .utility-label {
+    color: var(--ihl-ink-mute);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+#ihl-referrals-v3 .utility-value {
+    min-width: 0;
+    color: var(--ihl-ink);
+    font-family: var(--serif);
+    font-size: 15px;
+    overflow-wrap: anywhere;
+  }
+#ihl-referrals-v3 .utility-value.mono {
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 0.02em;
+  }
+#ihl-referrals-v3 .copy-btn {
+    min-height: 32px;
+    padding: 0 12px;
+    border: 1px solid var(--ihl-rule-strong);
+    border-radius: 999px;
+    background: var(--ihl-paper);
+    color: var(--ihl-ink);
+    font-size: 11px;
+    font-weight: 700;
+  }
+#ihl-referrals-v3 .copy-btn:hover {
+    border-color: var(--ihl-ink);
+  }
+#ihl-referrals-v3 .route-selector {
+    display: grid;
+    gap: 12px;
+    margin-bottom: 22px;
+  }
+#ihl-referrals-v3 .route-selector h3 {
+    margin: 0;
+    color: var(--ihl-ink);
+    font-size: 15px;
+    font-weight: 700;
+  }
+#ihl-referrals-v3 .route-options {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+#ihl-referrals-v3 .route-option {
+    min-height: 132px;
+    display: grid;
+    align-content: start;
+    gap: 10px;
+    padding: 16px;
+    border: 1px solid var(--ihl-rule);
+    border-radius: var(--r-2);
+    background: var(--ihl-paper);
+    color: var(--ihl-ink);
+    text-align: left;
+  }
+#ihl-referrals-v3 .route-option:hover, #ihl-referrals-v3 .route-option.is-active {
+    border-color: var(--ihl-forest);
+    background: #f8faf6;
+  }
+#ihl-referrals-v3 .route-option strong {
+    display: block;
+    font-size: 14px;
+    line-height: 1.25;
+  }
+#ihl-referrals-v3 .route-option span {
+    display: block;
+    color: var(--ihl-ink-soft);
+    font-size: 12.5px;
+    line-height: 1.45;
+  }
+#ihl-referrals-v3 .route-form {
+    display: none;
+    gap: 18px;
+    padding-top: 18px;
+    border-top: 1px solid var(--ihl-rule);
+  }
+#ihl-referrals-v3 .route-form.is-active { display: grid; }
+#ihl-referrals-v3 .form-intro {
+    display: grid;
+    gap: 6px;
+  }
+#ihl-referrals-v3 .form-intro h3 {
+    margin: 0;
+    font-family: var(--serif);
+    font-size: 25px;
+    font-weight: 400;
+    line-height: 1.15;
+  }
+#ihl-referrals-v3 .form-intro p {
+    margin: 0;
+    color: var(--ihl-ink-soft);
+    font-size: 13.5px;
+    line-height: 1.55;
+  }
+#ihl-referrals-v3 .form-section {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px 16px;
+  }
+#ihl-referrals-v3 .form-section + .form-section {
+    padding-top: 18px;
+    border-top: 1px solid var(--ihl-rule);
+  }
+#ihl-referrals-v3 .section-label {
+    grid-column: 1 / -1;
+    color: var(--ihl-ink);
+  }
+#ihl-referrals-v3 .field {
+    display: grid;
+    gap: 6px;
+  }
+#ihl-referrals-v3 .field.full { grid-column: 1 / -1; }
+#ihl-referrals-v3 .field label, #ihl-referrals-v3 .field-label {
+    color: var(--ihl-ink-soft);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.35;
+  }
+#ihl-referrals-v3 .field small {
+    display: block;
+    color: var(--ihl-ink-mute);
+    font-size: 11.5px;
+    line-height: 1.45;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+#ihl-referrals-v3 input, #ihl-referrals-v3 select, #ihl-referrals-v3 textarea {
+    width: 100%;
+    min-width: 0;
+    border: 1px solid var(--ihl-rule-strong);
+    border-radius: var(--r-2);
+    background: var(--ihl-paper);
+    color: var(--ihl-ink);
+  }
+#ihl-referrals-v3 input, #ihl-referrals-v3 select {
+    min-height: 42px;
+    padding: 0 12px;
+  }
+#ihl-referrals-v3 textarea {
+    min-height: 92px;
+    padding: 12px;
+    line-height: 1.5;
+    resize: vertical;
+  }
+#ihl-referrals-v3 input:focus, #ihl-referrals-v3 select:focus, #ihl-referrals-v3 textarea:focus {
+    outline: 2px solid rgba(45, 78, 55, 0.18);
+    border-color: var(--ihl-forest);
+  }
+#ihl-referrals-v3 .check-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+#ihl-referrals-v3 .check-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    min-height: 42px;
+    padding: 10px;
+    border: 1px solid var(--ihl-rule);
+    border-radius: var(--r-2);
+    background: var(--ihl-paper);
+    color: var(--ihl-ink-soft);
+    font-size: 12.5px;
+    line-height: 1.35;
+  }
+#ihl-referrals-v3 .check-card input {
+    width: 16px;
+    min-height: 16px;
+    margin-top: 1px;
+    flex: 0 0 auto;
+  }
+#ihl-referrals-v3 .ack {
+    display: grid;
+    grid-template-columns: 18px 1fr;
+    gap: 10px;
+    align-items: flex-start;
+    color: var(--ihl-ink-soft);
+    font-size: 12.5px;
+    line-height: 1.45;
+  }
+#ihl-referrals-v3 .ack input {
+    width: 16px;
+    min-height: 16px;
+    margin-top: 2px;
+  }
+#ihl-referrals-v3 .security-row {
+    display: grid;
+    grid-template-columns: 18px 1fr;
+    gap: 10px;
+    padding: 12px;
+    border: 1px solid var(--ihl-rule);
+    border-radius: var(--r-2);
+    background: var(--ihl-paper-deep);
+    color: var(--ihl-ink-soft);
+    font-size: 12.5px;
+    line-height: 1.45;
+  }
+#ihl-referrals-v3 .security-row input {
+    width: 16px;
+    min-height: 16px;
+    margin-top: 2px;
+  }
+#ihl-referrals-v3 .form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    padding-top: 18px;
+    border-top: 1px solid var(--ihl-rule);
+  }
+#ihl-referrals-v3 .form-actions .form-meta {
+    color: var(--ihl-ink-mute);
+    font-size: 11.5px;
+    line-height: 1.45;
+  }
+#ihl-referrals-v3 .form-status {
+    display: none;
+    padding: 12px 14px;
+    border-radius: var(--r-2);
+    font-size: 12.5px;
+    line-height: 1.45;
+  }
+#ihl-referrals-v3 .form-status.is-on { display: block; }
+#ihl-referrals-v3 .form-status.is-error {
+    background: #fff8f3;
+    border: 1px solid #e7c8b5;
+    color: #6f2c1f;
+  }
+#ihl-referrals-v3 .form-status.is-info {
+    background: var(--ihl-paper-deep);
+    border: 1px solid var(--ihl-rule-strong);
+    color: var(--ihl-ink-soft);
+  }
+#ihl-referrals-v3 .hp {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+#ihl-referrals-v3 .module-footer {
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px solid var(--ihl-rule);
+    color: var(--ihl-ink-mute);
+    font-size: 12px;
+    line-height: 1.55;
+  }
+#ihl-referrals-v3 .module-footer a {
+    color: var(--ihl-ink);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+#ihl-referrals-v3 .pack-section {
+    padding: 0 0 72px;
+  }
+#ihl-referrals-v3 .pack-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 24px;
+    align-items: start;
+    border-top: 1px solid var(--ihl-rule);
+    padding: 28px 0;
+    border-bottom: 1px solid var(--ihl-rule);
+  }
+#ihl-referrals-v3 .pack-content {
+    display: grid;
+    gap: 8px;
+  }
+#ihl-referrals-v3 .pack-content h2, #ihl-referrals-v3 .emergency-boundary h2 {
+    margin: 0;
+    font-family: var(--serif);
+    font-size: clamp(26px, 3vw, 34px);
+    font-weight: 400;
+    line-height: 1.15;
+    color: var(--ihl-ink);
+  }
+#ihl-referrals-v3 .pack-content p, #ihl-referrals-v3 .emergency-boundary p {
+    margin: 0;
+    color: var(--ihl-ink-soft);
+    font-size: 14px;
+    line-height: 1.55;
+  }
+#ihl-referrals-v3 .pack-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+#ihl-referrals-v3 .emergency-boundary {
+    display: grid;
+    gap: 8px;
+    padding: 24px 0 0;
+  }
+#ihl-referrals-v3 .emergency-boundary .boundary-label {
+    color: var(--ihl-ink-mute);
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+#ihl-referrals-v3 .site-footer {
+    background: var(--ihl-forest);
+    color: var(--ihl-on-forest);
+  }
+#ihl-referrals-v3 .footer-inner {
+    width: min(1220px, calc(100% - 48px));
+    margin: 0 auto;
+    padding: 42px 0;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    align-items: start;
+  }
+#ihl-referrals-v3 .footer-inner p {
+    max-width: 680px;
+    margin: 0;
+    color: var(--ihl-on-forest-mute);
+    font-size: 12.5px;
+    line-height: 1.6;
+  }
+#ihl-referrals-v3 .footer-links {
+    display: grid;
+    gap: 6px;
+    justify-items: end;
+    color: var(--ihl-on-forest);
+    font-size: 13px;
+  }
+#ihl-referrals-v3 .footer-links a {
+    color: inherit;
+    text-decoration: none;
+  }
+#ihl-referrals-v3 .footer-links a:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+@media (max-width: 1060px) {
+#ihl-referrals-v3 .primary-nav, #ihl-referrals-v3 .nav-actions { display: none; }
+#ihl-referrals-v3 .mobile-menu { display: block; }
+#ihl-referrals-v3 .nav-inner { min-height: 70px; }
+#ihl-referrals-v3 .hero-grid {
+      grid-template-columns: 1fr;
+      gap: 34px;
+    }
+
+  
+}
+@media (max-width: 720px) {
+#ihl-referrals-v3 .nav-inner, #ihl-referrals-v3 .page, #ihl-referrals-v3 .footer-inner {
+      width: min(100% - 32px, 1220px);
+    }
+#ihl-referrals-v3 .brand img { width: 138px; }
+#ihl-referrals-v3 .hero-grid {
+      padding: 32px 0 56px;
+    }
+#ihl-referrals-v3 .intro h1 {
+      font-size: 42px;
+    }
+#ihl-referrals-v3 .route-options, #ihl-referrals-v3 .form-section, #ihl-referrals-v3 .pack-grid, #ihl-referrals-v3 .footer-inner {
+      grid-template-columns: 1fr;
+    }
+#ihl-referrals-v3 .route-option { min-height: auto; }
+#ihl-referrals-v3 .quiet-row, #ihl-referrals-v3 .utility-row {
+      grid-template-columns: 1fr;
+      gap: 6px;
+    }
+#ihl-referrals-v3 .copy-btn { justify-self: start; }
+#ihl-referrals-v3 .check-grid { grid-template-columns: 1fr; }
+#ihl-referrals-v3 .pack-actions { justify-content: flex-start; }
+#ihl-referrals-v3 .footer-links { justify-items: start; }
+
+  
+}
+
+
+#ihl-referrals-v3 {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  background: var(--ihl-paper);
+  color: var(--ihl-ink);
+  font-family: var(--sans);
+}
+#ihl-referrals-v3,
+#ihl-referrals-v3 * {
+  box-sizing: border-box;
+}
+#ihl-referrals-v3 .turnstile-row {
+  grid-column: 1 / -1;
+  padding: 12px;
+  border: 1px solid var(--ihl-rule);
+  border-radius: var(--r-2);
+  background: var(--ihl-paper-deep);
+}
+#ihl-referrals-v3 .turnstile-row .cf-turnstile {
+  min-height: 65px;
+}
+#ihl-referrals-v3 .form-status.is-success {
+  background: #f2f7f1;
+  border: 1px solid #cbdcc9;
+  color: #23452d;
+}
+  </style>
+
+<div class="page" role="main">
+  <section class="hero-grid" aria-labelledby="page-title">
+    <div class="intro">
+      <div class="eyebrow">Institute for Healthy Living · For referrers</div>
+      <h1 id="page-title">Refer a patient to IHL.</h1>
+      <p class="lede">A clinical psychology group practice in Bondi Junction. Referrals are reviewed by our intake team during business hours.</p>
+
+      <div class="intro-actions">
+        <a class="button-primary" href="#referral-module">Submit a Referral</a>
+        <a class="button-secondary" href="WEBFLOW_REFERRER_PACK_PDF_URL" target="_blank" rel="noopener" data-ihl="pack-download">Download Referrer Pack</a>
+        <a class="button-secondary" href="tel:+61289370667">Speak with Intake Team</a>
+      </div>
+
+      <dl class="quiet-list" aria-label="Referral contact details">
+        <div class="quiet-row">
+          <dt>Secure messaging</dt>
+          <dd>EDI <strong>inshealh</strong> - search <strong>Institute for Healthy Living</strong></dd>
+        </div>
+        <div class="quiet-row">
+          <dt>Intake</dt>
+          <dd><a href="mailto:intake@institute4healthyliving.com">intake@institute4healthyliving.com</a></dd>
+        </div>
+        <div class="quiet-row">
+          <dt>Phone</dt>
+          <dd><a href="tel:+61289370667">02 8937 0667</a></dd>
+        </div>
+      </dl>
+
+      <p class="boundary-note">This referral pathway is reviewed by IHL intake during business hours. It is not an emergency, acute-care or crisis-support pathway.</p>
+    </div>
+
+    <section class="referral-module" id="referral-module" aria-labelledby="module-title">
+      <header class="module-head">
+        <div class="module-eyebrow">Referral gateway</div>
+        <h2 id="module-title">Refer to IHL</h2>
+        <p>Choose the referral pathway that works best for your practice. Use intake email, or send securely from your clinical software using our EDI details.</p>
+      </header>
+
+      <div class="referral-details-strip" aria-labelledby="referral-details-title">
+        <div class="referral-details-top">
+          <div>
+            <h3 id="referral-details-title">Send referral details</h3>
+            <p>Use intake email, or send securely from your clinical software using our EDI details.</p>
+          </div>
+        </div>
+        <div class="referral-details-grid">
+          <div class="utility-row">
+            <span class="utility-label">Email intake</span>
+            <span class="utility-value" id="intake-email">intake@institute4healthyliving.com</span>
+            <button class="copy-btn" type="button" data-copy="intake@institute4healthyliving.com">Copy</button>
+          </div>
+          <div class="utility-row">
+            <span class="utility-label">Secure messaging</span>
+            <span class="utility-value mono" id="edi-value">inshealh</span>
+            <button class="copy-btn" type="button" data-copy="inshealh">Copy</button>
+          </div>
+          <div class="utility-row">
+            <span class="utility-label">Search</span>
+            <span class="utility-value">Institute for Healthy Living</span>
+            <button class="copy-btn" type="button" data-copy="Institute for Healthy Living">Copy</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="route-selector" aria-labelledby="route-title">
+        <h3 id="route-title">How would you like to submit the referral?</h3>
+        <div class="route-options" role="tablist" aria-label="Referral submission route">
+          <button class="route-option is-active" type="button" role="tab" aria-selected="true" aria-controls="upload-form" id="upload-tab" data-route="upload">
+            <strong>01 · Upload a referral, letter or plan</strong>
+            <span>Already have a signed plan or referral letter? Attach it and add a few contact fields.</span>
+          </button>
+          <button class="route-option" type="button" role="tab" aria-selected="false" aria-controls="online-form" id="online-tab" data-route="online">
+            <strong>02 · Complete a referral online</strong>
+            <span>No document to attach? Enter the referral here and sign digitally.</span>
+          </button>
+        </div>
+      </div>
+
+      <form class="route-form is-active" id="upload-form" data-route-form="upload" aria-labelledby="upload-heading" novalidate>
+        <input type="hidden" name="submission_route" value="upload_existing_document" />
+        <input type="hidden" name="security_label" value="confidential_referral_intake" />
+        <div class="form-intro">
+          <h3 id="upload-heading">Upload existing referral</h3>
+          <p>If the referral, plan or letter is already completed, upload it here and add only the routing details intake needs to identify the patient, referrer and document.</p>
+        </div>
+
+        <div class="form-section">
+          <div class="section-label">Document</div>
+          <div class="field">
+            <label for="upload-document-type">Document type</label>
+            <select id="upload-document-type" name="document_type" required>
+              <option value="">Select document type</option>
+              <option>MHTP</option>
+              <option>EDTP</option>
+              <option>CDM</option>
+              <option>PAMP</option>
+              <option>Psychiatrist Referral Letter</option>
+              <option>Paediatrician Referral Letter</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="upload-attachment">Uploaded document</label>
+            <input id="upload-attachment" name="attachment" type="file" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" required />
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="section-label">Referrer</div>
+          <div class="field">
+            <label for="upload-referrer-name">Referrer name</label>
+            <input id="upload-referrer-name" name="referrer_name" type="text" autocomplete="name" required />
+          </div>
+          <div class="field">
+            <label for="upload-referrer-role">Role</label>
+            <input id="upload-referrer-role" name="referrer_role" type="text" placeholder="GP, psychiatrist, specialist, practice staff" required />
+          </div>
+          <div class="field">
+            <label for="upload-practice">Practice / clinic</label>
+            <input id="upload-practice" name="practice" type="text" required />
+          </div>
+          <div class="field">
+            <label for="upload-referrer-email">Referrer email</label>
+            <input id="upload-referrer-email" name="referrer_email" type="email" autocomplete="email" required />
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="section-label">Patient routing</div>
+          <div class="field">
+            <label for="upload-patient-name">Patient name</label>
+            <input id="upload-patient-name" name="patient_name" type="text" required />
+          </div>
+          <div class="field">
+            <label for="upload-patient-phone">Patient phone</label>
+            <input id="upload-patient-phone" name="patient_phone" type="tel" autocomplete="tel" required />
+          </div>
+          <div class="field full">
+            <label for="upload-note">Brief routing note <small>Optional. Use only for non-urgent intake routing context.</small></label>
+            <textarea id="upload-note" name="routing_note" rows="3"></textarea>
+          </div>
+        </div>
+
+        <div class="field full turnstile-row">
+          <div class="cf-turnstile" data-form-id="upload-form" data-sitekey="TURNSTILE_SITE_KEY_REPLACE_ME" data-theme="light" data-size="normal"></div>
+          <small>Secured by Cloudflare. Referral data is submitted to IHL intake.</small>
+        </div>
+        <label class="security-row">
+          <input type="checkbox" name="human_check" required />
+          <span>I confirm I am a healthcare referrer or authorised practice team member using this secure referral pathway.</span>
+        </label>
+        <label class="ack">
+          <input type="checkbox" name="acknowledgement" required />
+          <span>I confirm the uploaded document is intended for Institute for Healthy Living intake and has been provided with appropriate authority to share it for referral review.</span>
+        </label>
+        <div class="hp" aria-hidden="true">
+          <label>Leave blank <input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
+        </div>
+        <div class="form-status" role="alert"></div>
+        <div class="form-actions">
+          <button class="button-primary" type="submit">Submit Referral</button>
+          <span class="form-meta">Auto-response must be sent from and reply-to intake@institute4healthyliving.com once connected.</span>
+        </div>
+      </form>
+
+      <form class="route-form" id="online-form" data-route-form="online" aria-labelledby="online-heading" novalidate>
+        <input type="hidden" name="submission_route" value="complete_referral_online" />
+        <input type="hidden" name="security_label" value="confidential_referral_intake" />
+        <input type="hidden" name="signature_timestamp_local" data-signature-timestamp />
+        <div class="form-intro">
+          <h3 id="online-heading">Complete referral online</h3>
+          <p>Use this option when you want the secure online form to carry the referral details.</p>
+        </div>
+
+        <div class="form-section">
+          <div class="section-label">Patient</div>
+          <div class="field">
+            <label for="online-patient-name">Patient name</label>
+            <input id="online-patient-name" name="patient_name" type="text" required />
+          </div>
+          <div class="field">
+            <label for="online-dob">Date of birth</label>
+            <input id="online-dob" name="dob" type="date" required />
+          </div>
+          <div class="field">
+            <label for="online-address">Address / suburb</label>
+            <input id="online-address" name="address_suburb" type="text" required />
+          </div>
+          <div class="field">
+            <label for="online-phone">Patient phone</label>
+            <input id="online-phone" name="patient_phone" type="tel" required />
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="section-label">Referral details</div>
+          <div class="field">
+            <label for="online-referral-date">Referral date</label>
+            <input id="online-referral-date" name="referral_date" type="date" required />
+          </div>
+          <div class="field">
+            <label for="online-plan-type">Plan / referral type</label>
+            <select id="online-plan-type" name="plan_type" required>
+              <option value="">Select type</option>
+              <option>MHTP</option>
+              <option>PAMP</option>
+              <option>EDTP</option>
+              <option>CDM</option>
+              <option>Psychiatrist Referral Letter</option>
+              <option>Paediatrician Referral Letter</option>
+              <option>Private / no plan</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="online-sessions">Sessions requested or remaining</label>
+            <input id="online-sessions" name="sessions_requested_or_remaining" type="text" placeholder="e.g. 6 sessions requested" required />
+          </div>
+          <div class="field">
+            <span class="field-label">Therapy type</span>
+            <div class="check-grid" data-required-group="therapy_type">
+              <label class="check-card"><input type="checkbox" name="therapy_type" value="Individual" /> Individual</label>
+              <label class="check-card"><input type="checkbox" name="therapy_type" value="Couples" /> Couples</label>
+              <label class="check-card"><input type="checkbox" name="therapy_type" value="Family" /> Family</label>
+              <label class="check-card"><input type="checkbox" name="therapy_type" value="Group" /> Group</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="section-label">Clinical context</div>
+          <div class="field full">
+            <span class="field-label">Patient concern / risk context</span>
+            <small>All referrals are reviewed promptly. This helps intake understand what to notice clinically.</small>
+            <div class="check-grid" role="radiogroup" aria-label="Patient concern / risk context">
+              <label class="check-card"><input type="radio" name="risk_context" value="none" required /> No additional concern flagged.</label>
+              <label class="check-card"><input type="radio" name="risk_context" value="additional" /> Additional clinical context.</label>
+              <label class="check-card"><input type="radio" name="risk_context" value="higher" /> Higher clinical concern.</label>
+              <label class="check-card"><input type="radio" name="risk_context" value="discussion" /> Referrer discussion requested.</label>
+            </div>
+          </div>
+          <div class="field full">
+            <label for="online-presenting">Symptoms / presenting concerns</label>
+            <textarea id="online-presenting" name="presenting_concerns" rows="4" required></textarea>
+          </div>
+          <div class="field full">
+            <label for="online-diagnosis">Diagnosis and medications, if known</label>
+            <textarea id="online-diagnosis" name="diagnosis_medications" rows="3"></textarea>
+          </div>
+          <div class="field full">
+            <label for="online-risk-note">Brief note for intake <small>Required if additional clinical context, higher clinical concern or referrer discussion is selected, unless an attachment is included.</small></label>
+            <textarea id="online-risk-note" name="risk_note" rows="3"></textarea>
+          </div>
+          <div class="field full">
+            <label for="online-attachment">Attach referral / plan / letter <small>Optional here, unless used instead of a risk-context note.</small></label>
+            <input id="online-attachment" name="attachment" type="file" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" />
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="section-label">Referrer</div>
+          <div class="field">
+            <label for="online-provider-number">Provider number</label>
+            <input id="online-provider-number" name="provider_number" type="text" required />
+          </div>
+          <div class="field">
+            <label for="online-referrer-name">Referrer name</label>
+            <input id="online-referrer-name" name="referrer_name" type="text" autocomplete="name" required />
+          </div>
+          <div class="field">
+            <label for="online-role">Profession / role</label>
+            <input id="online-role" name="profession_role" type="text" required />
+          </div>
+          <div class="field">
+            <label for="online-practice">Practice / clinic</label>
+            <input id="online-practice" name="practice" type="text" required />
+          </div>
+          <div class="field">
+            <label for="online-email">Referrer email</label>
+            <input id="online-email" name="referrer_email" type="email" autocomplete="email" required />
+          </div>
+          <div class="field">
+            <label for="online-referrer-phone">Referrer phone</label>
+            <input id="online-referrer-phone" name="referrer_phone" type="tel" required />
+          </div>
+          <div class="field full">
+            <label for="online-signature">Typed / electronic signature</label>
+            <input id="online-signature" name="signature" type="text" required />
+            <small>By typing your name, you electronically sign this referral. The secure intake workflow records the submission date and time.</small>
+          </div>
+        </div>
+
+        <div class="field full turnstile-row">
+          <div class="cf-turnstile" data-form-id="online-form" data-sitekey="TURNSTILE_SITE_KEY_REPLACE_ME" data-theme="light" data-size="normal"></div>
+          <small>Secured by Cloudflare. Referral data is submitted to IHL intake.</small>
+        </div>
+        <label class="security-row">
+          <input type="checkbox" name="human_check" required />
+          <span>I confirm I am a healthcare referrer or authorised practice team member using this secure referral pathway.</span>
+        </label>
+        <label class="ack">
+          <input type="checkbox" name="acknowledgement" required />
+          <span>I confirm this referral is intended for Institute for Healthy Living intake and that the information provided is accurate to the best of my knowledge.</span>
+        </label>
+        <div class="hp" aria-hidden="true">
+          <label>Leave blank <input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
+        </div>
+        <div class="form-status" role="alert"></div>
+        <div class="form-actions">
+          <button class="button-primary" type="submit">Submit Referral</button>
+          <span class="form-meta">Patient and clinical content must go only to the approved secure intake destination, never HubSpot.</span>
+        </div>
+      </form>
+
+      <div class="module-footer">
+        This pathway is reviewed by IHL intake during business hours. It is not an emergency, acute-care or crisis-support pathway. For more practice information, <a href="WEBFLOW_REFERRER_PACK_PDF_URL" target="_blank" rel="noopener" data-ihl="pack-download">download the referrer pack</a>.
+      </div>
+    </section>
+  </section>
+
+  <section class="pack-section" aria-label="Referrer pack and pathway notes">
+    <div class="pack-grid">
+      <div class="pack-content">
+        <h2>The IHL referrer pack.</h2>
+        <p>How we work, on a page — what we treat and how to refer.</p>
+      </div>
+      <div class="pack-actions">
+        <a class="button-primary" href="WEBFLOW_REFERRER_PACK_PDF_URL" target="_blank" rel="noopener" data-ihl="pack-download">Download Referrer Pack</a>
+        <a class="button-secondary" href="mailto:?subject=IHL%20referrer%20information&body=Sharing%20the%20Institute%20for%20Healthy%20Living%20referral%20pathway%3A%0Ahttps%3A%2F%2Fwww.institute4healthyliving.com%2Freferrals">Email to Practice Team</a>
+      </div>
+    </div>
+    <div class="emergency-boundary">
+      <div class="boundary-label">Emergency and acute-care support</div>
+      <h2>For urgent care, use urgent pathways.</h2>
+      <p>IHL provides appointment-based clinical psychology. Our intake team reviews referrals during business hours. We are not an emergency, acute-care or crisis service.</p>
+    </div>
+  </section>
+</div>
+</div>
+
+
+<script>
+(function () {
+  'use strict';
+
+  var root = document.getElementById('ihl-referrals-v3');
+  if (!root) return;
+
+  var INTAKE_URL = 'APPS_SCRIPT_INTAKE_URL_REPLACE_ME';
+  var MAX_FILES = 6;
+  var MAX_FILE_BYTES = 5 * 1024 * 1024;
+  var MAX_TOTAL_BYTES = 10 * 1024 * 1024;
+  var ALLOWED_EXT = ['pdf', 'doc', 'docx', 'jpg', 'jpeg', 'png'];
+  var ALLOWED_MIME = [
+    'application/pdf',
+    'application/msword',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    'image/jpeg',
+    'image/png'
+  ];
+  var turnstileTokens = {};
+  var widgets = [];
+
+  root.querySelectorAll('[data-copy]').forEach(function (button) {
+    button.addEventListener('click', function () {
+      var value = button.getAttribute('data-copy');
+      var label = button.textContent;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(value).catch(function () {});
+      }
+      button.textContent = 'Copied';
+      setTimeout(function () { button.textContent = label; }, 1400);
+    });
+  });
+
+  var routeButtons = root.querySelectorAll('[data-route]');
+  var forms = root.querySelectorAll('[data-route-form]');
+  routeButtons.forEach(function (button) {
+    button.addEventListener('click', function () {
+      var route = button.getAttribute('data-route');
+      routeButtons.forEach(function (item) {
+        var active = item === button;
+        item.classList.toggle('is-active', active);
+        item.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+      forms.forEach(function (form) {
+        form.classList.toggle('is-active', form.getAttribute('data-route-form') === route);
+      });
+    });
+  });
+
+  function showStatus(form, kind, message) {
+    var box = form.querySelector('.form-status');
+    if (!box) return;
+    box.className = 'form-status is-on is-' + kind;
+    box.textContent = message;
+    box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  function clearStatus(form) {
+    var box = form.querySelector('.form-status');
+    if (!box) return;
+    box.className = 'form-status';
+    box.textContent = '';
+  }
+
+  function getValue(form, name) {
+    var element = form.elements[name];
+    if (!element) return '';
+    if (element instanceof RadioNodeList) {
+      var checked = form.querySelector('[name="' + name + '"]:checked');
+      return checked ? checked.value.trim() : '';
+    }
+    return element.value ? String(element.value).trim() : '';
+  }
+
+  function checkedValues(form, name) {
+    return Array.prototype.slice.call(form.querySelectorAll('[name="' + name + '"]:checked')).map(function (input) {
+      return input.value;
+    });
+  }
+
+  function hasChecked(form, name) {
+    return checkedValues(form, name).length > 0;
+  }
+
+  function fileInputs(form) {
+    return Array.prototype.slice.call(form.querySelectorAll('input[type="file"]'));
+  }
+
+  function filesForForm(form) {
+    var files = [];
+    fileInputs(form).forEach(function (input) {
+      Array.prototype.slice.call(input.files || []).forEach(function (file) {
+        files.push(file);
+      });
+    });
+    return files;
+  }
+
+  function validateFile(file) {
+    var name = file && file.name ? file.name : 'attachment';
+    var ext = name.indexOf('.') > -1 ? name.split('.').pop().toLowerCase() : '';
+    var mime = file && file.type ? file.type : '';
+    if (ALLOWED_EXT.indexOf(ext) === -1 && ALLOWED_MIME.indexOf(mime) === -1) {
+      return { ok: false, message: 'Unsupported attachment type. Please upload PDF, DOC, DOCX, JPG/JPEG or PNG files only.' };
+    }
+    if (file.size > MAX_FILE_BYTES) {
+      return { ok: false, message: '"' + name + '" is too large. Please keep each attachment under 5 MB, or email larger files to intake@institute4healthyliving.com.' };
+    }
+    return { ok: true };
+  }
+
+  function readFiles(files) {
+    var total = 0;
+    if (files.length > MAX_FILES) {
+      return Promise.reject(new Error('Please attach no more than ' + MAX_FILES + ' files, or email intake@institute4healthyliving.com.'));
+    }
+    for (var i = 0; i < files.length; i += 1) {
+      var check = validateFile(files[i]);
+      if (!check.ok) return Promise.reject(new Error(check.message));
+      total += files[i].size || 0;
+    }
+    if (total > MAX_TOTAL_BYTES) {
+      return Promise.reject(new Error('The attached files are too large together. Please keep total attachments under 10 MB, or email larger files to intake@institute4healthyliving.com.'));
+    }
+    return Promise.all(files.map(function (file) {
+      return new Promise(function (resolve, reject) {
+        var reader = new FileReader();
+        reader.onload = function (event) {
+          resolve({
+            b64: String(event.target.result || '').split(',')[1],
+            name: file.name,
+            mime: file.type || 'application/octet-stream'
+          });
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }));
+  }
+
+  function getLastName(name) {
+    var parts = String(name || '').trim().split(/\s+/);
+    return (parts[parts.length - 1] || 'Unknown').replace(/[^a-zA-Z]/g, '') || 'Unknown';
+  }
+
+  function formatDate(date) {
+    return String(date.getDate()).padStart(2, '0') + String(date.getMonth() + 1).padStart(2, '0') + date.getFullYear();
+  }
+
+  function riskValue(form) {
+    var risk = getValue(form, 'risk_context');
+    if (risk === 'additional') return '3';
+    if (risk === 'higher') return '4';
+    if (risk === 'discussion') return '4';
+    return '1';
+  }
+
+  function longClinicalNote(form, route) {
+    var lines = [];
+    lines.push('Submission route: ' + getValue(form, 'submission_route'));
+
+    if (route === 'upload') {
+      lines.push('Document type: ' + getValue(form, 'document_type'));
+      lines.push('Referrer role: ' + getValue(form, 'referrer_role'));
+      lines.push('Routing note: ' + getValue(form, 'routing_note'));
+    } else {
+      lines.push('Patient DOB: ' + getValue(form, 'dob'));
+      lines.push('Patient address/suburb: ' + getValue(form, 'address_suburb'));
+      lines.push('Referral date: ' + getValue(form, 'referral_date'));
+      lines.push('Plan/referral type: ' + getValue(form, 'plan_type'));
+      lines.push('Sessions requested or remaining: ' + getValue(form, 'sessions_requested_or_remaining'));
+      lines.push('Therapy type: ' + checkedValues(form, 'therapy_type').join(', '));
+      lines.push('Patient concern / risk context: ' + getValue(form, 'risk_context'));
+      lines.push('Symptoms / presenting concerns: ' + getValue(form, 'presenting_concerns'));
+      lines.push('Diagnosis and medications, if known: ' + getValue(form, 'diagnosis_medications'));
+      lines.push('Brief note for intake: ' + getValue(form, 'risk_note'));
+      lines.push('Provider number: ' + getValue(form, 'provider_number'));
+      lines.push('Referrer role: ' + getValue(form, 'profession_role'));
+      lines.push('Typed/electronic signature: ' + getValue(form, 'signature'));
+      lines.push('Signature timestamp from browser: ' + getValue(form, 'signature_timestamp_local'));
+    }
+
+    lines.push('Data boundary: patient and clinical content must remain in the secure intake workflow and must not be stored in HubSpot.');
+    return lines.filter(function (line) {
+      return line.replace(/^[^:]+:\s*/, '').trim() !== '';
+    }).join('\n');
+  }
+
+  function mapPayload(form, route) {
+    var patientName = getValue(form, 'patient_name');
+    var referrerName = getValue(form, 'referrer_name');
+    var referrerRole = route === 'upload' ? getValue(form, 'referrer_role') : getValue(form, 'profession_role');
+    var therapy = route === 'upload' ? getValue(form, 'document_type') : checkedValues(form, 'therapy_type').join(', ');
+
+    return {
+      rname: referrerName,
+      rpract: getValue(form, 'practice'),
+      rphone: route === 'upload' ? '' : getValue(form, 'referrer_phone'),
+      remail: getValue(form, 'referrer_email'),
+      pname: patientName,
+      pphone: getValue(form, 'patient_phone'),
+      pemail: '',
+      age: '',
+      gname: '',
+      gphone: '',
+      gemail: '',
+      therapy: therapy,
+      risk: route === 'online' ? riskValue(form) : '1',
+      concerns: longClinicalNote(form, route),
+      turnstile_token: turnstileTokens[form.id] || '',
+      submission_timestamp: new Date().toISOString(),
+      referrerLastName: getLastName(referrerName || referrerRole),
+      patientLastName: getLastName(patientName),
+      submissionDate: formatDate(new Date())
+    };
+  }
+
+  function validateRouteRules(form, route) {
+    if (route === 'online') {
+      if (!hasChecked(form, 'therapy_type')) {
+        showStatus(form, 'error', 'Please select at least one therapy type.');
+        return false;
+      }
+
+      var risk = getValue(form, 'risk_context');
+      var note = form.querySelector('#online-risk-note');
+      var files = filesForForm(form);
+      var needsContext = risk === 'additional' || risk === 'higher' || risk === 'discussion';
+      if (needsContext && (!note || !note.value.trim()) && files.length === 0) {
+        showStatus(form, 'error', 'Please add a short note for intake or attach the referral, plan or letter.');
+        if (note) note.focus();
+        return false;
+      }
+      if (risk === 'discussion' && !getValue(form, 'referrer_phone')) {
+        showStatus(form, 'error', 'Please provide a direct referrer phone or mobile number for discussion requests.');
+        var phone = form.querySelector('#online-referrer-phone');
+        if (phone) phone.focus();
+        return false;
+      }
+    }
+    return true;
+  }
+
+  function resetTurnstile(formId) {
+    if (!window.turnstile) return;
+    widgets.forEach(function (item) {
+      if (item.formId === formId) {
+        try { window.turnstile.reset(item.widgetId); } catch (error) {}
+      }
+    });
+  }
+
+  function submitForm(form, route) {
+    clearStatus(form);
+
+    if (form.elements.website && form.elements.website.value.trim() !== '') return;
+
+    var signatureTimestamp = form.querySelector('[data-signature-timestamp]');
+    if (signatureTimestamp) signatureTimestamp.value = new Date().toISOString();
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    if (!validateRouteRules(form, route)) return;
+
+    if (!turnstileTokens[form.id]) {
+      showStatus(form, 'error', 'Please complete the security check.');
+      return;
+    }
+
+    if (INTAKE_URL.indexOf('REPLACE_ME') !== -1) {
+      showStatus(form, 'error', 'This Webflow embed still needs the approved secure intake endpoint added before public submissions can be accepted.');
+      return;
+    }
+
+    var submit = form.querySelector('button[type="submit"]');
+    var submitText = submit ? submit.textContent : '';
+    if (submit) {
+      submit.disabled = true;
+      submit.textContent = 'Submitting...';
+    }
+
+    var payload = mapPayload(form, route);
+    readFiles(filesForForm(form)).then(function (files) {
+      var body = new URLSearchParams();
+      Object.keys(payload).forEach(function (key) { body.append(key, payload[key]); });
+      files.forEach(function (file) {
+        body.append('fileData[]', file.b64);
+        body.append('fileName[]', file.name);
+        body.append('fileMime[]', file.mime);
+      });
+      return fetch(INTAKE_URL, { method: 'POST', body: body });
+    }).then(function (response) {
+      if (!response.ok) throw new Error('Referral submission failed. Please try again or email intake@institute4healthyliving.com.');
+      return response.json();
+    }).then(function (data) {
+      if (!data || !data.success) throw new Error((data && data.error) || 'Referral submission failed. Please try again or email intake@institute4healthyliving.com.');
+      form.reset();
+      turnstileTokens[form.id] = '';
+      resetTurnstile(form.id);
+      showStatus(form, 'success', 'Thank you. Your referral has been received by the IHL intake team and will be reviewed during business hours.');
+    }).catch(function (error) {
+      showStatus(form, 'error', error && error.message ? error.message : 'Referral submission failed. Please try again or email intake@institute4healthyliving.com.');
+    }).finally(function () {
+      if (submit) {
+        submit.disabled = false;
+        submit.textContent = submitText;
+      }
+    });
+  }
+
+  forms.forEach(function (form) {
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      submitForm(form, form.getAttribute('data-route-form'));
+    });
+  });
+
+  function renderTurnstile() {
+    if (!window.turnstile) return;
+    root.querySelectorAll('.cf-turnstile').forEach(function (widget) {
+      if (widget.getAttribute('data-rendered') === 'true') return;
+      var formId = widget.getAttribute('data-form-id');
+      var widgetId = window.turnstile.render(widget, {
+        sitekey: widget.getAttribute('data-sitekey'),
+        theme: widget.getAttribute('data-theme') || 'light',
+        size: widget.getAttribute('data-size') || 'normal',
+        callback: function (token) { turnstileTokens[formId] = token; },
+        'expired-callback': function () { turnstileTokens[formId] = ''; },
+        'error-callback': function () { turnstileTokens[formId] = ''; }
+      });
+      widgets.push({ formId: formId, widgetId: widgetId });
+      widget.setAttribute('data-rendered', 'true');
+    });
+  }
+
+  window.ihlReferralGatewayV3RenderTurnstile = renderTurnstile;
+  if (window.turnstile) {
+    renderTurnstile();
+  } else {
+    var script = document.createElement('script');
+    script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=ihlReferralGatewayV3RenderTurnstile';
+    script.async = true;
+    script.defer = true;
+    document.head.appendChild(script);
+  }
+})();
+</script>

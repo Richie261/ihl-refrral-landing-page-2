@@ -6,7 +6,8 @@ Status: implementation package only. Do not publish without CEO approval.
 ## Implement
 
 1. Use the existing Webflow `/referrals` page as the base.
-2. Keep the current global site navigation/menu. The GitHub candidate mirrors the live menu labels and URLs:
+2. Use `webflow-package/REFERRALS_WEBFLOW_EMBED_V3_2026-06-05.html` as the body-only Webflow package. Keep the live Webflow header, navigation and footer outside this embed.
+3. Keep the current global site navigation/menu. The GitHub candidate mirrors the live menu labels and URLs:
    - Home
    - Our Team
    - Our Offerings: Who We Support, What We Support, How We Support, Fees & Rebates
@@ -15,25 +16,26 @@ Status: implementation package only. Do not publish without CEO approval.
    - About Us: Administration Team, Our Values, Work With Us
    - Phone: 02 8937 0667
    - Book an appointment
-3. Replace/refine the current referral action area with the gateway module from `index.html`.
-4. Keep referral destination details visible before any form fields:
+4. Replace/refine the current referral action area with the gateway module from `index.html`.
+5. Keep referral destination details visible before any form fields:
    - Email intake: `intake@institute4healthyliving.com`
    - Secure messaging EDI: `inshealh`
    - Search: `Institute for Healthy Living`
    - Copy actions for all three values.
-5. Keep both submission routes visible before the referrer starts:
+6. Keep both submission routes visible before the referrer starts:
    - Upload existing referral / plan / letter.
    - Complete referral online.
-6. Make the referrer pack link visible near the action area.
-7. Upload `referrer-pack.pdf` to Webflow Assets and replace the GitHub PDF link with the Webflow CDN URL returned by Webflow.
-8. Implement both referral routes through the approved secure intake pathway, not a generic marketing/contact form.
-9. Keep the referrer pack section visible below the referral gateway:
+7. Make the referrer pack link visible near the action area.
+8. Upload `referrer-pack.pdf` to Webflow Assets and replace the PDF placeholder with the Webflow CDN URL returned by Webflow.
+9. Implement both referral routes through the approved secure intake pathway, not a generic marketing/contact form.
+10. Use `webflow-package/FORM_FIELD_MAPPING_V3_TO_SECURE_ENDPOINT_2026-06-05.md` for the MVP field mapping.
+11. Keep the referrer pack section visible below the referral gateway:
    - heading: `The IHL referrer pack.`
    - copy: `How we work, on a page — what we treat and how to refer.`
    - actions: Download Referrer Pack, Email to Practice Team.
-10. Keep the emergency and acute-care boundary visible below the pack section.
-11. Use the existing IHL favicon/site identity, not GitHub/prototype identity.
-12. Use page-level scrolling only. Do not implement a slide-over, modal, iframe with its own scroll, or nine-step wizard.
+12. Keep the emergency and acute-care boundary visible below the pack section.
+13. Use the existing IHL favicon/site identity, not GitHub/prototype identity.
+14. Use page-level scrolling only. Do not implement a slide-over, modal, iframe with its own scroll, or nine-step wizard.
 
 ## Do Not Touch
 

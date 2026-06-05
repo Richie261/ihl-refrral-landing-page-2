@@ -10,6 +10,9 @@ Static GitHub candidate for the Institute for Healthy Living referrer page.
 - `referrer-pack.pdf` - current public-facing three-page referrer pack download, rebuilt from the checked 2026-06-02 page renders and kept under Webflow's 10 MB document asset limit.
 - `colors_and_type.css` - IHL design tokens.
 - `webflow-package/` - implementation checklist, secure workflow spec and QA gates for Webflow handoff.
+  - `REFERRALS_WEBFLOW_EMBED_V3_2026-06-05.html` - body-only Webflow embed package for the refined referral gateway. It keeps the live Webflow header/footer outside the embed and uses placeholders for the Webflow PDF URL, Turnstile site key and Apps Script intake endpoint.
+  - `FORM_FIELD_MAPPING_V3_TO_SECURE_ENDPOINT_2026-06-05.md` - field mapping from the refined two-route gateway into the existing secure intake endpoint.
+  - `WEBFLOW_TRANSFER_RUNBOOK_2026-06-05.md` - practical draft, QA and publish-gate runbook.
   - `NEXT_EXECUTION_RUNBOOK_2026-06-04.md` - no-Max execution path for Webflow, secure endpoint verification and launch gates.
 
 ## Referral module structure
