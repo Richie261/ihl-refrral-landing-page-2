@@ -156,6 +156,12 @@ const tokenCss = `
 `;
 let scopedStyle = tokenCss + prefixCss(rawStyle);
 scopedStyle += `
+.announcement_version {
+  display: none !important;
+}
+.nav_wrap > .announcement_wrap:nth-of-type(2) {
+  display: none !important;
+}
 #ihl-referrals-v3 {
   width: 100%;
   max-width: 100%;
@@ -201,6 +207,20 @@ const script = String.raw`
 
   var root = document.getElementById('ihl-referrals-v3');
   if (!root) return;
+
+  function cleanupPrototypeArtifacts() {
+    document.querySelectorAll('.announcement_version').forEach(function (node) {
+      node.remove();
+    });
+    document.querySelectorAll('.announcement_wrap').forEach(function (node) {
+      if (/This is some text inside of a div block|\\bv1\\b/.test(node.textContent || '')) {
+        node.remove();
+      }
+    });
+  }
+
+  cleanupPrototypeArtifacts();
+  setTimeout(cleanupPrototypeArtifacts, 600);
 
   var INTAKE_URL = 'APPS_SCRIPT_INTAKE_URL_REPLACE_ME';
   var MAX_FILES = 6;
