@@ -4,7 +4,14 @@ import { fileURLToPath } from 'node:url';
 
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const indexPath = path.join(rootDir, 'index.html');
-const outputPath = path.join(rootDir, 'webflow-package', 'REFERRALS_WEBFLOW_EMBED_V3_2026-06-05.html');
+const outputPath = path.join(rootDir, 'webflow-package', 'REFERRALS_WEBFLOW_EMBED_V3_2026-06-09.html');
+const legacyOutputPath = path.join(rootDir, 'webflow-package', 'REFERRALS_WEBFLOW_EMBED_V3_2026-06-05.html');
+
+const productionValues = {
+  pdfUrl: 'https://cdn.prod.website-files.com/66fb6bc216ae048b2c95647d/6a22a95cdccc42a061e09c06_referrer-pack.pdf',
+  turnstileSiteKey: '0x4AAAAAADOvNauc6UgUBDek',
+  intakeUrl: 'https://script.google.com/macros/s/AKfycbxz7ecs_T7fpRRdyVMUkShYkfOWF71-PyB3FR43Jmy4QH1dlf93jVak5kcvl3Rs4K8J/exec',
+};
 
 const index = fs.readFileSync(indexPath, 'utf8');
 
@@ -84,20 +91,20 @@ function replaceMainWrapper(html) {
 
 function replacePackLinks(html) {
   return html
-    .replace(/href="referrer-pack\.pdf"\s+download\s+data-ihl="pack-download"/g, 'href="WEBFLOW_REFERRER_PACK_PDF_URL" target="_blank" rel="noopener" data-ihl="pack-download"')
-    .replace(/href="referrer-pack\.pdf"\s+download/g, 'href="WEBFLOW_REFERRER_PACK_PDF_URL" target="_blank" rel="noopener"');
+    .replace(/href="referrer-pack\.pdf"\s+download\s+data-ihl="pack-download"/g, `href="${productionValues.pdfUrl}" target="_blank" rel="noopener" data-ihl="pack-download"`)
+    .replace(/href="referrer-pack\.pdf"\s+download/g, `href="${productionValues.pdfUrl}" target="_blank" rel="noopener"`);
 }
 
 function addTurnstileRows(html) {
   const uploadMarker = '        <label class="security-row">';
   const onlineMarker = '        <label class="security-row">';
   const turnstileUpload = `        <div class="field full turnstile-row">
-          <div class="cf-turnstile" data-form-id="upload-form" data-sitekey="TURNSTILE_SITE_KEY_REPLACE_ME" data-theme="light" data-size="normal"></div>
+          <div class="cf-turnstile" data-form-id="upload-form" data-sitekey="${productionValues.turnstileSiteKey}" data-theme="light" data-size="normal"></div>
           <small>Secured by Cloudflare. Referral data is submitted to IHL intake.</small>
         </div>
 `;
   const turnstileOnline = `        <div class="field full turnstile-row">
-          <div class="cf-turnstile" data-form-id="online-form" data-sitekey="TURNSTILE_SITE_KEY_REPLACE_ME" data-theme="light" data-size="normal"></div>
+          <div class="cf-turnstile" data-form-id="online-form" data-sitekey="${productionValues.turnstileSiteKey}" data-theme="light" data-size="normal"></div>
           <small>Secured by Cloudflare. Referral data is submitted to IHL intake.</small>
         </div>
 `;
@@ -130,7 +137,6 @@ function minifyHtml(html) {
 
 const rawStyle = extractBetween(index, '<style>', '</style>');
 const tokenCss = `
-@import url("https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Albert+Sans:ital,wght@0,300..700;1,300..700&display=swap");
 #ihl-referrals-v3 {
   --ihl-forest: #2D4E37;
   --ihl-forest-deep: #1F3826;
@@ -143,8 +149,8 @@ const tokenCss = `
   --ihl-rule-strong: #CFCBC2;
   --ihl-on-forest: #FAF8F4;
   --ihl-on-forest-mute: #C9D6CE;
-  --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
-  --sans: "Albert Sans", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --serif: "Family", "Source Serif 4", Georgia, "Times New Roman", serif;
+  --sans: "Calibre", "Albert Sans", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --r-1: 2px;
   --r-2: 4px;
@@ -152,6 +158,8 @@ const tokenCss = `
   --shadow-pop: 0 16px 40px -16px rgba(31,56,38,0.18), 0 4px 12px -4px rgba(31,56,38,0.10);
   --ease-standard: cubic-bezier(0.2,0,0,1);
   --dur-fast: 120ms;
+  font-size: 16px;
+  line-height: 1.55;
 }
 `;
 let scopedStyle = tokenCss + prefixCss(rawStyle);
@@ -181,6 +189,7 @@ html[data-ihl-referrals-scroll-ready="true"] body {
   max-height: none !important;
 }
 #ihl-referrals-v3 {
+  margin-top: 70px;
   width: 100%;
   max-width: 100%;
   display: block;
@@ -189,6 +198,8 @@ html[data-ihl-referrals-scroll-ready="true"] body {
   background: var(--ihl-paper);
   color: var(--ihl-ink);
   font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.55;
   touch-action: pan-y;
 }
 #ihl-referrals-v3,
@@ -270,7 +281,8 @@ const script = String.raw`
       node.remove();
     });
     document.querySelectorAll('.announcement_wrap').forEach(function (node) {
-      if (/This is some text inside of a div block|\\bv1\\b/.test(node.textContent || '')) {
+      var text = (node.textContent || '').trim();
+      if (!text || node.querySelector('.announcement_version')) {
         node.remove();
       }
     });
@@ -282,7 +294,7 @@ const script = String.raw`
   requestAnimationFrame(restorePageScroll);
   setTimeout(restorePageScroll, 700);
 
-  var INTAKE_URL = 'APPS_SCRIPT_INTAKE_URL_REPLACE_ME';
+  var INTAKE_URL = '${productionValues.intakeUrl}';
   var MAX_FILES = 6;
   var MAX_FILE_BYTES = 5 * 1024 * 1024;
   var MAX_TOTAL_BYTES = 10 * 1024 * 1024;
@@ -459,7 +471,6 @@ const script = String.raw`
       lines.push('Signature timestamp from browser: ' + getValue(form, 'signature_timestamp_local'));
     }
 
-    lines.push('Data boundary: patient and clinical content must remain in the secure intake workflow and must not be stored in HubSpot.');
     return lines.filter(function (line) {
       return line.replace(/^[^:]+:\s*/, '').trim() !== '';
     }).join('\n');
@@ -633,10 +644,11 @@ const script = String.raw`
 })();
 </script>`;
 
-const output = `<!-- IHL referrals V3 Webflow embed. Replace PDF, Turnstile site key and intake endpoint before publish. No patient/clinical content to HubSpot. -->
-<div id="ihl-referrals-v3" data-ihl-referrals-gateway><style>${scopedStyle}</style>${mainHtml}</div>
+const output = `<div id="ihl-referrals-v3" data-ihl-referrals-gateway><style>${scopedStyle}</style>${mainHtml}</div>
 ${script}
 `;
 
 fs.writeFileSync(outputPath, output);
+fs.writeFileSync(legacyOutputPath, output);
 console.log(`Wrote ${path.relative(rootDir, outputPath)}`);
+console.log(`Updated ${path.relative(rootDir, legacyOutputPath)}`);

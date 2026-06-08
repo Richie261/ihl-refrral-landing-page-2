@@ -53,9 +53,9 @@
   --accent:            var(--ihl-cream);
 
   /* ---------- Type families ---------- */
-  --serif:  "Source Serif 4", "Family", "Tiempos Text", "GT Sectra",
+  --serif:  "Family", "Source Serif 4", "Tiempos Text", "GT Sectra",
             Georgia, "Times New Roman", serif;
-  --sans:   "Albert Sans", "Calibre", "Inter", -apple-system, BlinkMacSystemFont,
+  --sans:   "Calibre", "Albert Sans", "Inter", -apple-system, BlinkMacSystemFont,
             "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --mono:   "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
