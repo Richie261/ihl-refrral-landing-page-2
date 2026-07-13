@@ -1,0 +1,51 @@
+<!--
+IHL referrals page emergency cleanup snippet
+Date: 2026-07-13
+Purpose: hide/remove stray Webflow announcement/prototype blocks on /referrals until they are deleted in Designer.
+
+Preferred fix in Webflow Designer:
+1. Delete the stray announcement/version blocks above the referrals embed.
+2. Remove visible announcement_version nodes containing v7 / v1.
+3. Remove placeholder announcement copy: "This is some text inside of a div block."
+
+Use this snippet only if those blocks cannot be deleted immediately.
+-->
+
+<style>
+  .announcement_version {
+    display: none !important;
+  }
+
+  .announcement_wrap:has(.announcement_version),
+  .announcement_wrap:has(.u-embed-js.w-embed.w-script) {
+    display: none !important;
+  }
+</style>
+
+<script>
+  (function () {
+    function cleanIhlReferralPrototypeBlocks() {
+      document.querySelectorAll('.announcement_version').forEach(function (node) {
+        var wrap = node.closest('.announcement_wrap');
+        if (wrap) wrap.remove();
+        else node.remove();
+      });
+
+      document.querySelectorAll('.announcement_wrap').forEach(function (node) {
+        var text = (node.textContent || '').replace(/\s+/g, ' ').trim();
+        if (
+          text.indexOf('This is some text inside of a div block.') !== -1 ||
+          text === 'v1' ||
+          text === 'v7'
+        ) {
+          node.remove();
+        }
+      });
+    }
+
+    cleanIhlReferralPrototypeBlocks();
+    document.addEventListener('DOMContentLoaded', cleanIhlReferralPrototypeBlocks);
+    setTimeout(cleanIhlReferralPrototypeBlocks, 250);
+    setTimeout(cleanIhlReferralPrototypeBlocks, 1000);
+  })();
+</script>
