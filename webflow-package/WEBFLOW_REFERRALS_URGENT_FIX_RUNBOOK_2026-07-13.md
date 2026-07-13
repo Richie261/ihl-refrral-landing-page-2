@@ -18,9 +18,9 @@ Use this file:
 
 Source copied from:
 
-`/Users/richie/Downloads/IHL_Referrer_Guide_July_2026_EMAIL_SAFE_TEAM_SECOND_PAGE_NUMBERS_FIXED.pdf`
+`/Users/richie/Downloads/IHL_Referrer_Guide_July_2026_EMAIL_SAFE_TEAM_SECOND_FINAL.pdf`
 
-Current size: about `1.1 MB`.
+Current size: about `1.5 MB`.
 
 Do not upload or email the old `11 MB` PDF.
 
@@ -73,7 +73,8 @@ This hides/removes the stray announcement/version blocks client-side. Deleting t
 - Live page no longer exposes visible `v1`.
 - Live page no longer shows `This is some text inside of a div block.`
 - `Download Referrer Pack` opens the July PDF with clinical team on page 2.
-- PDF file is about `1.1 MB`, not `11 MB`.
+- PDF file is about `1.5 MB`, not `11 MB`.
+- PDF footer wording is softened to: `Availability subject to change · IHL is not a crisis or emergency service.`
 - `Submit a Referral` scrolls to the form.
 - Intake email copy button still copies `intake@institute4healthyliving.com`.
 - EDI copy button still copies `inshealh`.
