@@ -47,6 +47,18 @@ Do not upload or email the old `11 MB` PDF.
 8. Replace the existing referrals-page embed/action-area code with the updated July embed.
 9. Save and publish after visual check.
 
+## Immediate Fallback If Webflow Asset Upload Is Blocked
+
+The updated pack is also live through GitHub Pages:
+
+`https://richie261.github.io/ihl-refrral-landing-page-2/referrer-pack.pdf`
+
+If Webflow asset upload is blocked but the page must be fixed immediately, use:
+
+`webflow-package/REFERRALS_WEBFLOW_EMBED_V3_2026-07-13_GITHUB_PDF_FALLBACK.html`
+
+This keeps the live referrals page pointing to the latest July pack while the Webflow-hosted asset is arranged.
+
 ## Emergency Alternative
 
 If the announcement blocks cannot be deleted quickly, add this snippet to the page before publish:
