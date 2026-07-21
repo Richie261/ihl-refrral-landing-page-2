@@ -1,6 +1,6 @@
 # IHL Referrer Pack PDF Asset Handoff
 
-Date: 2026-07-21
+Date: 2026-07-22
 
 ## Current Public GitHub URL
 
@@ -8,15 +8,15 @@ Use this for staging/source-control review:
 
 `https://richie261.github.io/ihl-refrral-landing-page-2/referrer-pack.pdf`
 
-The file in the repo is `referrer-pack.pdf`. It has been replaced with the canonical July 2026 campaign draft and is under 2 MB for email and Webflow upload.
+The file in the repo is `referrer-pack.pdf`. It has been replaced with the final July 2026 email/print-ready campaign pack and is under 2 MB for email and Webflow upload.
 
 Canonical local source:
 
-`/Users/richie/Documents/New project/referrer-campaign/canonical-assets/IHL_Referrer_Guide_July_2026_CURRENT_CAMPAIGN_DRAFT_2026-07-21.pdf`
+`/Users/richie/Documents/New project/referrer-campaign/canonical-assets/IHL_Referrer_Guide_July_2026_FINAL_EMAIL_PRINT_READY_2026-07-22.pdf`
 
 Canonical SHA256:
 
-`36c285569812b6d4ffd6fea32b4d459ae53173f461ac7f5e6271d14e5c913a8b`
+`b6f9a80853ddfb213f331cdafd81d4788fd460c4ce3c6aa299d30906a16c4c93`
 
 ## Final Webflow URL
 

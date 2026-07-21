@@ -1,6 +1,6 @@
 # Webflow Referrals Urgent Fix Runbook
 
-Date: Monday 13 July 2026; updated Tuesday 21 July 2026  
+Date: Monday 13 July 2026; updated Wednesday 22 July 2026  
 Status: ready for Webflow login / Designer action  
 
 ## Goal
@@ -18,7 +18,7 @@ Use this file:
 
 Source copied from canonical campaign asset:
 
-`/Users/richie/Documents/New project/referrer-campaign/canonical-assets/IHL_Referrer_Guide_July_2026_CURRENT_CAMPAIGN_DRAFT_2026-07-21.pdf`
+`/Users/richie/Documents/New project/referrer-campaign/canonical-assets/IHL_Referrer_Guide_July_2026_FINAL_EMAIL_PRINT_READY_2026-07-22.pdf`
 
 Current size: about `1.6 MB`.
 
