@@ -1,6 +1,6 @@
 # Webflow Referrals Urgent Fix Runbook
 
-Date: Monday 13 July 2026  
+Date: Monday 13 July 2026; updated Tuesday 21 July 2026  
 Status: ready for Webflow login / Designer action  
 
 ## Goal
@@ -16,11 +16,11 @@ Use this file:
 
 `/Users/richie/Documents/New project/referrer-campaign/ihl-refrral-landing-page-2/referrer-pack.pdf`
 
-Source copied from:
+Source copied from canonical campaign asset:
 
-`/Users/richie/Downloads/IHL_Referrer_Guide_July_2026_EMAIL_SAFE_TEAM_SECOND_FINAL.pdf`
+`/Users/richie/Documents/New project/referrer-campaign/canonical-assets/IHL_Referrer_Guide_July_2026_CURRENT_CAMPAIGN_DRAFT_2026-07-21.pdf`
 
-Current size: about `1.5 MB`.
+Current size: about `1.6 MB`.
 
 Do not upload or email the old `11 MB` PDF.
 
@@ -73,7 +73,7 @@ This hides/removes the stray announcement/version blocks client-side. Deleting t
 - Live page no longer exposes visible `v1`.
 - Live page no longer shows `This is some text inside of a div block.`
 - `Download Referrer Pack` opens the July PDF with clinical team on page 2.
-- PDF file is about `1.5 MB`, not `11 MB`.
+- PDF file is about `1.6 MB`, not `11 MB`.
 - PDF footer wording is softened to: `Availability subject to change · IHL is not a crisis or emergency service.`
 - `Submit a Referral` scrolls to the form.
 - Intake email copy button still copies `intake@institute4healthyliving.com`.
